@@ -5,29 +5,49 @@
   --font-display: "Outfit", sans-serif;
   --font-sans: "Public Sans", sans-serif;
   
-  --color-brand-light-blue: #0ea5e9;
-  --color-brand-dark-blue: #0369a1;
-  --color-brand-teal: #0f766e;
+  --color-brand-primary: #3b82f6;
+  --color-brand-dark: #1e40af;
+  --color-brand-deeper: #0c2d57;
+}
+
+* {
+  @apply antialiased;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #fcfcfc;
-  color: #1f2937;
+  background: linear-gradient(135deg, #0f172a 0%, #1a2d4d 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
-/* Custom scrollbar */
+html, body, #root {
+  height: 100%;
+}
+
+/* Elegant scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(15, 23, 42, 0.5);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: linear-gradient(180deg, #3b82f6 0%, #1e40af 100%);
   border-radius: 4px;
+  border: 2px solid rgba(15, 23, 42, 0.5);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+}
+
+/* Smooth transitions */
+button, a, input, select {
+  @apply transition-all duration-200 ease-out;
+}
+
+/* Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-blue-400 ring-offset-2 ring-offset-slate-900;
 }

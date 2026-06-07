@@ -427,7 +427,7 @@ export default function App() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fcfcfc] text-slate-800">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-teal-950 via-violet-800 to-slate-950 text-slate-100">
       {/* 1. GLOBAL LAYOUT MODULE - STICKY RESPONSIVE HEADER */}
       <Navbar
         currentView={currentView}
@@ -448,29 +448,29 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20">
         {/* SUBMITTING SCHEDULER MATCHING - SEVERE LOADING STATE FOR ELEVATED EXPERIENCE */}
         {isSubmittingBooking && (
-          <div className="fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in border border-sky-100">
-              <div className="relative mx-auto h-20 w-20 flex items-center justify-center bg-sky-50 rounded-full text-sky-500">
-                <HeartPulse className="h-10 w-10 text-sky-550 animate-pulse" />
-                <div className="absolute inset-0 rounded-full border-4 border-sky-100 border-t-sky-500 animate-spin" />
+          <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
+            <div className="bg-gradient-to-br from-slate-900 to-blue-900 rounded-3xl p-8 max-w-sm w-full text-center space-y-6 shadow-2xl border border-blue-500/30 animate-fade-in">
+              <div className="relative mx-auto h-20 w-20 flex items-center justify-center bg-blue-500/20 rounded-full text-blue-400">
+                <HeartPulse className="h-10 w-10 text-blue-400 animate-pulse" />
+                <div className="absolute inset-0 rounded-full border-4 border-blue-500/20 border-t-blue-400 animate-spin" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-display font-extrabold text-xl text-slate-900 tracking-tight">
+                <h3 className="font-display font-extrabold text-xl text-blue-100 tracking-tight">
                   Scheduling Caregiver
                 </h3>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
+                <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
                   Confirming national NID background verification clearances and
                   registering elder clinical history with caregiver standby
                   reserve.
                 </p>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden relative">
+              <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden relative">
                 <div
-                  className="h-full bg-sky-500 rounded-full animate-[progress_2s_ease-in-out_infinite]"
+                  className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full animate-[progress_2s_ease-in-out_infinite]"
                   style={{ width: "45%" }}
                 />
               </div>
-              <p className="text-[10px] uppercase font-mono font-bold text-sky-600 tracking-widest leading-none">
+              <p className="text-[10px] uppercase font-mono font-bold text-blue-400 tracking-widest leading-none">
                 Dhaka Medical Desk
               </p>
             </div>
@@ -483,22 +483,19 @@ export default function App() {
           !selectedCaregiver && (
             <div className="space-y-16 py-4">
               {/* HERO BANNER SECTION */}
-              <div className="relative overflow-hidden rounded-3xl bg-slate-950 text-white shadow-xl">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white shadow-2xl border border-blue-500/20">
                 {/* Layout for responsive spacing: Half content overlay, half image backdrop */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
                   {/* Hero text overlay (7 Cols) */}
-                  <div className="lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-16 space-y-6 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-900/70 z-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/10 text-sky-300 rounded-full text-xs font-semibold border border-sky-500/20 w-fit">
-                      <Sparkle className="h-3.5 w-3.5 fill-sky-300 text-sky-300" />
-                      <span> Dhaka elderly services verified & trusted </span>
-                    </div>
+                  <div className="lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-16 space-y-6 bg-gradient-to-r from-blue-950 via-blue-950/95 to-slate-900/70 z-10">
+                    
 
                     <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight text-white">
                       Find trusted caregivers for your loved ones
                     </h1>
 
                     <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed max-w-xl">
-                      Book certified home nurses and experienced caregivers near
+                      Book certified caregivers near
                       your elder’s location anywhere in Dhaka (BDT ৳). Vetted
                       backgrounds, 24/7 standby replacement guarantees.
                     </p>
@@ -507,30 +504,28 @@ export default function App() {
                       <button
                         id="hero-cta-search"
                         onClick={() => setView("search")}
-                        className="px-6 py-3.5 text-sm font-semibold text-white bg-sky-500 hover:bg-sky-600 rounded-xl shadow-md transition-all active:scale-97 flex items-center gap-2 cursor-pointer"
+                        className="px-6 py-3.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all active:scale-95 flex items-center gap-2 cursor-pointer"
                       >
                         <span>Find Vetted Caregivers</span>
-                        <ArrowRight className="h-4.5 w-4.5 text-sky-100" />
+                        <ArrowRight className="h-4.5 w-4.5 text-blue-100" />
                       </button>
                       <button
                         id="hero-cta-profile"
                         onClick={() => setView("elder-profiles")}
-                        className="px-6 py-3.5 text-sm font-semibold text-slate-200 bg-white/10 hover:bg-white/15 border border-white/10 hover:border-white/20 rounded-xl transition-all active:scale-97 cursor-pointer"
+                        className="px-6 py-3.5 text-sm font-semibold text-blue-100 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/40 rounded-xl transition-all active:scale-95 cursor-pointer"
                       >
                         Register Elder Needs
                       </button>
                     </div>
 
                     {/* Trust markers */}
-                    <div className="pt-6 border-t border-slate-800/80 flex flex-wrap gap-y-3 gap-x-8 text-xs text-slate-400">
+                    <div className="pt-6 border-t border-blue-500/20 flex flex-wrap gap-y-3 gap-x-8 text-xs text-slate-300">
                       <div className="flex items-center gap-1.5">
                         <ShieldCheck className="h-4 w-4 text-emerald-400" />
                         <span>Certified Clinical Standard</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-4 w-4 text-sky-400" />
-                        <span>Police Cleared (NID Verified)</span>
-                      </div>
+                                              </div>
                     </div>
                   </div>
 
@@ -543,7 +538,7 @@ export default function App() {
                       className="absolute inset-0 h-full w-full object-cover"
                     />
                     {/* Soft blue gradient masking overlay on the content junction side */}
-                    <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950 via-slate-950/20 to-transparent lg:from-slate-950 lg:via-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-blue-950 via-blue-950/20 to-transparent lg:from-blue-950 lg:via-transparent" />
                   </div>
                 </div>
               </div>
@@ -551,10 +546,10 @@ export default function App() {
               {/* SECTIONS BELOW HERO: 1. HOW CAREBRIDGE WORKS */}
               <section id="how-it-works" className="space-y-8 py-2">
                 <div className="text-center space-y-2">
-                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
+                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
                     How CareBridge Works
                   </h2>
-                  <p className="text-sm text-slate-500 max-w-lg mx-auto font-light">
+                  <p className="text-sm text-slate-400 max-w-lg mx-auto font-light">
                     Simple, transparent, secure process designed with absolute
                     love for your senior family members.
                   </p>
@@ -562,60 +557,60 @@ export default function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* Step 1 */}
-                  <div className="bg-white rounded-2xl p-6 border border-slate-100 text-center space-y-4 hover:shadow-xs transition-shadow">
-                    <div className="mx-auto h-12 w-12 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center font-display font-bold text-lg">
+                  <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 rounded-2xl p-6 border border-blue-500/20 text-center space-y-4 hover:border-blue-500/40 hover:bg-blue-900/40 transition-all">
+                    <div className="mx-auto h-12 w-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-display font-bold text-lg">
                       01
                     </div>
-                    <h3 className="font-display font-bold text-slate-800 text-lg">
+                    <h3 className="font-display font-bold text-blue-100 text-lg">
                       Add Elder Profile
                     </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
                       Document chronic medical conditions, diets, and specific
                       medicine timing instructions inside Banani, Gulshan, or
                       Uttara.
                     </p>
                     <button
                       onClick={() => setView("elder-profiles")}
-                      className="text-xs text-sky-600 font-semibold inline-flex items-center gap-1 hover:underline cursor-pointer"
+                      className="text-xs text-blue-400 font-semibold inline-flex items-center gap-1 hover:text-blue-300 hover:underline cursor-pointer"
                     >
                       Setup Profile &rarr;
                     </button>
                   </div>
 
                   {/* Step 2 */}
-                  <div className="bg-white rounded-2xl p-6 border border-slate-100 text-center space-y-4 hover:shadow-xs transition-shadow">
-                    <div className="mx-auto h-12 w-12 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center font-display font-bold text-lg">
+                  <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 rounded-2xl p-6 border border-blue-500/20 text-center space-y-4 hover:border-blue-500/40 hover:bg-blue-900/40 transition-all">
+                    <div className="mx-auto h-12 w-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-display font-bold text-lg">
                       02
                     </div>
-                    <h3 className="font-display font-bold text-slate-800 text-lg">
+                    <h3 className="font-display font-bold text-blue-100 text-lg">
                       Find Nearby Caregiver
                     </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
                       Filter 5-6 premier Dhaka caregivers by neighborhood,
                       specialty, hourly rates, and gender preference.
                     </p>
                     <button
                       onClick={() => setView("search")}
-                      className="text-xs text-sky-600 font-semibold inline-flex items-center gap-1 hover:underline cursor-pointer"
+                      className="text-xs text-blue-400 font-semibold inline-flex items-center gap-1 hover:text-blue-300 hover:underline cursor-pointer"
                     >
                       Browse Caregivers &rarr;
                     </button>
                   </div>
 
                   {/* Step 3 */}
-                  <div className="bg-white rounded-2xl p-6 border border-slate-100 text-center space-y-4 hover:shadow-xs transition-shadow">
-                    <div className="mx-auto h-12 w-12 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center font-display font-bold text-lg">
+                  <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 rounded-2xl p-6 border border-blue-500/20 text-center space-y-4 hover:border-blue-500/40 hover:bg-blue-900/40 transition-all">
+                    <div className="mx-auto h-12 w-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-display font-bold text-lg">
                       03
                     </div>
-                    <h3 className="font-display font-bold text-slate-800 text-lg">
+                    <h3 className="font-display font-bold text-blue-100 text-lg">
                       Book Securely
                     </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
                       Schedule with dynamic BDT pricing. Monitor real-time daily
                       logs (meals taken, medicines consumed) submitted by
                       caregivers.
                     </p>
-                    <span className="inline-block px-2 py-0.5 text-[10px] font-bold text-emerald-800 bg-emerald-50 rounded-md border border-emerald-100 uppercase">
+                    <span className="inline-block px-2 py-0.5 text-[10px] font-bold text-emerald-950 bg-emerald-400 rounded-md border border-emerald-500 uppercase">
                       ৳ BDT Regulated
                     </span>
                   </div>
@@ -625,18 +620,18 @@ export default function App() {
               {/* SECTIONS BELOW HERO: 2. Core BENEFITS */}
               <section
                 id="benefits"
-                className="space-y-8 bg-sky-50/20 border border-sky-100/50 p-8 sm:p-12 rounded-3xl"
+                className="space-y-8 bg-gradient-to-br from-blue-900/20 to-blue-950/20 border border-blue-500/20 p-8 sm:p-12 rounded-3xl"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   {/* Left content benefit listing */}
                   <div className="lg:col-span-5 space-y-5">
-                    <span className="inline-block px-2.5 py-1 text-[10px] uppercase tracking-wider bg-sky-500/10 text-sky-650 rounded-md font-semibold">
+                    <span className="inline-block px-2.5 py-1 text-[10px] uppercase tracking-wider bg-blue-500/15 text-blue-300 rounded-md font-semibold">
                       Core Platform Benefits
                     </span>
-                    <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight leading-tight">
-                      Why Dhaka families rely entirely on CareBridge
+                    <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
+                      Why Dhaka families need a platform like CareBridge
                     </h3>
-                    <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    <p className="text-sm text-slate-300 font-light leading-relaxed">
                       Unlike unregulated freelance matching, CareBridge mandates
                       strict background checks and ongoing nurse standby
                       operations.
@@ -644,7 +639,7 @@ export default function App() {
                     <div className="pt-2">
                       <button
                         onClick={() => setView("search")}
-                        className="px-5 py-2.5 bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-xs hover:bg-sky-600 transition-colors cursor-pointer"
+                        className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold text-xs rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all cursor-pointer"
                       >
                         Book 24/7 Verified Coverage
                       </button>
@@ -653,53 +648,53 @@ export default function App() {
 
                   {/* Right grid highlights */}
                   <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-2">
-                      <div className="h-9 w-9 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center">
-                        <Award className="h-5 w-5 text-emerald-600" />
+                    <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 p-5 rounded-2xl border border-blue-500/20 space-y-2">
+                      <div className="h-9 w-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                        <Award className="h-5 w-5" />
                       </div>
-                      <h4 className="font-display font-bold text-slate-800 text-sm">
+                      <h4 className="font-display font-bold text-blue-100 text-sm">
                         Elite Medical Vetting
                       </h4>
-                      <p className="text-xs text-slate-500 leading-normal font-light">
+                      <p className="text-xs text-slate-400 leading-normal font-light">
                         Caregivers hold verified DU, NITOR, or BIRDEM
                         certifications with direct clinical elderly experience.
                       </p>
                     </div>
 
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-2">
-                      <div className="h-9 w-9 rounded-lg bg-sky-50 text-sky-550 flex items-center justify-center">
-                        <TrendingUp className="h-5 w-5 text-sky-500" />
+                    <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 p-5 rounded-2xl border border-blue-500/20 space-y-2">
+                      <div className="h-9 w-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                        <TrendingUp className="h-5 w-5" />
                       </div>
-                      <h4 className="font-display font-bold text-slate-800 text-sm">
+                      <h4 className="font-display font-bold text-blue-100 text-sm">
                         Hourly Affordability (৳ BDT)
                       </h4>
-                      <p className="text-xs text-slate-500 leading-normal font-light">
+                      <p className="text-xs text-slate-400 leading-normal font-light">
                         Rates start standardly at BDT ৳250/hour with zero agency
                         premium add-ons for full budget transparency.
                       </p>
                     </div>
 
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-2">
-                      <div className="h-9 w-9 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center">
-                        <Activity className="h-5 w-5 text-indigo-600" />
+                    <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 p-5 rounded-2xl border border-blue-500/20 space-y-2">
+                      <div className="h-9 w-9 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                        <Activity className="h-5 w-5" />
                       </div>
-                      <h4 className="font-display font-bold text-slate-800 text-sm">
+                      <h4 className="font-display font-bold text-blue-100 text-sm">
                         Real-time Care Checklists
                       </h4>
-                      <p className="text-xs text-slate-500 leading-normal font-light">
+                      <p className="text-xs text-slate-400 leading-normal font-light">
                         Receive immediate logs showing insulin status, meal
                         times, sleep trackers, and memory exercises.
                       </p>
                     </div>
 
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-2">
-                      <div className="h-9 w-9 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center">
-                        <PhoneCall className="h-5 w-5 text-rose-600" />
+                    <div className="bg-gradient-to-br from-blue-900/30 to-blue-950/30 p-5 rounded-2xl border border-blue-500/20 space-y-2">
+                      <div className="h-9 w-9 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                        <PhoneCall className="h-5 w-5" />
                       </div>
-                      <h4 className="font-display font-bold text-slate-800 text-sm">
+                      <h4 className="font-display font-bold text-blue-100 text-sm">
                         Immediate Replacing Standby
                       </h4>
-                      <p className="text-xs text-slate-500 leading-normal font-light">
+                      <p className="text-xs text-slate-400 leading-normal font-light">
                         Backup emergency nurses dispatched to coordinates under
                         2 hours in Banani and Gulshan sectors.
                       </p>
@@ -710,45 +705,45 @@ export default function App() {
 
               {/* SECTIONS BELOW HERO: 3. TRUST & SAFETY */}
               <section id="trust-safety" className="space-y-8 py-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-sky-950 text-white p-8 sm:p-12 rounded-3xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-gradient-to-r from-blue-950 to-blue-900 text-white p-8 sm:p-12 rounded-3xl border border-blue-500/20">
                   <div className="space-y-4">
-                    <div className="h-10 w-10 rounded-full bg-sky-500/10 border border-sky-450 text-sky-400 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center">
                       <ShieldCheck className="h-5.5 w-5.5" />
                     </div>
                     <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-left tracking-tight">
                       Dhaka’s Only Double-Vetted Elder Network
                     </h3>
-                    <p className="text-sm text-sky-205 font-light leading-relaxed">
+                    <p className="text-sm text-slate-300 font-light leading-relaxed">
                       We understand relatives worry when leaving parents at
                       home. Every caregiver coordinates address documentation
                       with neighborhood police officers.
                     </p>
-                    <ul className="space-y-2 text-xs text-slate-350">
+                    <ul className="space-y-2 text-xs text-slate-400">
                       <li className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
                         Strict physical home address inspection
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
                         Mandatory medical practice evaluation tests
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
                         In-hospital caregiving experience confirmation
                       </li>
                     </ul>
                   </div>
 
-                  <div className="p-6 bg-slate-900 rounded-2xl border border-slate-800 space-y-5">
-                    <h4 className="font-display font-bold text-base uppercase text-sky-400 tracking-wide">
+                  <div className="p-6 bg-slate-800/50 rounded-2xl border border-blue-500/20 space-y-5">
+                    <h4 className="font-display font-bold text-base uppercase text-blue-300 tracking-wide">
                       Emergency Protection Standard
                     </h4>
                     <div className="space-y-4 text-xs">
                       <div className="space-y-1">
-                        <p className="font-bold text-slate-200">
+                        <p className="font-bold text-slate-100">
                           How Replacements Work:
                         </p>
-                        <p className="text-slate-400 leading-relaxed font-light">
+                        <p className="text-slate-300 leading-relaxed font-light">
                           If a selected caregiver calls in sick or experiences
                           an emergency, CareBridge alerts relatives immediately
                           and routes a certified standby helper with a
@@ -756,10 +751,10 @@ export default function App() {
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="font-bold text-slate-200">
+                        <p className="font-bold text-slate-100">
                           24/7 Hotline Support:
                         </p>
-                        <p className="text-slate-400 leading-relaxed font-light">
+                        <p className="text-slate-300 leading-relaxed font-light">
                           Dedicated local client hotline with professional
                           medical assistants standing by at (+880) 1800-CBRIDGE.
                         </p>
