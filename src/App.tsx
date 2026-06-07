@@ -27,8 +27,9 @@ import {
   Printer,
   CalendarDays,
 } from "lucide-react";
-import { auth, getActiveUserId } from "./lib/firebase";
+import { auth, getActiveUserId, db } from "./lib/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 import {
   AppView,
@@ -37,14 +38,14 @@ import {
   Booking,
   SearchFilters,
 } from "./types";
+import { DHAKA_LOCATIONS, CARE_TYPES } from "./data";
 import {
-  DHAKA_LOCATIONS,
-  CARE_TYPES,
-} from "./data";
-import { cancelBooking, getBookingsByRelative } from "./services/bookingService";
+  cancelBooking,
+  getBookingsByRelative,
+} from "./services/bookingService";
 import { createElder, getElders } from "./services/elderService";
 import { getAllCaregivers } from "./services/caregiverService";
-import { seedCaregivers } from "./services/seedService";
+import { seedCaregivers, seedAdminAccount } from "./services/seedService";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { CaregiverCard } from "./components/CaregiverCard";
@@ -54,6 +55,7 @@ import { AuthForms } from "./components/AuthForms";
 import { Dashboard } from "./components/Dashboard";
 import { RelativePortal } from "./components/RelativePortal";
 import { CaregiverPortal } from "./components/CaregiverPortal";
+import { AdminDashboard } from "./components/AdminDashboard";
 import { isValidCaregiverEmail } from "./types";
 
 const heroImage = "/src/assets/images/caregiver_hero_1780419152980.png";
@@ -64,7 +66,11 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
-  const [userRole, setUserRole] = useState<'relative' | 'caregiver'>('relative');
+  const [userRole, setUserRole] = useState<"relative" | "caregiver" | "admin">(
+    "relative",
+  );
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
+  const [isSuspended, setIsSuspended] = useState<boolean>(false);
   const [pendingBookingCaregiver, setPendingBookingCaregiver] =
     useState<Caregiver | null>(null);
   const [selectedElder, setSelectedElder] = useState<ElderProfile | null>(null);
@@ -105,30 +111,83 @@ export default function App() {
   };
 
   // Auth Handlers
-  const handleAuthSuccess = (name: string) => {
+  const handleAuthSuccess = async (name: string) => {
+    setAuthLoading(true);
     setIsLoggedIn(true);
     setUserName(name);
-    
-    const email = auth.currentUser?.email || localStorage.getItem("cb_auth_email") || "";
+
+    const email =
+      auth.currentUser?.email || localStorage.getItem("cb_auth_email") || "";
     setUserEmail(email);
-    const isCg = isValidCaregiverEmail(email);
-    setUserRole(isCg ? 'caregiver' : 'relative');
 
-    if (isCg) {
-      setView("caregiver-portal");
-      return;
-    }
+    try {
+      const uid =
+        auth.currentUser?.uid ||
+        localStorage.getItem("cb_auth_uid") ||
+        "fb_" + name.replace(/\s+/g, "_").toLowerCase();
+      let roleDetermined: "admin" | "caregiver" | "relative" = "relative";
+      let suspendedDetermined = false;
 
-    if (pendingBookingCaregiver) {
-      setSelectedCaregiver(pendingBookingCaregiver);
-      setPendingBookingCaregiver(null);
-      setView("search");
-      return;
-    }
-    if (selectedCaregiver) {
-      setView("search");
-    } else {
-      setView("bookings");
+      if (email === "admin@example.com") {
+        roleDetermined = "admin";
+      } else {
+        const userDocRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userDocRef);
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          roleDetermined =
+            (data.role as any) ||
+            (isValidCaregiverEmail(email) ? "caregiver" : "relative");
+          suspendedDetermined = data.status === "suspended";
+        } else {
+          const cgDocRef = doc(db, "caregivers", uid);
+          const cgSnap = await getDoc(cgDocRef);
+          if (cgSnap.exists()) {
+            const data = cgSnap.data();
+            roleDetermined = (data.role as any) || "caregiver";
+            suspendedDetermined = data.status === "suspended";
+          } else {
+            roleDetermined = isValidCaregiverEmail(email)
+              ? "caregiver"
+              : "relative";
+          }
+        }
+      }
+
+      setUserRole(roleDetermined);
+      setIsSuspended(suspendedDetermined);
+
+      if (suspendedDetermined) {
+        alert(
+          "This account has been suspended by an Administrator. Logging out.",
+        );
+        handleLogout();
+        setAuthLoading(false);
+        return;
+      }
+
+      if (roleDetermined === "admin") {
+        setView("admin-dashboard");
+      } else if (roleDetermined === "caregiver") {
+        setView("caregiver-portal");
+      } else {
+        if (pendingBookingCaregiver) {
+          setSelectedCaregiver(pendingBookingCaregiver);
+          setPendingBookingCaregiver(null);
+          setView("search");
+        } else if (selectedCaregiver) {
+          setView("search");
+        } else {
+          setView("bookings");
+        }
+      }
+    } catch (err) {
+      console.error("Error resolving successful auth role:", err);
+      const isCg = isValidCaregiverEmail(email);
+      setUserRole(isCg ? "caregiver" : "relative");
+      setView(isCg ? "caregiver-portal" : "bookings");
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -149,17 +208,69 @@ export default function App() {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setAuthLoading(true);
       if (user) {
         const name = user.displayName || user.email?.split("@")[0] || "User";
         const email = user.email || "";
         setIsLoggedIn(true);
         setUserName(name);
         setUserEmail(email);
-        const isCg = isValidCaregiverEmail(email);
-        setUserRole(isCg ? 'caregiver' : 'relative');
-        if (isCg && currentView !== 'caregiver-portal') {
-          setView('caregiver-portal');
+
+        // Fetch user from Firestore to get role & suspended status
+        try {
+          const uid = user.uid;
+          let roleDetermined: "admin" | "caregiver" | "relative" = "relative";
+          let suspendedDetermined = false;
+
+          if (email === "admin@example.com") {
+            roleDetermined = "admin";
+          } else {
+            const userDocRef = doc(db, "users", uid);
+            const userSnap = await getDoc(userDocRef);
+            if (userSnap.exists()) {
+              const data = userSnap.data();
+              roleDetermined =
+                (data.role as any) ||
+                (isValidCaregiverEmail(email) ? "caregiver" : "relative");
+              suspendedDetermined = data.status === "suspended";
+            } else {
+              const cgDocRef = doc(db, "caregivers", uid);
+              const cgSnap = await getDoc(cgDocRef);
+              if (cgSnap.exists()) {
+                const data = cgSnap.data();
+                roleDetermined = (data.role as any) || "caregiver";
+                suspendedDetermined = data.status === "suspended";
+              } else {
+                roleDetermined = isValidCaregiverEmail(email)
+                  ? "caregiver"
+                  : "relative";
+              }
+            }
+          }
+
+          setUserRole(roleDetermined);
+          setIsSuspended(suspendedDetermined);
+
+          if (roleDetermined === "admin") {
+            setView("admin-dashboard");
+          } else if (roleDetermined === "caregiver") {
+            setView("caregiver-portal");
+          } else {
+            // Keep default view if already somewhere else, otherwise bookings
+            if (
+              currentView === "home" ||
+              currentView === "login" ||
+              currentView === "register"
+            ) {
+              setView("bookings");
+            }
+          }
+        } catch (err) {
+          console.error("Error resolving user role on state change:", err);
+          const isCg = isValidCaregiverEmail(email);
+          setUserRole(isCg ? "caregiver" : "relative");
+          if (isCg) setView("caregiver-portal");
         }
       } else {
         const fallbackName = localStorage.getItem("cb_auth_fallback");
@@ -168,18 +279,74 @@ export default function App() {
           setIsLoggedIn(true);
           setUserName(fallbackName);
           setUserEmail(fallbackEmail);
-          const isCg = isValidCaregiverEmail(fallbackEmail);
-          setUserRole(isCg ? 'caregiver' : 'relative');
-          if (isCg && currentView !== 'caregiver-portal') {
-            setView('caregiver-portal');
+
+          try {
+            const fallbackUid =
+              localStorage.getItem("cb_auth_uid") ||
+              "fb_" + fallbackName.replace(/\s+/g, "_").toLowerCase();
+            let roleDetermined: "admin" | "caregiver" | "relative" = "relative";
+            let suspendedDetermined = false;
+
+            if (fallbackEmail === "admin@example.com") {
+              roleDetermined = "admin";
+            } else {
+              const userDocRef = doc(db, "users", fallbackUid);
+              const userSnap = await getDoc(userDocRef);
+              if (userSnap.exists()) {
+                const data = userSnap.data();
+                roleDetermined =
+                  (data.role as any) ||
+                  (isValidCaregiverEmail(fallbackEmail)
+                    ? "caregiver"
+                    : "relative");
+                suspendedDetermined = data.status === "suspended";
+              } else {
+                const cgDocRef = doc(db, "caregivers", fallbackUid);
+                const cgSnap = await getDoc(cgDocRef);
+                if (cgSnap.exists()) {
+                  const data = cgSnap.data();
+                  roleDetermined = (data.role as any) || "caregiver";
+                  suspendedDetermined = data.status === "suspended";
+                } else {
+                  roleDetermined = isValidCaregiverEmail(fallbackEmail)
+                    ? "caregiver"
+                    : "relative";
+                }
+              }
+            }
+
+            setUserRole(roleDetermined);
+            setIsSuspended(suspendedDetermined);
+
+            if (roleDetermined === "admin") {
+              setView("admin-dashboard");
+            } else if (roleDetermined === "caregiver") {
+              setView("caregiver-portal");
+            } else {
+              if (
+                currentView === "home" ||
+                currentView === "login" ||
+                currentView === "register"
+              ) {
+                setView("bookings");
+              }
+            }
+          } catch (err) {
+            console.error("Error resolving fallback user role:", err);
+            const isCg = isValidCaregiverEmail(fallbackEmail);
+            setUserRole(isCg ? "caregiver" : "relative");
+            if (isCg) setView("caregiver-portal");
           }
         } else {
           setIsLoggedIn(false);
           setUserName("");
           setUserEmail("");
           setUserRole("relative");
+          setIsSuspended(false);
+          setView("home");
         }
       }
+      setAuthLoading(false);
     });
 
     return () => {
@@ -199,19 +366,27 @@ export default function App() {
             id: e.id,
             name: e.full_name,
             age: e.age ?? 76,
-            dob: e.created_at ? e.created_at.split('T')[0] : '1950-01-01',
-            gender: (e.gender === 'Male' || e.gender === 'Female') ? e.gender : 'Male',
-            phoneNumber: e.phone ?? '',
-            address: e.address ?? '',
-            location: e.area ?? 'Dhanmondi',
+            dob: e.created_at ? e.created_at.split("T")[0] : "1950-01-01",
+            gender:
+              e.gender === "Male" || e.gender === "Female" ? e.gender : "Male",
+            phoneNumber: e.phone ?? "",
+            address: e.address ?? "",
+            location: e.area ?? "Dhanmondi",
             latitude: e.latitude ?? 23.7461,
             longitude: e.longitude ?? 90.3742,
-            medicalConditions: e.medical_conditions ? e.medical_conditions.split(', ') : [],
-            allergies: e.allergies ?? 'None',
-            mobilityLevel: e.mobility_level === 'independent' ? 'Independent' : e.mobility_level === 'assisted' ? 'Assisted Walking' : 'Wheelchair Bound',
-            emergencyContactName: e.emergency_contact_name ?? '',
-            emergencyContactPhone: e.emergency_contact_phone ?? '',
-            keyInstructions: e.allergies || ''
+            medicalConditions: e.medical_conditions
+              ? e.medical_conditions.split(", ")
+              : [],
+            allergies: e.allergies ?? "None",
+            mobilityLevel:
+              e.mobility_level === "independent"
+                ? "Independent"
+                : e.mobility_level === "assisted"
+                  ? "Assisted Walking"
+                  : "Wheelchair Bound",
+            emergencyContactName: e.emergency_contact_name ?? "",
+            emergencyContactPhone: e.emergency_contact_phone ?? "",
+            keyInstructions: e.allergies || "",
           }));
           setElderProfiles(mappedElders);
           if (mappedElders.length > 0) {
@@ -222,22 +397,34 @@ export default function App() {
           const liveBookings = await getBookingsByRelative(uid);
           const mappedBookings: Booking[] = liveBookings.map((b: any) => ({
             id: b.id,
-            caregiverId: b.caregiver_id || '',
-            elderProfileId: b.elder_id || '',
-            startDate: b.start_time ? b.start_time.split('T')[0] : '2026-06-04',
-            endDate: b.end_time ? b.end_time.split('T')[0] : '2026-06-05',
+            caregiverId: b.caregiver_id || "",
+            elderProfileId: b.elder_id || "",
+            startDate: b.start_time ? b.start_time.split("T")[0] : "2026-06-04",
+            endDate: b.end_time ? b.end_time.split("T")[0] : "2026-06-05",
             hoursPerDay: b.hours ? Math.round(b.hours) : 4,
             totalCost: b.total_amount || 0,
-            notes: b.care_instructions || '',
-            status: (b.status === 'active' || b.status === 'Active') ? 'Active' : b.status === 'confirmed' ? 'Confirmed' : b.status === 'completed' ? 'Completed' : b.status === 'cancelled' ? 'Cancelled' : 'Pending',
+            notes: b.care_instructions || "",
+            status:
+              b.status === "active" || b.status === "Active"
+                ? "Active"
+                : b.status === "confirmed"
+                  ? "Confirmed"
+                  : b.status === "completed"
+                    ? "Completed"
+                    : b.status === "cancelled"
+                      ? "Cancelled"
+                      : "Pending",
             createdAt: b.created_at || new Date().toISOString(),
             reportStatus: {
-              medicineSupplied: b.status === 'completed',
+              medicineSupplied: b.status === "completed",
               mealsTaken: true,
-              exerciseDone: b.status === 'completed',
-              sleepHours: b.status === 'completed' ? 8 : 0,
-              activityNotes: b.status === 'completed' ? 'Pre-medication checklists fully ticked.' : 'Caregiver has reviewed the medical profile. Outlining nursing shift schedule.'
-            }
+              exerciseDone: b.status === "completed",
+              sleepHours: b.status === "completed" ? 8 : 0,
+              activityNotes:
+                b.status === "completed"
+                  ? "Pre-medication checklists fully ticked."
+                  : "Caregiver has reviewed the medical profile. Outlining nursing shift schedule.",
+            },
           }));
           setBookings(mappedBookings);
         } catch (err) {
@@ -254,6 +441,11 @@ export default function App() {
 
   // Load available caregivers from Firebase (including programmatic seed if empty)
   const handleRefreshCaregivers = async () => {
+    try {
+      await seedAdminAccount();
+    } catch (e) {
+      console.warn("Could not seed system admin credentials:", e);
+    }
     try {
       await seedCaregivers();
       const list = await getAllCaregivers();
@@ -277,16 +469,23 @@ export default function App() {
         age: 30, // Default mock info when metadata columns are omitted
         gender: isMale ? "Male" : "Female",
         experience: cg.experience_years ?? 5,
-        rating: cg.rating ?? 4.8,
-        reviewsCount: 15,
+        rating: cg.rating,
+        reviewsCount: cg.reviews_count ?? cg.reviewsCount ?? 0,
         ratePerHour: cg.hourly_rate ?? 300,
         location: cg.area || "Dhanmondi",
-        photoUrl: cg.photo_url || `https://images.unsplash.com/photo-${isMale ? "1500648767791-00dcc994a43e" : "1544005313-94ddf0286df2"}?w=150&auto=format&fit=crop&q=80`,
+        photoUrl: cg.photo_url || "",
         specialties: cg.expertise ? [cg.expertise] : ["Clinical Eldercare"],
         languages: ["Bangla", "English"],
-        bio: cg.bio || "Certified senior nurse with specialized clinical training.",
-        certification: cg.expertise ? `${cg.expertise} Specialist` : "Certified Clinical Assistant",
-        available: cg.is_available ?? true,
+        bio:
+          cg.bio ||
+          "Certified senior nurse with specialized clinical training.",
+        certification: cg.expertise
+          ? `${cg.expertise} Specialist`
+          : "Certified Clinical Assistant",
+        available:
+          cg.status === "suspended" ? false : (cg.is_available ?? true),
+        status: cg.status || "active",
+        email: cg.email || "",
       };
     });
   };
@@ -314,7 +513,7 @@ export default function App() {
         medical_conditions: newProfile.medicalConditions.join(", "),
         allergies: newProfile.keyInstructions,
         emergency_contact_name: newProfile.emergencyContactName,
-        emergency_contact_phone: newProfile.emergencyContactPhone
+        emergency_contact_phone: newProfile.emergencyContactPhone,
       });
 
       const profileWithId: ElderProfile = {
@@ -322,18 +521,22 @@ export default function App() {
         name: dbElder.full_name,
         age: dbElder.age ?? 75,
         dob: "1951-01-01",
-        gender: dbElder.gender === 'male' ? 'Male' : 'Female',
-        phoneNumber: dbElder.phone || '+8801711122233',
-        address: dbElder.address || 'Road 4A, Dhanmondi R/A',
-        location: dbElder.area || 'Dhanmondi',
+        gender: dbElder.gender === "male" ? "Male" : "Female",
+        phoneNumber: dbElder.phone || "+8801711122233",
+        address: dbElder.address || "Road 4A, Dhanmondi R/A",
+        location: dbElder.area || "Dhanmondi",
         latitude: dbElder.latitude ?? 23.75,
         longitude: dbElder.longitude ?? 90.38,
-        medicalConditions: dbElder.medical_conditions ? dbElder.medical_conditions.split(', ') : [],
+        medicalConditions: dbElder.medical_conditions
+          ? dbElder.medical_conditions.split(", ")
+          : [],
         allergies: "None",
-        mobilityLevel: 'Independent',
-        emergencyContactName: dbElder.emergency_contact_name || 'Relative Desk',
-        emergencyContactPhone: dbElder.emergency_contact_phone || '+8801711122233',
-        keyInstructions: dbElder.allergies || 'Low-sodium diabetic dietary requirement.',
+        mobilityLevel: "Independent",
+        emergencyContactName: dbElder.emergency_contact_name || "Relative Desk",
+        emergencyContactPhone:
+          dbElder.emergency_contact_phone || "+8801711122233",
+        keyInstructions:
+          dbElder.allergies || "Low-sodium diabetic dietary requirement.",
       };
 
       setElderProfiles((prev) => [profileWithId, ...prev]);
@@ -426,6 +629,20 @@ export default function App() {
     return matchLoc && matchSpec && matchGender;
   });
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50/50 flex flex-col items-center justify-center gap-4">
+        <div className="relative flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <HeartPulse className="h-5 w-5 text-indigo-500 absolute animate-pulse animate-duration-1000" />
+        </div>
+        <p className="text-xs text-slate-400 font-bold font-mono tracking-wider uppercase">
+          Verifying session credentials...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-teal-950 via-violet-800 to-slate-950 text-slate-100">
       {/* 1. GLOBAL LAYOUT MODULE - STICKY RESPONSIVE HEADER */}
@@ -488,16 +705,14 @@ export default function App() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
                   {/* Hero text overlay (7 Cols) */}
                   <div className="lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-16 space-y-6 bg-gradient-to-r from-blue-950 via-blue-950/95 to-slate-900/70 z-10">
-                    
-
                     <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight text-white">
                       Find trusted caregivers for your loved ones
                     </h1>
 
                     <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed max-w-xl">
-                      Book certified caregivers near
-                      your elder’s location anywhere in Dhaka (BDT ৳). Vetted
-                      backgrounds, 24/7 standby replacement guarantees.
+                      Book certified caregivers near your elder’s location
+                      anywhere in Dhaka (BDT ৳). Vetted backgrounds, 24/7
+                      standby replacement guarantees.
                     </p>
 
                     <div className="flex flex-wrap gap-3.5 pt-2">
@@ -524,8 +739,7 @@ export default function App() {
                         <ShieldCheck className="h-4 w-4 text-emerald-400" />
                         <span>Certified Clinical Standard</span>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                                              </div>
+                      <div className="flex items-center gap-1.5"></div>
                     </div>
                   </div>
 
@@ -1147,7 +1361,7 @@ export default function App() {
                 <h3 className="font-display font-extrabold text-xl text-slate-900 tracking-tight">
                   Access Restricted
                 </h3>
-                 <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
+                <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
                   Please log in or register a new relative account to manage
                   elder profiles and monitor live caregiver shifts.
                 </p>
@@ -1170,8 +1384,8 @@ export default function App() {
           ))}
 
         {/* ==================== F. CAREGIVER PORTAL CLIENT WORKSPACE ==================== */}
-        {currentView === "caregiver-portal" && (
-          isLoggedIn && userRole === "caregiver" ? (
+        {currentView === "caregiver-portal" &&
+          (isLoggedIn && userRole === "caregiver" ? (
             <CaregiverPortal
               userName={userName}
               onLogout={handleLogout}
@@ -1188,7 +1402,9 @@ export default function App() {
                   Caregiver Portal Access
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-                  Please log in or register with verified collegiate email credentials (.student.edu.bd) to manage shift rosters, booking sheets, and submit log timelines.
+                  Please log in or register with verified collegiate email
+                  credentials (.student.edu.bd) to manage shift rosters, booking
+                  sheets, and submit log timelines.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -1206,9 +1422,39 @@ export default function App() {
                 </button>
               </div>
             </div>
-          )
-        )}
+          ))}
 
+        {/* ==================== F.5. ADMIN DASHBOARD ==================== */}
+        {currentView === "admin-dashboard" &&
+          (isLoggedIn && userRole === "admin" ? (
+            <AdminDashboard
+              userName={userName}
+              onLogout={handleLogout}
+              userEmail={userEmail}
+            />
+          ) : (
+            <div className="max-w-md mx-auto bg-white border border-slate-100 rounded-3xl p-8 text-center space-y-6 shadow-sm my-12 animate-fade-in">
+              <div className="h-12 w-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto">
+                <Lock className="h-6 w-6" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-display font-extrabold text-xl text-indigo-950 tracking-tight">
+                  Admin Portal Access
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
+                  This portal is restricted to authorized administrators only.
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setView("login")}
+                  className="flex-1 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-xs rounded-xl cursor-pointer"
+                >
+                  Log In
+                </button>
+              </div>
+            </div>
+          ))}
 
         {/* ==================== G. AUTHENTICATION PAGES ==================== */}
         {(currentView === "login" || currentView === "register") && (

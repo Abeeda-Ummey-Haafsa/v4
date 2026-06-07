@@ -20,6 +20,8 @@ export interface Caregiver {
   certification: string;
   available: boolean;
   distance?: any;
+  status?: 'active' | 'suspended';
+  email?: string;
 }
 
 export interface ElderProfile {
@@ -75,7 +77,7 @@ export interface SearchFilters {
   gender: 'All' | 'Male' | 'Female';
 }
 
-export type AppView = 'home' | 'search' | 'bookings' | 'elder-profiles' | 'login' | 'register' | 'caregiver-portal';
+export type AppView = 'home' | 'search' | 'bookings' | 'elder-profiles' | 'login' | 'register' | 'caregiver-portal' | 'admin-dashboard';
 
 export const isValidCaregiverEmail = (email: string): boolean => {
   const cleanEmail = email.toLowerCase().trim();

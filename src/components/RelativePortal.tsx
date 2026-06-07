@@ -3,29 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { CaregiverAvatar } from './CaregiverAvatar';
-import { 
-  LayoutDashboard, 
-  Users, 
-  Search, 
-  CalendarDays, 
-  Settings, 
-  LogOut, 
-  MapPin, 
-  PlusCircle, 
-  ChevronRight, 
-  AlertCircle, 
-  AlertTriangle, 
-  Trash2, 
-  Edit2, 
-  Clock, 
-  ClipboardList, 
-  CheckCircle2, 
-  HeartHandshake, 
-  UserCheck, 
-  Sliders, 
-  ShieldCheck, 
+import React, { useState, useEffect } from "react";
+import { CaregiverAvatar } from "./CaregiverAvatar";
+import {
+  LayoutDashboard,
+  Users,
+  Search,
+  CalendarDays,
+  Settings,
+  LogOut,
+  MapPin,
+  PlusCircle,
+  ChevronRight,
+  AlertCircle,
+  AlertTriangle,
+  Trash2,
+  Edit2,
+  Clock,
+  ClipboardList,
+  CheckCircle2,
+  HeartHandshake,
+  UserCheck,
+  Sliders,
+  ShieldCheck,
   ArrowRight,
   Info,
   Activity,
@@ -38,19 +38,38 @@ import {
   Check,
   Star,
   Lock,
-  CreditCard
-} from 'lucide-react';
-import { Booking, Caregiver, ElderProfile, SearchFilters } from '../types';
-import { Booking as DBBooking } from '../types/index';
-import { DHAKA_LOCATIONS, CARE_TYPES, MOCK_CAREGIVERS } from '../data';
-import { CaregiverCard } from './CaregiverCard';
-import { BookingForm } from './BookingForm';
-import { getRelativeDashboard } from '../services/dashboardService';
-import { getElders, createElder, updateElder, deleteElder } from '../services/elderService';
-import { getNearbyCaregivers } from '../services/caregiverService';
-import { createBooking, getBookingsByRelative, createReview, updateReview, deleteReview } from '../services/bookingService';
-import { auth, db, getActiveUserId } from '../lib/firebase';
-import { collection, onSnapshot, query, where, doc, setDoc, getDocs } from 'firebase/firestore';
+  CreditCard,
+} from "lucide-react";
+import { Booking, Caregiver, ElderProfile, SearchFilters } from "../types";
+import { Booking as DBBooking } from "../types/index";
+import { DHAKA_LOCATIONS, CARE_TYPES, MOCK_CAREGIVERS } from "../data";
+import { CaregiverCard } from "./CaregiverCard";
+import { BookingForm } from "./BookingForm";
+import { getRelativeDashboard } from "../services/dashboardService";
+import {
+  getElders,
+  createElder,
+  updateElder,
+  deleteElder,
+} from "../services/elderService";
+import { getNearbyCaregivers } from "../services/caregiverService";
+import {
+  createBooking,
+  getBookingsByRelative,
+  createReview,
+  updateReview,
+  deleteReview,
+} from "../services/bookingService";
+import { auth, db, getActiveUserId } from "../lib/firebase";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
 
 interface RelativePortalProps {
   userName: string;
@@ -67,14 +86,14 @@ interface RelativePortalProps {
 
 // Coordinate preset dictionary for auto-filling coordinates on area shift
 const COORDINATE_PRESETS: { [key: string]: { lat: number; lng: number } } = {
-  'Banani': { lat: 23.7925, lng: 90.4078 },
-  'Gulshan': { lat: 23.7925, lng: 90.4194 },
-  'Dhanmondi': { lat: 23.7461, lng: 90.3742 },
-  'Uttara': { lat: 23.8680, lng: 90.4000 },
-  'Mirpur': { lat: 23.8069, lng: 90.3687 },
-  'Mohammadpur': { lat: 23.7542, lng: 90.3614 },
-  'Badda': { lat: 23.7805, lng: 90.4267 },
-  'Lalmatia': { lat: 23.7554, lng: 90.3685 }
+  Banani: { lat: 23.7925, lng: 90.4078 },
+  Gulshan: { lat: 23.7925, lng: 90.4194 },
+  Dhanmondi: { lat: 23.7461, lng: 90.3742 },
+  Uttara: { lat: 23.868, lng: 90.4 },
+  Mirpur: { lat: 23.8069, lng: 90.3687 },
+  Mohammadpur: { lat: 23.7542, lng: 90.3614 },
+  Badda: { lat: 23.7805, lng: 90.4267 },
+  Lalmatia: { lat: 23.7554, lng: 90.3685 },
 };
 
 export const RelativePortal: React.FC<RelativePortalProps> = ({
@@ -90,12 +109,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   onCancelBooking,
 }) => {
   // Navigation tabs of sidebar
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'elders' | 'find-caregiver' | 'bookings' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<
+    "dashboard" | "elders" | "find-caregiver" | "bookings" | "settings"
+  >("dashboard");
 
   // Unique bookings to prevent dashboard and sidebar card duplication
   const uniqueBookings = React.useMemo(() => {
     const seen = new Set<string>();
-    return bookings.filter(b => {
+    return bookings.filter((b) => {
       if (!b.id) return true;
       if (seen.has(b.id)) return false;
       seen.add(b.id);
@@ -104,64 +125,82 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   }, [bookings]);
 
   // Sub-pages states for Elders tab
-  const [elderSubPage, setElderSubPage] = useState<'list' | 'add' | 'edit' | 'details'>('list');
+  const [elderSubPage, setElderSubPage] = useState<
+    "list" | "add" | "edit" | "details"
+  >("list");
   const [selectedElder, setSelectedElder] = useState<ElderProfile | null>(null);
 
   // Elder Profile Form fields
-  const [formName, setFormName] = useState('');
-  const [formDob, setFormDob] = useState('1950-01-01');
+  const [formName, setFormName] = useState("");
+  const [formDob, setFormDob] = useState("1950-01-01");
   const [formAge, setFormAge] = useState<number>(76);
-  const [formGender, setFormGender] = useState<'Male' | 'Female'>('Female');
-  const [formPhoneNumber, setFormPhoneNumber] = useState('');
-  const [formAddress, setFormAddress] = useState('');
+  const [formGender, setFormGender] = useState<"Male" | "Female">("Female");
+  const [formPhoneNumber, setFormPhoneNumber] = useState("");
+  const [formAddress, setFormAddress] = useState("");
   const [formLocation, setFormLocation] = useState(DHAKA_LOCATIONS[0]);
-  const [formLatitude, setFormLatitude] = useState(COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lat);
-  const [formLongitude, setFormLongitude] = useState(COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lng);
-  const [formAllergies, setFormAllergies] = useState('');
-  const [formMobilityLevel, setFormMobilityLevel] = useState<'Independent' | 'Assisted Walking' | 'Wheelchair Bound' | 'Bedridden'>('Independent');
-  const [formEmergencyName, setFormEmergencyName] = useState('');
-  const [formEmergencyPhone, setFormEmergencyPhone] = useState('');
-  const [formKeyInstructions, setFormKeyInstructions] = useState('');
-  
+  const [formLatitude, setFormLatitude] = useState(
+    COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lat,
+  );
+  const [formLongitude, setFormLongitude] = useState(
+    COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lng,
+  );
+  const [formAllergies, setFormAllergies] = useState("");
+  const [formMobilityLevel, setFormMobilityLevel] = useState<
+    "Independent" | "Assisted Walking" | "Wheelchair Bound" | "Bedridden"
+  >("Independent");
+  const [formEmergencyName, setFormEmergencyName] = useState("");
+  const [formEmergencyPhone, setFormEmergencyPhone] = useState("");
+  const [formKeyInstructions, setFormKeyInstructions] = useState("");
+
   // Handlers for medical conditions in the form
-  const [formConditions, setFormConditions] = useState<{ [key: string]: boolean }>({
-    'Type-2 Diabetes': false,
-    'Mild Osteoarthritis': false,
-    'Alzheimer\'s (Early Stage)': false,
-    'Hypertension': false,
-    'Stroke Recovery': false,
-    'Chronic Kidney Disease': false,
-    'Mobility Issues': false
+  const [formConditions, setFormConditions] = useState<{
+    [key: string]: boolean;
+  }>({
+    "Type-2 Diabetes": false,
+    "Mild Osteoarthritis": false,
+    "Alzheimer's (Early Stage)": false,
+    Hypertension: false,
+    "Stroke Recovery": false,
+    "Chronic Kidney Disease": false,
+    "Mobility Issues": false,
   });
 
   // Settings State variables
-  const [relativePhone, setRelativePhone] = useState('');
-  const [relativeAddress, setRelativeAddress] = useState('');
+  const [relativePhone, setRelativePhone] = useState("");
+  const [relativeAddress, setRelativeAddress] = useState("");
   const [isBackupGuarantee, setIsBackupGuarantee] = useState(true);
   const [isWhatsappAlerts, setIsWhatsappAlerts] = useState(true);
-  const [paymentMethod, setPaymentMethod] = useState('None');
+  const [paymentMethod, setPaymentMethod] = useState("None");
   const [saveSettingsSuccess, setSaveSettingsSuccess] = useState(false);
 
   // Search/Caregiver marketplace states within portal (Elder-First flow)
-  const [searchSelectedElderId, setSearchSelectedElderId] = useState<string>('');
-  const [profileSelectedCaregiver, setProfileSelectedCaregiver] = useState<Caregiver | null>(null);
+  const [searchSelectedElderId, setSearchSelectedElderId] =
+    useState<string>("");
+  const [profileSelectedCaregiver, setProfileSelectedCaregiver] =
+    useState<Caregiver | null>(null);
   const [isSearchingLoading, setIsSearchingLoading] = useState<boolean>(false);
-  
+
   // Airbnb style filters
   const [portalFilters, setPortalFilters] = useState<SearchFilters>({
-    location: '',
-    careType: '',
-    gender: 'All'
+    location: "",
+    careType: "",
+    gender: "All",
   });
   const [airbnbMinRating, setAirbnbMinRating] = useState<number>(0);
   const [airbnbMaxRate, setAirbnbMaxRate] = useState<number>(600);
-  const [airbnbOnlyAvailable, setAirbnbOnlyAvailable] = useState<boolean>(false);
+  const [airbnbOnlyAvailable, setAirbnbOnlyAvailable] =
+    useState<boolean>(false);
 
-  const [portalSelectedCaregiver, setPortalSelectedCaregiver] = useState<Caregiver | null>(null);
-  const [isSubmittingBookingLocal, setIsSubmittingBookingLocal] = useState(false);
-  const [localSuccessBooking, setLocalSuccessBooking] = useState<Booking | null>(null);
+  const [portalSelectedCaregiver, setPortalSelectedCaregiver] =
+    useState<Caregiver | null>(null);
+  const [isSubmittingBookingLocal, setIsSubmittingBookingLocal] =
+    useState(false);
+  const [localSuccessBooking, setLocalSuccessBooking] =
+    useState<Booking | null>(null);
   const [allReviews, setAllReviews] = useState<any[]>([]);
-  const [activeShiftLogs, setActiveShiftLogs] = useState<{id: string, time: string, text: string, created_at?: string}[]>([]);
+  const [activeShiftLogs, setActiveShiftLogs] = useState<
+    { id: string; time: string; text: string; created_at?: string }[]
+  >([]);
 
   const [dashboardStats, setDashboardStats] = useState<{
     totalElders: number;
@@ -173,10 +212,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
   // Synchronize state with navbar/parent direct view sets
   useEffect(() => {
-    if (currentView === 'bookings') {
-      setActiveTab('bookings');
-    } else if (currentView === 'elder-profiles') {
-      setActiveTab('elders');
+    if (currentView === "bookings") {
+      setActiveTab("bookings");
+    } else if (currentView === "elder-profiles") {
+      setActiveTab("elders");
     }
   }, [currentView]);
 
@@ -191,9 +230,13 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           setDashboardStats({
             totalElders: elderProfiles.length,
             totalBookings: bookings.length,
-            upcomingBookings: bookings.filter(b => b.status === "Confirmed").length,
-            completedBookings: bookings.filter(b => b.status === "Completed").length,
-            totalSpent: bookings.filter(b => b.paymentStatus === "Paid").reduce((sum, b) => sum + b.totalCost, 0)
+            upcomingBookings: bookings.filter((b) => b.status === "Confirmed")
+              .length,
+            completedBookings: bookings.filter((b) => b.status === "Completed")
+              .length,
+            totalSpent: bookings
+              .filter((b) => b.paymentStatus === "Paid")
+              .reduce((sum, b) => sum + b.totalCost, 0),
           });
         }
       } catch (err) {
@@ -212,19 +255,27 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           id: e.id,
           name: e.full_name,
           age: e.age ?? 76,
-          dob: e.created_at ? e.created_at.split('T')[0] : '1950-01-01',
-          gender: (e.gender === 'Male' || e.gender === 'Female') ? e.gender : 'Male',
-          phoneNumber: e.phone ?? '',
-          address: e.address ?? '',
-          location: e.area ?? 'Dhanmondi',
+          dob: e.created_at ? e.created_at.split("T")[0] : "1950-01-01",
+          gender:
+            e.gender === "Male" || e.gender === "Female" ? e.gender : "Male",
+          phoneNumber: e.phone ?? "",
+          address: e.address ?? "",
+          location: e.area ?? "Dhanmondi",
           latitude: e.latitude ?? 23.7461,
           longitude: e.longitude ?? 90.3742,
-          medicalConditions: e.medical_conditions ? e.medical_conditions.split(', ') : [],
-          allergies: e.allergies ?? 'None',
-          mobilityLevel: e.mobility_level === 'independent' ? 'Independent' : e.mobility_level === 'assisted' ? 'Assisted Walking' : 'Wheelchair Bound',
-          emergencyContactName: e.emergency_contact_name ?? '',
-          emergencyContactPhone: e.emergency_contact_phone ?? '',
-          keyInstructions: ''
+          medicalConditions: e.medical_conditions
+            ? e.medical_conditions.split(", ")
+            : [],
+          allergies: e.allergies ?? "None",
+          mobilityLevel:
+            e.mobility_level === "independent"
+              ? "Independent"
+              : e.mobility_level === "assisted"
+                ? "Assisted Walking"
+                : "Wheelchair Bound",
+          emergencyContactName: e.emergency_contact_name ?? "",
+          emergencyContactPhone: e.emergency_contact_phone ?? "",
+          keyInstructions: "",
         }));
         setElderProfiles(mappedElders);
       }
@@ -240,26 +291,38 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         const liveBookings = await getBookingsByRelative(uid);
         const mappedBookings: Booking[] = liveBookings.map((b: any) => ({
           id: b.id,
-          caregiverId: b.caregiver_id || '',
-          elderProfileId: b.elder_id || '',
-          startDate: b.start_time ? b.start_time.split('T')[0] : '2026-06-04',
-          endDate: b.end_time ? b.end_time.split('T')[0] : '2026-06-05',
+          caregiverId: b.caregiver_id || "",
+          elderProfileId: b.elder_id || "",
+          startDate: b.start_time ? b.start_time.split("T")[0] : "2026-06-04",
+          endDate: b.end_time ? b.end_time.split("T")[0] : "2026-06-05",
           hoursPerDay: b.hours ? Math.round(b.hours) : 4,
           totalCost: b.total_amount || 0,
-          notes: b.care_instructions || '',
-          status: (b.status === 'active' || b.status === 'Active') ? 'Active' : b.status === 'confirmed' ? 'Confirmed' : b.status === 'completed' ? 'Completed' : b.status === 'cancelled' ? 'Cancelled' : 'Pending',
+          notes: b.care_instructions || "",
+          status:
+            b.status === "active" || b.status === "Active"
+              ? "Active"
+              : b.status === "confirmed"
+                ? "Confirmed"
+                : b.status === "completed"
+                  ? "Completed"
+                  : b.status === "cancelled"
+                    ? "Cancelled"
+                    : "Pending",
           createdAt: b.created_at || new Date().toISOString(),
           reviewId: b.review_id,
           reviewRating: b.review_rating,
           reviewText: b.review_comment,
           reviewDate: b.review_date,
           reportStatus: {
-            medicineSupplied: b.status === 'completed',
+            medicineSupplied: b.status === "completed",
             mealsTaken: true,
-            exerciseDone: b.status === 'completed',
-            sleepHours: b.status === 'completed' ? 8 : 0,
-            activityNotes: b.status === 'completed' ? 'Pre-medication checklists fully ticked.' : 'Caregiver has reviewed the medical profile. Outlining nursing shift schedule.'
-          }
+            exerciseDone: b.status === "completed",
+            sleepHours: b.status === "completed" ? 8 : 0,
+            activityNotes:
+              b.status === "completed"
+                ? "Pre-medication checklists fully ticked."
+                : "Caregiver has reviewed the medical profile. Outlining nursing shift schedule.",
+          },
         }));
         setBookings(mappedBookings);
       }
@@ -277,24 +340,33 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     }
     setIsSearchingLoading(true);
     try {
-      const reviewsSnap = await getDocs(collection(db, 'reviews'));
+      const reviewsSnap = await getDocs(collection(db, "reviews"));
       const dbReviews: any[] = [];
-      reviewsSnap.forEach(docSnap => {
+      reviewsSnap.forEach((docSnap) => {
         dbReviews.push({ id: docSnap.id, ...docSnap.data() });
       });
       setAllReviews(dbReviews);
 
       const result = await getNearbyCaregivers(searchSelectedElderId);
       const mapped: Caregiver[] = result.map((cg: any) => {
-        const genderVal = (cg.gender || '').toLowerCase() === 'male' || cg.gender === 'Male' ? 'Male' : 'Female';
-        const areaVal = cg.area || cg.location_area || cg.location || 'Dhanmondi';
-        const expVal = cg.expertise || cg.speciality || 'Elder Assistant';
-        
-        const cgReviews = dbReviews.filter(r => r.caregiver_id === cg.id);
+        const genderVal =
+          (cg.gender || "").toLowerCase() === "male" || cg.gender === "Male"
+            ? "Male"
+            : "Female";
+        const areaVal =
+          cg.area || cg.location_area || cg.location || "Dhanmondi";
+        const expVal = cg.expertise || cg.speciality || "Elder Assistant";
+
+        const cgReviews = dbReviews.filter((r) => r.caregiver_id === cg.id);
         const reviewsCount = cgReviews.length;
-        const rating = reviewsCount > 0 
-          ? Number((cgReviews.reduce((sum, r) => sum + r.rating, 0) / reviewsCount).toFixed(1))
-          : undefined;
+        const rating =
+          reviewsCount > 0
+            ? Number(
+                (
+                  cgReviews.reduce((sum, r) => sum + r.rating, 0) / reviewsCount
+                ).toFixed(1),
+              )
+            : undefined;
 
         return {
           id: cg.id,
@@ -302,20 +374,27 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           gender: genderVal,
           experience: cg.experience_years ?? cg.experience ?? 5,
           specialty: expVal,
-          verification: cg.certification_badge || cg.certification || 'Certified Assistant',
-          certification: cg.certification_badge || cg.certification || 'Certified Assistant',
+          verification:
+            cg.certification_badge || cg.certification || "Certified Assistant",
+          certification:
+            cg.certification_badge || cg.certification || "Certified Assistant",
           location: areaVal,
           ratePerHour: cg.hourly_rate ?? cg.ratePerHour ?? 300,
           rating: rating ?? cg.rating ?? 4.8,
           reviewsCount,
-          photoUrl: cg.photo_url || cg.photoUrl || `https://images.unsplash.com/photo-${genderVal === 'Male' ? '1500648767791-00dcc994a43e' : '1544005313-94ddf0286df2'}?w=150&auto=format&fit=crop&q=80`,
+          photoUrl:
+            cg.photo_url ||
+            cg.photoUrl ||
+            `https://images.unsplash.com/photo-${genderVal === "Male" ? "1500648767791-00dcc994a43e" : "1544005313-94ddf0286df2"}?w=150&auto=format&fit=crop&q=80`,
           available: cg.is_available ?? cg.available ?? true,
           isAvailable: cg.is_available ?? cg.available ?? true,
           latitude: cg.latitude,
           longitude: cg.longitude,
-          distance: `${cg.distance?.toFixed(1) || '1.5'} km away`,
-          bio: cg.bio || 'Qualified caregiver offering specialized senior assistance and companion care in local sector.',
-          specialties: cg.specialties || [expVal]
+          distance: `${cg.distance?.toFixed(1) || "1.5"} km away`,
+          bio:
+            cg.bio ||
+            "Qualified caregiver offering specialized senior assistance and companion care in local sector.",
+          specialties: cg.specialties || [expVal],
         } as any;
       });
       setLiveCaregivers(mapped);
@@ -338,25 +417,35 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     const uid = getActiveUserId();
     let unsubscribeBookings = () => {};
     if (uid) {
-      const qBookings = query(collection(db, 'bookings'), where('relative_id', '==', uid));
-      unsubscribeBookings = onSnapshot(qBookings, (snapshot) => {
-        console.log('Realtime bookings table update:', snapshot.size);
-        fetchBookingsList();
-      }, (err) => {
-        console.warn("Realtime bookings subscription failed:", err);
-      });
+      const qBookings = query(
+        collection(db, "bookings"),
+        where("relative_id", "==", uid),
+      );
+      unsubscribeBookings = onSnapshot(
+        qBookings,
+        (snapshot) => {
+          console.log("Realtime bookings table update:", snapshot.size);
+          fetchBookingsList();
+        },
+        (err) => {
+          console.warn("Realtime bookings subscription failed:", err);
+        },
+      );
     }
 
     // 2. Subscribe to 'reviews' table for real-time rating updates
-    const unsubscribeReviews = onSnapshot(collection(db, 'reviews'), (snapshot) => {
-      console.log('Realtime reviews table update:', snapshot);
-      const reviewsData: any[] = [];
-      snapshot.forEach(docSnap => {
-        reviewsData.push({ id: docSnap.id, ...docSnap.data() });
-      });
-      setAllReviews(reviewsData);
-      fetchNearby();
-    });
+    const unsubscribeReviews = onSnapshot(
+      collection(db, "reviews"),
+      (snapshot) => {
+        console.log("Realtime reviews table update:", snapshot);
+        const reviewsData: any[] = [];
+        snapshot.forEach((docSnap) => {
+          reviewsData.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        setAllReviews(reviewsData);
+        fetchNearby();
+      },
+    );
 
     // Cleanup: unsubscribe on unmount
     return () => {
@@ -366,7 +455,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   }, [searchSelectedElderId]);
 
   const portalActiveBooking = React.useMemo(() => {
-    return uniqueBookings.find(b => b.status === 'Active');
+    return uniqueBookings.find((b) => b.status === "Active");
   }, [uniqueBookings]);
 
   useEffect(() => {
@@ -375,31 +464,38 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
       return;
     }
     const qShiftLogs = query(
-      collection(db, 'shift_logs'),
-      where('booking_id', '==', portalActiveBooking.id)
+      collection(db, "shift_logs"),
+      where("booking_id", "==", portalActiveBooking.id),
     );
-    const unsubscribeShiftLogs = onSnapshot(qShiftLogs, (snapshot) => {
-      const dbLogs: any[] = [];
-      snapshot.forEach(docSnap => {
-        dbLogs.push({ id: docSnap.id, ...docSnap.data() });
-      });
-      dbLogs.sort((a, b) => {
-        const t1 = a.created_at ? new Date(a.created_at).getTime() : 0;
-        const t2 = b.created_at ? new Date(b.created_at).getTime() : 0;
-        return t2 - t1; // Newest first
-      });
-      setActiveShiftLogs(dbLogs);
-    }, (error) => {
-      console.warn("Failed to subscribe to shift logs in relative portal:", error);
-    });
+    const unsubscribeShiftLogs = onSnapshot(
+      qShiftLogs,
+      (snapshot) => {
+        const dbLogs: any[] = [];
+        snapshot.forEach((docSnap) => {
+          dbLogs.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        dbLogs.sort((a, b) => {
+          const t1 = a.created_at ? new Date(a.created_at).getTime() : 0;
+          const t2 = b.created_at ? new Date(b.created_at).getTime() : 0;
+          return t2 - t1; // Newest first
+        });
+        setActiveShiftLogs(dbLogs);
+      },
+      (error) => {
+        console.warn(
+          "Failed to subscribe to shift logs in relative portal:",
+          error,
+        );
+      },
+    );
 
     // Dual-sync same-frame custom event listener for immediate same-page reactivity
     const handleLocalNewLog = (e: Event) => {
       const customEvent = e as CustomEvent;
       const newLog = customEvent.detail;
       if (newLog && newLog.booking_id === portalActiveBooking.id) {
-        setActiveShiftLogs(prev => {
-          if (prev.some(l => l.id === newLog.id)) return prev;
+        setActiveShiftLogs((prev) => {
+          if (prev.some((l) => l.id === newLog.id)) return prev;
           return [newLog, ...prev];
         });
       }
@@ -407,12 +503,12 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
     // Cross-tab storage change listener triggers for side-by-side viewports sync
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'last_shift_log' && e.newValue) {
+      if (e.key === "last_shift_log" && e.newValue) {
         try {
           const newLog = JSON.parse(e.newValue);
           if (newLog && newLog.booking_id === portalActiveBooking.id) {
-            setActiveShiftLogs(prev => {
-              if (prev.some(l => l.id === newLog.id)) return prev;
+            setActiveShiftLogs((prev) => {
+              if (prev.some((l) => l.id === newLog.id)) return prev;
               return [newLog, ...prev];
             });
           }
@@ -422,32 +518,40 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
       }
     };
 
-    window.addEventListener('new-shift-log', handleLocalNewLog);
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("new-shift-log", handleLocalNewLog);
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
       unsubscribeShiftLogs();
-      window.removeEventListener('new-shift-log', handleLocalNewLog);
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("new-shift-log", handleLocalNewLog);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, [portalActiveBooking?.id]);
 
   // Bookings list history sub-tab state
-  const [bookingsActiveTab, setBookingsActiveTab] = useState<'Upcoming' | 'Completed' | 'Cancelled'>('Upcoming');
+  const [bookingsActiveTab, setBookingsActiveTab] = useState<
+    "Upcoming" | "Completed" | "Cancelled"
+  >("Upcoming");
 
   // Review & Rating Modal State
-  const [reviewingBooking, setReviewingBooking] = useState<Booking | null>(null);
+  const [reviewingBooking, setReviewingBooking] = useState<Booking | null>(
+    null,
+  );
   const [reviewRating, setReviewRating] = useState<number>(5);
-  const [reviewComment, setReviewComment] = useState<string>('');
+  const [reviewComment, setReviewComment] = useState<string>("");
   const [reviewIsEditing, setReviewIsEditing] = useState<boolean>(false);
   const [isReviewSubmitting, setIsReviewSubmitting] = useState<boolean>(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
   const [reviewSuccess, setReviewSuccess] = useState<string | null>(null);
 
   // Report Caregiver Modal State
-  const [reportingBooking, setReportingBooking] = useState<Booking | null>(null);
-  const [reportCategory, setReportCategory] = useState<string>('Unprofessional Behavior');
-  const [reportDescription, setReportDescription] = useState<string>('');
+  const [reportingBooking, setReportingBooking] = useState<Booking | null>(
+    null,
+  );
+  const [reportCategory, setReportCategory] = useState<string>(
+    "Unprofessional Behavior",
+  );
+  const [reportDescription, setReportDescription] = useState<string>("");
   const [isReportSubmitting, setIsReportSubmitting] = useState<boolean>(false);
   const [reportError, setReportError] = useState<string | null>(null);
   const [reportSuccess, setReportSuccess] = useState<string | null>(null);
@@ -473,7 +577,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   };
 
   const toggleCondition = (cond: string) => {
-    setFormConditions(prev => ({ ...prev, [cond]: !prev[cond] }));
+    setFormConditions((prev) => ({ ...prev, [cond]: !prev[cond] }));
   };
 
   const handleOpenReviewModal = (booking: Booking) => {
@@ -482,11 +586,11 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     setReviewSuccess(null);
     if (booking.reviewRating !== undefined) {
       setReviewRating(booking.reviewRating);
-      setReviewComment(booking.reviewText || '');
+      setReviewComment(booking.reviewText || "");
       setReviewIsEditing(true);
     } else {
       setReviewRating(5);
-      setReviewComment('');
+      setReviewComment("");
       setReviewIsEditing(false);
     }
   };
@@ -498,29 +602,29 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     setReviewError(null);
     try {
       const uid = getActiveUserId();
-      if (!uid) throw new Error('You must be logged in to submit a review.');
+      if (!uid) throw new Error("You must be logged in to submit a review.");
 
       if (reviewIsEditing) {
         if (!reviewingBooking.reviewId) {
-          throw new Error('Review ID is missing.');
+          throw new Error("Review ID is missing.");
         }
         await updateReview({
           review_id: reviewingBooking.reviewId,
           booking_id: reviewingBooking.id,
           caregiver_id: reviewingBooking.caregiverId,
           rating: reviewRating,
-          comment: reviewComment
+          comment: reviewComment,
         });
-        setReviewSuccess('Review updated successfully!');
+        setReviewSuccess("Review updated successfully!");
       } else {
         await createReview({
           booking_id: reviewingBooking.id,
           caregiver_id: reviewingBooking.caregiverId,
           relative_id: uid,
           rating: reviewRating,
-          comment: reviewComment
+          comment: reviewComment,
         });
-        setReviewSuccess('Review submitted successfully!');
+        setReviewSuccess("Review submitted successfully!");
       }
 
       await fetchBookingsList();
@@ -529,35 +633,37 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         setReviewSuccess(null);
       }, 1500);
     } catch (err: any) {
-      console.error('Review submit failed:', err);
-      setReviewError(err.message || 'An unexpected error occurred while saving your review.');
+      console.error("Review submit failed:", err);
+      setReviewError(
+        err.message || "An unexpected error occurred while saving your review.",
+      );
     } finally {
       setIsReviewSubmitting(false);
     }
   };
 
   const handleDeleteReview = async (booking: Booking) => {
-    if (!confirm('Are you sure you want to delete this review?')) return;
+    if (!confirm("Are you sure you want to delete this review?")) return;
     try {
       if (!booking.reviewId) {
-        throw new Error('Review ID is not found on this booking.');
+        throw new Error("Review ID is not found on this booking.");
       }
       await deleteReview({
         review_id: booking.reviewId,
         booking_id: booking.id,
-        caregiver_id: booking.caregiverId
+        caregiver_id: booking.caregiverId,
       });
       await fetchBookingsList();
     } catch (err: any) {
-      console.error('Delete review failed:', err);
-      alert(err.message || 'An error occurred while deleting your review.');
+      console.error("Delete review failed:", err);
+      alert(err.message || "An error occurred while deleting your review.");
     }
   };
 
   const handleOpenReportModal = (booking: Booking) => {
     setReportingBooking(booking);
-    setReportCategory('Unprofessional Behavior');
-    setReportDescription('');
+    setReportCategory("Unprofessional Behavior");
+    setReportDescription("");
     setReportError(null);
     setReportSuccess(null);
   };
@@ -566,17 +672,17 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     e.preventDefault();
     if (!reportingBooking) return;
     if (!reportDescription.trim()) {
-      setReportError('Please provide a description of the issue.');
+      setReportError("Please provide a description of the issue.");
       return;
     }
     setIsReportSubmitting(true);
     setReportError(null);
     try {
       const uid = getActiveUserId();
-      if (!uid) throw new Error('You must be logged in to submit a report.');
+      if (!uid) throw new Error("You must be logged in to submit a report.");
 
       // Save report to firestore "reports" collection
-      const reportsColRef = doc(collection(db, 'reports'));
+      const reportsColRef = doc(collection(db, "reports"));
       const reportData = {
         id: reportsColRef.id,
         booking_id: reportingBooking.id,
@@ -584,20 +690,26 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         reporter_id: uid,
         category: reportCategory,
         description: reportDescription,
-        status: 'pending',
-        created_at: new Date().toISOString()
+        status: "pending",
+        created_at: new Date().toISOString(),
       };
       await setDoc(reportsColRef, reportData);
 
-      setReportSuccess('Thank you. Your report has been submitted as reference ID: ' + reportsColRef.id);
-      
+      setReportSuccess(
+        "Thank you. Your report has been submitted as reference ID: " +
+          reportsColRef.id,
+      );
+
       setTimeout(() => {
         setReportingBooking(null);
         setReportSuccess(null);
       }, 3000);
     } catch (err: any) {
-      console.error('Report submission failed:', err);
-      setReportError(err.message || 'An unexpected error occurred while submitting your report.');
+      console.error("Report submission failed:", err);
+      setReportError(
+        err.message ||
+          "An unexpected error occurred while submitting your report.",
+      );
     } finally {
       setIsReportSubmitting(false);
     }
@@ -605,68 +717,80 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
   // CRUD actions for Elder Profile
   const openAddElderForm = () => {
-    setFormName('');
-    setFormDob('1950-01-01');
+    setFormName("");
+    setFormDob("1950-01-01");
     setFormAge(76);
-    setFormGender('Female');
-    setFormPhoneNumber('');
-    setFormAddress('');
+    setFormGender("Female");
+    setFormPhoneNumber("");
+    setFormAddress("");
     setFormLocation(DHAKA_LOCATIONS[0]);
     setFormLatitude(COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lat);
     setFormLongitude(COORDINATE_PRESETS[DHAKA_LOCATIONS[0]].lng);
-    setFormAllergies('None');
-    setFormMobilityLevel('Independent');
-    setFormEmergencyName('');
-    setFormEmergencyPhone('');
-    setFormKeyInstructions('');
-    
+    setFormAllergies("None");
+    setFormMobilityLevel("Independent");
+    setFormEmergencyName("");
+    setFormEmergencyPhone("");
+    setFormKeyInstructions("");
+
     // reset condition checkboxes
     const cleared: { [key: string]: boolean } = {};
-    Object.keys(formConditions).forEach(key => cleared[key] = false);
+    Object.keys(formConditions).forEach((key) => (cleared[key] = false));
     setFormConditions(cleared);
 
-    setElderSubPage('add');
+    setElderSubPage("add");
   };
 
   const openEditElderForm = (elder: ElderProfile, e: React.MouseEvent) => {
     e.stopPropagation();
     setSelectedElder(elder);
     setFormName(elder.name);
-    setFormDob(elder.dob || '1950-01-01');
+    setFormDob(elder.dob || "1950-01-01");
     setFormAge(elder.age);
     setFormGender(elder.gender);
-    setFormPhoneNumber(elder.phoneNumber || '');
-    setFormAddress(elder.address || '');
+    setFormPhoneNumber(elder.phoneNumber || "");
+    setFormAddress(elder.address || "");
     setFormLocation(elder.location);
-    setFormLatitude(elder.latitude || COORDINATE_PRESETS[elder.location]?.lat || 23.7925);
-    setFormLongitude(elder.longitude || COORDINATE_PRESETS[elder.location]?.lng || 90.4078);
-    setFormAllergies(elder.allergies || 'None');
-    setFormMobilityLevel((elder.mobilityLevel as any) || 'Independent');
+    setFormLatitude(
+      elder.latitude || COORDINATE_PRESETS[elder.location]?.lat || 23.7925,
+    );
+    setFormLongitude(
+      elder.longitude || COORDINATE_PRESETS[elder.location]?.lng || 90.4078,
+    );
+    setFormAllergies(elder.allergies || "None");
+    setFormMobilityLevel((elder.mobilityLevel as any) || "Independent");
     setFormEmergencyName(elder.emergencyContactName);
     setFormEmergencyPhone(elder.emergencyContactPhone);
     setFormKeyInstructions(elder.keyInstructions);
 
     // populate condition checkboxes
     const loaded: { [key: string]: boolean } = {};
-    Object.keys(formConditions).forEach(key => {
+    Object.keys(formConditions).forEach((key) => {
       loaded[key] = elder.medicalConditions.includes(key);
     });
     setFormConditions(loaded);
 
-    setElderSubPage('edit');
+    setElderSubPage("edit");
   };
 
   const saveElderProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formName || !formPhoneNumber || !formAddress || !formEmergencyName || !formEmergencyPhone) {
-      alert('Please fill in all required fields.');
+    if (
+      !formName ||
+      !formPhoneNumber ||
+      !formAddress ||
+      !formEmergencyName ||
+      !formEmergencyPhone
+    ) {
+      alert("Please fill in all required fields.");
       return;
     }
 
-    const selectedConds = Object.keys(formConditions).filter(k => formConditions[k]);
+    const selectedConds = Object.keys(formConditions).filter(
+      (k) => formConditions[k],
+    );
     const uid = getActiveUserId();
 
-    if (elderSubPage === 'add') {
+    if (elderSubPage === "add") {
       if (uid) {
         const createInput = {
           relative_id: uid,
@@ -678,9 +802,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           area: formLocation,
           latitude: Number(formLatitude),
           longitude: Number(formLongitude),
-          medical_conditions: selectedConds.join(', '),
-          allergies: formAllergies || 'None',
-          mobility_level: formMobilityLevel === 'Independent' ? 'independent' : formMobilityLevel === 'Assisted Walking' ? 'assisted' : 'dependent',
+          medical_conditions: selectedConds.join(", "),
+          allergies: formAllergies || "None",
+          mobility_level:
+            formMobilityLevel === "Independent"
+              ? "independent"
+              : formMobilityLevel === "Assisted Walking"
+                ? "assisted"
+                : "dependent",
           emergency_contact_name: formEmergencyName,
           emergency_contact_phone: formEmergencyPhone,
         } as any;
@@ -702,13 +831,13 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
             latitude: Number(formLatitude),
             longitude: Number(formLongitude),
             medicalConditions: selectedConds,
-            allergies: formAllergies || 'None',
+            allergies: formAllergies || "None",
             mobilityLevel: formMobilityLevel,
             emergencyContactName: formEmergencyName,
             emergencyContactPhone: formEmergencyPhone,
-            keyInstructions: formKeyInstructions
+            keyInstructions: formKeyInstructions,
           };
-          setElderProfiles(prev => [newElder, ...prev]);
+          setElderProfiles((prev) => [newElder, ...prev]);
         }
       } else {
         const newElder: ElderProfile = {
@@ -723,13 +852,13 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           latitude: Number(formLatitude),
           longitude: Number(formLongitude),
           medicalConditions: selectedConds,
-          allergies: formAllergies || 'None',
+          allergies: formAllergies || "None",
           mobilityLevel: formMobilityLevel,
           emergencyContactName: formEmergencyName,
           emergencyContactPhone: formEmergencyPhone,
-          keyInstructions: formKeyInstructions
+          keyInstructions: formKeyInstructions,
         };
-        setElderProfiles(prev => [newElder, ...prev]);
+        setElderProfiles((prev) => [newElder, ...prev]);
       }
     } else {
       // Edit
@@ -744,9 +873,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           area: formLocation,
           latitude: Number(formLatitude),
           longitude: Number(formLongitude),
-          medical_conditions: selectedConds.join(', '),
+          medical_conditions: selectedConds.join(", "),
           allergies: formAllergies,
-          mobility_level: formMobilityLevel === 'Independent' ? 'independent' : formMobilityLevel === 'Assisted Walking' ? 'assisted' : 'dependent',
+          mobility_level:
+            formMobilityLevel === "Independent"
+              ? "independent"
+              : formMobilityLevel === "Assisted Walking"
+                ? "assisted"
+                : "dependent",
           emergency_contact_name: formEmergencyName,
           emergency_contact_phone: formEmergencyPhone,
         } as any;
@@ -756,7 +890,35 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         } catch (dbErr) {
           console.error("Error updating elder in DB:", dbErr);
           // Fallback
-          setElderProfiles(prev => prev.map(item => {
+          setElderProfiles((prev) =>
+            prev.map((item) => {
+              if (item.id === selectedElder.id) {
+                return {
+                  ...item,
+                  name: formName,
+                  age: formAge,
+                  dob: formDob,
+                  gender: formGender,
+                  phoneNumber: formPhoneNumber,
+                  address: formAddress,
+                  location: formLocation,
+                  latitude: Number(formLatitude),
+                  longitude: Number(formLongitude),
+                  medicalConditions: selectedConds,
+                  allergies: formAllergies,
+                  mobilityLevel: formMobilityLevel,
+                  emergencyContactName: formEmergencyName,
+                  emergencyContactPhone: formEmergencyPhone,
+                  keyInstructions: formKeyInstructions,
+                };
+              }
+              return item;
+            }),
+          );
+        }
+      } else {
+        setElderProfiles((prev) =>
+          prev.map((item) => {
             if (item.id === selectedElder.id) {
               return {
                 ...item,
@@ -774,78 +936,61 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                 mobilityLevel: formMobilityLevel,
                 emergencyContactName: formEmergencyName,
                 emergencyContactPhone: formEmergencyPhone,
-                keyInstructions: formKeyInstructions
+                keyInstructions: formKeyInstructions,
               };
             }
             return item;
-          }));
-        }
-      } else {
-        setElderProfiles(prev => prev.map(item => {
-          if (item.id === selectedElder.id) {
-            return {
-              ...item,
-              name: formName,
-              age: formAge,
-              dob: formDob,
-              gender: formGender,
-              phoneNumber: formPhoneNumber,
-              address: formAddress,
-              location: formLocation,
-              latitude: Number(formLatitude),
-              longitude: Number(formLongitude),
-              medicalConditions: selectedConds,
-              allergies: formAllergies,
-              mobilityLevel: formMobilityLevel,
-              emergencyContactName: formEmergencyName,
-              emergencyContactPhone: formEmergencyPhone,
-              keyInstructions: formKeyInstructions
-            };
-          }
-          return item;
-        }));
+          }),
+        );
       }
     }
 
-    setElderSubPage('list');
+    setElderSubPage("list");
     setSelectedElder(null);
   };
 
   const deleteElderProfile = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm('Are you absolutely sure you want to delete this elder profile? This decision cannot be reversed.')) {
+    if (
+      confirm(
+        "Are you absolutely sure you want to delete this elder profile? This decision cannot be reversed.",
+      )
+    ) {
       try {
         const uid = getActiveUserId();
         if (uid) {
           await deleteElder(id);
           await fetchEldersList();
         } else {
-          setElderProfiles(prev => prev.filter(p => p.id !== id));
+          setElderProfiles((prev) => prev.filter((p) => p.id !== id));
         }
       } catch (dbErr) {
         console.error("Error deleting elder inside DB:", dbErr);
         // Fallback
-        setElderProfiles(prev => prev.filter(p => p.id !== id));
+        setElderProfiles((prev) => prev.filter((p) => p.id !== id));
       }
       if (selectedElder?.id === id) {
         setSelectedElder(null);
-        setElderSubPage('list');
+        setElderSubPage("list");
       }
     }
   };
 
   const handleElderCardClick = (elder: ElderProfile) => {
     setSelectedElder(elder);
-    setElderSubPage('details');
+    setElderSubPage("details");
   };
 
-  const handleFindCaregiverForElder = (elder: ElderProfile, e: React.MouseEvent) => {
+  const handleFindCaregiverForElder = (
+    elder: ElderProfile,
+    e: React.MouseEvent,
+  ) => {
     e.stopPropagation();
     setSearchSelectedElderId(elder.id);
     setPortalFilters({
       location: elder.location,
-      careType: '',
-      gender: 'All'
+      careType: "",
+      gender: "All",
     });
     setAirbnbMinRating(0);
     setAirbnbMaxRate(1000);
@@ -855,7 +1000,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     setLocalSuccessBooking(null);
     setIsSearchingLoading(true);
     setTimeout(() => setIsSearchingLoading(false), 800);
-    setActiveTab('find-caregiver');
+    setActiveTab("find-caregiver");
   };
 
   // Booker within portal find-caregiver tab
@@ -863,7 +1008,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     setPortalSelectedCaregiver(cg);
   };
 
-  const handleBookingConfirmedLocal = async (bookingData: Omit<Booking, 'id' | 'createdAt' | 'status'>) => {
+  const handleBookingConfirmedLocal = async (
+    bookingData: Omit<Booking, "id" | "createdAt" | "status">,
+  ) => {
     setIsSubmittingBookingLocal(true);
     try {
       const uid = getActiveUserId();
@@ -871,7 +1018,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         const start = new Date(bookingData.startDate);
         const end = new Date(bookingData.endDate);
         const differenceInTime = end.getTime() - start.getTime();
-        const daysCount = Math.max(1, Math.ceil(differenceInTime / (1000 * 3600 * 24)) + 1);
+        const daysCount = Math.max(
+          1,
+          Math.ceil(differenceInTime / (1000 * 3600 * 24)) + 1,
+        );
         const totalHours = daysCount * bookingData.hoursPerDay;
 
         // Call the database service layer
@@ -881,8 +1031,8 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           caregiver_id: bookingData.caregiverId,
           hours: totalHours,
           care_instructions: bookingData.notes,
-          start_time: bookingData.startDate + 'T09:00:00Z',
-          end_time: bookingData.endDate + 'T17:00:00Z'
+          start_time: bookingData.startDate + "T09:00:00Z",
+          end_time: bookingData.endDate + "T17:00:00Z",
         });
 
         // Map real dbResult fields into the UI layout structure
@@ -895,20 +1045,21 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           endDate: bookingData.endDate,
           hoursPerDay: bookingData.hoursPerDay,
           totalCost: dbResultTyped.total_amount || bookingData.totalCost,
-          notes: bookingData.notes || '',
-          status: 'Confirmed',
+          notes: bookingData.notes || "",
+          status: "Confirmed",
           createdAt: dbResultTyped.created_at || new Date().toISOString(),
           reportStatus: {
             medicineSupplied: false,
             mealsTaken: true,
             exerciseDone: false,
             sleepHours: 0,
-            activityNotes: 'Caregiver has reviewed the medical profile. Outlining nursing shift schedule.'
-          }
+            activityNotes:
+              "Caregiver has reviewed the medical profile. Outlining nursing shift schedule.",
+          },
         };
 
-        setBookings(prev => {
-          const filtered = prev.filter(b => b.id !== liveBooking.id);
+        setBookings((prev) => {
+          const filtered = prev.filter((b) => b.id !== liveBooking.id);
           return [liveBooking, ...filtered];
         });
         setIsSubmittingBookingLocal(false);
@@ -921,19 +1072,20 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           const liveBooking: Booking = {
             ...bookingData,
             id: `book_${Date.now()}`,
-            status: 'Confirmed',
+            status: "Confirmed",
             createdAt: new Date().toISOString(),
             reportStatus: {
               medicineSupplied: false,
               mealsTaken: true,
               exerciseDone: false,
               sleepHours: 0,
-              activityNotes: 'Caregiver has reviewed the medical profile. Outlining nursing shift schedule.'
-            }
+              activityNotes:
+                "Caregiver has reviewed the medical profile. Outlining nursing shift schedule.",
+            },
           };
 
-          setBookings(prev => {
-            const filtered = prev.filter(b => b.id !== liveBooking.id);
+          setBookings((prev) => {
+            const filtered = prev.filter((b) => b.id !== liveBooking.id);
             return [liveBooking, ...filtered];
           });
           setIsSubmittingBookingLocal(false);
@@ -949,19 +1101,20 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         const liveBooking: Booking = {
           ...bookingData,
           id: `book_${Date.now()}`,
-          status: 'Confirmed',
+          status: "Confirmed",
           createdAt: new Date().toISOString(),
           reportStatus: {
             medicineSupplied: false,
             mealsTaken: true,
             exerciseDone: false,
             sleepHours: 0,
-            activityNotes: 'Caregiver has reviewed the medical profile. Outlining nursing shift schedule.'
-          }
+            activityNotes:
+              "Caregiver has reviewed the medical profile. Outlining nursing shift schedule.",
+          },
         };
 
-        setBookings(prev => {
-          const filtered = prev.filter(b => b.id !== liveBooking.id);
+        setBookings((prev) => {
+          const filtered = prev.filter((b) => b.id !== liveBooking.id);
           return [liveBooking, ...filtered];
         });
         setIsSubmittingBookingLocal(false);
@@ -973,8 +1126,11 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   };
 
   // High-fidelity Dhaka neighborhood network matrix for relative distances
-  const getCaregiverDistance = (elderLoc: string, cgLoc: string): { text: string; km: number } => {
-    if (!elderLoc || !cgLoc) return { text: '1.2 km away', km: 1.2 };
+  const getCaregiverDistance = (
+    elderLoc: string,
+    cgLoc: string,
+  ): { text: string; km: number } => {
+    if (!elderLoc || !cgLoc) return { text: "1.2 km away", km: 1.2 };
     const eNorm = elderLoc.toLowerCase().trim();
     const cNorm = cgLoc.toLowerCase().trim();
     if (eNorm === cNorm) {
@@ -985,36 +1141,36 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
     const key = `${elderLoc}-${cgLoc}`;
     const reverseKey = `${cgLoc}-${elderLoc}`;
     const distances: { [key: string]: number } = {
-      'Banani-Gulshan': 1.6,
-      'Banani-Dhanmondi': 4.8,
-      'Banani-Uttara': 6.2,
-      'Banani-Mirpur': 3.9,
-      'Banani-Mohammadpur': 4.1,
-      'Banani-Bashundhara': 2.7,
-      'Banani-Badda': 2.4,
+      "Banani-Gulshan": 1.6,
+      "Banani-Dhanmondi": 4.8,
+      "Banani-Uttara": 6.2,
+      "Banani-Mirpur": 3.9,
+      "Banani-Mohammadpur": 4.1,
+      "Banani-Bashundhara": 2.7,
+      "Banani-Badda": 2.4,
 
-      'Gulshan-Dhanmondi': 5.1,
-      'Gulshan-Uttara': 6.7,
-      'Gulshan-Mirpur': 4.6,
-      'Gulshan-Mohammadpur': 4.9,
-      'Gulshan-Bashundhara': 2.5,
-      'Gulshan-Badda': 1.2,
+      "Gulshan-Dhanmondi": 5.1,
+      "Gulshan-Uttara": 6.7,
+      "Gulshan-Mirpur": 4.6,
+      "Gulshan-Mohammadpur": 4.9,
+      "Gulshan-Bashundhara": 2.5,
+      "Gulshan-Badda": 1.2,
 
-      'Dhanmondi-Mohammadpur': 1.8,
-      'Dhanmondi-Bashundhara': 9.8,
-      'Dhanmondi-Badda': 8.5,
-      'Dhanmondi-Uttara': 11.2,
-      'Dhanmondi-Mirpur': 5.4,
+      "Dhanmondi-Mohammadpur": 1.8,
+      "Dhanmondi-Bashundhara": 9.8,
+      "Dhanmondi-Badda": 8.5,
+      "Dhanmondi-Uttara": 11.2,
+      "Dhanmondi-Mirpur": 5.4,
 
-      'Mohammadpur-Mirpur': 4.1,
-      'Mohammadpur-Bashundhara': 8.6,
-      'Mohammadpur-Badda': 7.2,
+      "Mohammadpur-Mirpur": 4.1,
+      "Mohammadpur-Bashundhara": 8.6,
+      "Mohammadpur-Badda": 7.2,
 
-      'Uttara-Mirpur': 7.6,
-      'Uttara-Bashundhara': 4.9,
-      'Uttara-Badda': 8.9,
+      "Uttara-Mirpur": 7.6,
+      "Uttara-Bashundhara": 4.9,
+      "Uttara-Badda": 8.9,
 
-      'Bashundhara-Badda': 3.2,
+      "Bashundhara-Badda": 3.2,
     };
 
     const km = distances[key] || distances[reverseKey] || 3.5;
@@ -1023,35 +1179,51 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
   // Filter and sort caregivers based on selected elder and Airbnb parameters
   const getSortedAndFilteredCaregivers = () => {
-    const activeElder = elderProfiles.find(e => e.id === searchSelectedElderId);
-    const pool = (liveCaregivers && liveCaregivers.length > 0) ? liveCaregivers : caregivers;
-    
-    const matches = pool.filter(cg => {
+    const activeElder = elderProfiles.find(
+      (e) => e.id === searchSelectedElderId,
+    );
+    const pool =
+      liveCaregivers && liveCaregivers.length > 0 ? liveCaregivers : caregivers;
+
+    const matches = pool.filter((cg) => {
       // 0. Ensure only available and not busy caregivers are displayed
       if (cg.available === false) return false;
 
       // 1. Area location filter
-      const cleanFilterLoc = (portalFilters.location || '').trim().toLowerCase();
-      const cleanCgLoc = (cg.location || '').trim().toLowerCase();
-      const matchLoc = !cleanFilterLoc || cleanCgLoc.includes(cleanFilterLoc) || cleanFilterLoc.includes(cleanCgLoc);
+      const cleanFilterLoc = (portalFilters.location || "")
+        .trim()
+        .toLowerCase();
+      const cleanCgLoc = (cg.location || "").trim().toLowerCase();
+      const matchLoc =
+        !cleanFilterLoc ||
+        cleanCgLoc.includes(cleanFilterLoc) ||
+        cleanFilterLoc.includes(cleanCgLoc);
 
       // 2. Care category specialty filter
-      const matchSpec = !portalFilters.careType || cg.specialties.includes(portalFilters.careType);
+      const matchSpec =
+        !portalFilters.careType ||
+        cg.specialties.includes(portalFilters.careType);
       // 3. Gender filter
-      const matchGender = portalFilters.gender === 'All' || cg.gender === portalFilters.gender;
+      const matchGender =
+        portalFilters.gender === "All" || cg.gender === portalFilters.gender;
       // 4. Airbnb Budget floor & ceiling filter
       const matchRate = cg.ratePerHour <= airbnbMaxRate;
       // 5. Airbnb Star rating filter
-      const matchRating = (cg.rating !== undefined ? cg.rating : 4.8) >= airbnbMinRating;
-      
+      const matchRating =
+        (cg.rating !== undefined ? cg.rating : 4.8) >= airbnbMinRating;
+
       return matchLoc && matchSpec && matchGender && matchRate && matchRating;
     });
 
     // If an elder is active and we have no live calculated distance inside cg, sort by geographical distance helper
     if (activeElder) {
       return [...matches].sort((a, b) => {
-        const distA = a.distance ? parseFloat(a.distance) : getCaregiverDistance(activeElder.location, a.location).km;
-        const distB = b.distance ? parseFloat(b.distance) : getCaregiverDistance(activeElder.location, b.location).km;
+        const distA = a.distance
+          ? parseFloat(a.distance)
+          : getCaregiverDistance(activeElder.location, a.location).km;
+        const distB = b.distance
+          ? parseFloat(b.distance)
+          : getCaregiverDistance(activeElder.location, b.location).km;
         return distA - distB;
       });
     }
@@ -1063,9 +1235,19 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
   // Calculate dashboard stats
   const totalEldersCount = dashboardStats?.totalElders ?? elderProfiles.length;
-  const activeBookingsCount = dashboardStats?.upcomingBookings ?? bookings.filter(b => b.status === 'Confirmed' || b.status === 'Pending').length;
-  const completedBookingsCount = dashboardStats?.completedBookings ?? bookings.filter(b => b.status === 'Completed').length;
-  const totalSpentSum = dashboardStats?.totalSpent ?? bookings.reduce((acc, b) => acc + (b.paymentStatus === 'Paid' ? b.totalCost : 0), 0);
+  const activeBookingsCount =
+    dashboardStats?.upcomingBookings ??
+    bookings.filter((b) => b.status === "Confirmed" || b.status === "Pending")
+      .length;
+  const completedBookingsCount =
+    dashboardStats?.completedBookings ??
+    bookings.filter((b) => b.status === "Completed").length;
+  const totalSpentSum =
+    dashboardStats?.totalSpent ??
+    bookings.reduce(
+      (acc, b) => acc + (b.paymentStatus === "Paid" ? b.totalCost : 0),
+      0,
+    );
 
   return (
     <div
@@ -1626,7 +1808,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                     <button
                       id="register-elder-trigger-top"
                       onClick={openAddElderForm}
-                      className="px-4.5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs rounded-xl shadow-xs hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+                      className="px-4.5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-[10px] rounded-xl shadow-md hover:shadow-lg hover:scale-102 active:scale-97 transition-all duration-300 flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
                     >
                       <PlusCircle className="h-4 w-4" />
                       <span>Register Elder Need</span>
@@ -2732,12 +2914,12 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       {/* Biography section */}
                       <div className="space-y-2">
                         <h3 className="font-display font-bold text-slate-900 border-l-2 border-sky-400 pl-2">
-                          Vetted Professional Biography
+                          Verified Caregiver Biography
                         </h3>
                         <p className="text-xs leading-relaxed text-slate-600 font-light">
                           {profileSelectedCaregiver.bio}
                         </p>
-                        <p className="text-xs leading-relaxed text-slate-600 font-light pt-2">
+                        {/* <p className="text-xs leading-relaxed text-slate-600 font-light pt-2">
                           As a fully registered private clinical nurse
                           practicing inside Dhaka, this professional carries
                           background checks verified with National ID logs. They
@@ -2745,7 +2927,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           geriatric companionship, respiratory assistance, daily
                           insulin therapy management, and passive structural
                           range mobility exercises.
-                        </p>
+                        </p> */}
                       </div>
 
                       {/* Expertise tags */}
@@ -2772,10 +2954,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                         <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wide">
                           Languages Spoken fluently:
                         </h4>
-                        <p className="text-slate-650">
-                          Bangla (Native liaison standard), English (Medical and
-                          procedural conversational check)
-                        </p>
+                        <p className="text-slate-650">Bangla, English</p>
                       </div>
 
                       {/* Reviews from database */}
@@ -3437,7 +3616,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       </div>
                       <button
                         onClick={() => setActiveTab("find-caregiver")}
-                        className="px-4.5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl shadow-2xs"
+                        className="px-4.5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg hover:scale-102 active:scale-97 transition-all duration-300 gap-1.5 cursor-pointer uppercase tracking-wider"
                       >
                         Explore certified Caregivers
                       </button>
@@ -3917,10 +4096,11 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   <div className="pt-4 text-right">
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl cursor-pointer shadow-2xs transition-all active:scale-97"
+                      className="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold rounded-xl cursor-pointer shadow-2xs transition-all active:scale-97"
                     >
                       Save Settings Changes
                     </button>
+                    {/* bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg hover:scale-102 active:scale-97 transition-all duration-300 gap-1.5 cursor-pointer uppercase tracking-wider */}
                   </div>
                 </form>
               </div>

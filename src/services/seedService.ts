@@ -1,5 +1,65 @@
-import { db } from '../lib/firebase';
+import { auth, db } from '../lib/firebase';
 import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+export async function seedAdminAccount(): Promise<void> {
+  const adminEmail = 'admin@example.com';
+  const adminPassword = '123456';
+
+  // 1. Write the Firestore document for safety (covers both real Firebase sign-ins AND local test fallback accounts)
+  try {
+    const fallbackDocRef = doc(db, 'users', 'fb_admin');
+    await setDoc(fallbackDocRef, {
+      id: 'fb_admin',
+      full_name: 'System Admin',
+      email: adminEmail,
+      phone: '+8801700000000',
+      location: 'Dhanmondi',
+      relation: 'Staff',
+      role: 'admin',
+      status: 'active',
+      created_at: new Date().toISOString()
+    }, { merge: true });
+  } catch (err) {
+    console.warn("Could not seed local admin record in Firestore:", err);
+  }
+
+  // 2. Try to register the user under real Firebase Auth
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, adminEmail, adminPassword);
+    const user = userCredential.user;
+    
+    // Create the associated Firestore user document
+    const userDocRef = doc(db, 'users', user.uid);
+    await setDoc(userDocRef, {
+      id: user.uid,
+      full_name: 'System Admin',
+      email: adminEmail,
+      phone: '+8801700000000',
+      location: 'Dhanmondi',
+      relation: 'Staff',
+      role: 'admin',
+      status: 'active',
+      created_at: new Date().toISOString()
+    }, { merge: true });
+    
+    console.log("Successfully created actual Admin account in Firebase Auth.");
+  } catch (err: any) {
+    if (err.code === 'auth/email-already-in-use') {
+      // Already registered. Ensure the database matches
+      try {
+        if (auth.currentUser && auth.currentUser.email === adminEmail) {
+          const userDocRef = doc(db, 'users', auth.currentUser.uid);
+          await setDoc(userDocRef, { role: 'admin' }, { merge: true });
+        }
+      } catch (e) {
+        console.warn("Could not patch admin role for current logged in user:", e);
+      }
+    } else {
+      console.warn("Firebase Auth Admin registration bypassed or not configured:", err.message || err);
+    }
+  }
+}
 
 export async function seedCaregivers(): Promise<void> {
   try {
@@ -14,6 +74,7 @@ export async function seedCaregivers(): Promise<void> {
         longitude: 90.3742,
         hourly_rate: 350,
         rating: 4.9,
+        reviews_count: 37,
         experience_years: 12,
         expertise: 'Dementia Care',
         bio: 'Compassionate registered nurse with over 12 years of specialized experience in dementia and Alzheimer\'s memory care.',
@@ -30,6 +91,7 @@ export async function seedCaregivers(): Promise<void> {
         longitude: 90.4156,
         hourly_rate: 450,
         rating: 4.8,
+        reviews_count: 24,
         experience_years: 8,
         expertise: 'Post-Stroke Rehab',
         bio: 'Senior physical therapist and nursing supervisor focused on restorative training and post-stroke elderly rehabilitation plans.',
@@ -46,6 +108,7 @@ export async function seedCaregivers(): Promise<void> {
         longitude: 90.3795,
         hourly_rate: 300,
         rating: 4.9,
+        reviews_count: 58,
         experience_years: 6,
         expertise: 'Palliative Care',
         bio: 'Certified clinical nurse prioritizing holistic senior comfort, pain management assistance, and customized palliative care routines.',
@@ -62,6 +125,7 @@ export async function seedCaregivers(): Promise<void> {
         longitude: 90.4066,
         hourly_rate: 400,
         rating: 4.7,
+        reviews_count: 19,
         experience_years: 10,
         expertise: 'Geriatric Nursing',
         bio: 'Retired army medical corps sergeant specializing in geriatric medication safety charts, clinical mobility support, and emergency response.',
@@ -78,6 +142,7 @@ export async function seedCaregivers(): Promise<void> {
         longitude: 90.3686,
         hourly_rate: 280,
         rating: 4.9,
+        reviews_count: 42,
         experience_years: 5,
         expertise: 'Companion Care',
         bio: 'Warm-hearted senior companion focusing on occupational therapy games, conversational engagement, and nutritional dietary tracking.',

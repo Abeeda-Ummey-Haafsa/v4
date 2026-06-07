@@ -2,7 +2,6 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, doc, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { calculateDistance } from '../utils/distance';
 import { Caregiver } from '../types/index';
-import { MOCK_CAREGIVERS } from '../data';
 
 // Coordinate preset dictionary for resolving manual address inputs to geo coordinates
 const SERVICE_COORDINATE_PRESETS: { [key: string]: { lat: number; lng: number } } = {
@@ -69,26 +68,8 @@ export async function getAllCaregivers(): Promise<Caregiver[]> {
     if (error instanceof Error && error.message.includes('permission')) {
       handleFirestoreError(error, OperationType.LIST, path);
     }
-    console.warn("getAllCaregivers failed, falling back to mock data:", error);
-    return MOCK_CAREGIVERS.map(cg => ({
-      id: cg.id,
-      full_name: cg.name,
-      phone: '+8801700000000',
-      area: cg.location,
-      city: 'Dhaka',
-      latitude: cg.id === 'cg_1' ? 23.7925 : cg.id === 'cg_2' ? 23.7461 : cg.id === 'cg_3' ? 23.8680 : 23.7800,
-      longitude: cg.id === 'cg_1' ? 90.4078 : cg.id === 'cg_2' ? 90.3742 : cg.id === 'cg_3' ? 90.4000 : 90.3800,
-      hourly_rate: cg.ratePerHour,
-      rating: cg.rating,
-      experience_years: cg.experience,
-      expertise: cg.specialties?.[0] || 'Elder Assistant',
-      bio: cg.bio,
-      is_available: cg.available !== false,
-      created_at: new Date().toISOString(),
-      gender: cg.gender,
-      photo_url: cg.photoUrl,
-      certification_badge: cg.certification
-    } as any));
+    console.warn("getAllCaregivers failed, returning empty list:", error);
+    return [];
   }
 }
 
@@ -125,30 +106,7 @@ export async function getCaregiverById(id: string): Promise<Caregiver> {
       longitude: lng
     } as Caregiver;
   } catch (error) {
-    if (error instanceof Error && error.message.includes('permission')) {
-      handleFirestoreError(error, OperationType.GET, path);
-    }
-    console.warn(`getCaregiverById for id ${id} failed, falling back to mock:`, error);
-    const cg = MOCK_CAREGIVERS.find(item => item.id === id) || MOCK_CAREGIVERS[0];
-    return {
-      id: cg.id,
-      full_name: cg.name,
-      phone: '+8801700000000',
-      area: cg.location,
-      city: 'Dhaka',
-      latitude: cg.id === 'cg_1' ? 23.7925 : cg.id === 'cg_2' ? 23.7461 : cg.id === 'cg_3' ? 23.8680 : 23.7800,
-      longitude: cg.id === 'cg_1' ? 90.4078 : cg.id === 'cg_2' ? 90.3742 : cg.id === 'cg_3' ? 90.4000 : 90.3800,
-      hourly_rate: cg.ratePerHour,
-      rating: cg.rating,
-      experience_years: cg.experience,
-      expertise: cg.specialties?.[0] || 'Elder Assistant',
-      bio: cg.bio,
-      is_available: cg.available !== false,
-      created_at: new Date().toISOString(),
-      gender: cg.gender,
-      photo_url: cg.photoUrl,
-      certification_badge: cg.certification
-    } as any;
+    throw error;
   }
 }
 
@@ -282,52 +240,7 @@ export async function getNearbyCaregivers(elderId: string, maxDistanceKm: number
     const filtered = mapped.filter((caregiver) => caregiver.distance <= maxDistanceKm);
     return (filtered.length > 0 ? filtered : mapped).sort((a, b) => a.distance - b.distance);
   } catch (error) {
-    console.warn("getNearbyCaregivers failed, falling back to mock distance matcher:", error);
-    let elderLat = 23.7461;
-    let elderLng = 90.3742;
-
-    try {
-      const elderDocRef = doc(db, 'elders', elderId);
-      const elderSnap = await getDoc(elderDocRef);
-      if (elderSnap.exists()) {
-        const elderData = elderSnap.data();
-        if (elderData?.latitude && elderData?.longitude) {
-          elderLat = elderData.latitude;
-          elderLng = elderData.longitude;
-        }
-      }
-    } catch {
-      // ignore
-    }
-
-    const mockList = MOCK_CAREGIVERS.map(cg => {
-      const cgLat = cg.id === 'cg_1' ? 23.7925 : cg.id === 'cg_2' ? 23.7461 : cg.id === 'cg_3' ? 23.8680 : 23.7800;
-      const cgLng = cg.id === 'cg_1' ? 90.4078 : cg.id === 'cg_2' ? 90.3742 : cg.id === 'cg_3' ? 90.4000 : 90.3800;
-      const distance = calculateDistance(elderLat, elderLng, cgLat, cgLng);
-      return {
-        id: cg.id,
-        name: cg.name,
-        full_name: cg.name,
-        phone: '+8801700000000',
-        area: cg.location,
-        city: 'Dhaka',
-        latitude: cgLat,
-        longitude: cgLng,
-        hourly_rate: cg.ratePerHour,
-        rating: cg.rating,
-        experience_years: cg.experience,
-        expertise: cg.specialties?.[0] || 'Elder Assistant',
-        bio: cg.bio,
-        is_available: cg.available !== false,
-        created_at: new Date().toISOString(),
-        gender: cg.gender,
-        photo_url: cg.photoUrl,
-        certification_badge: cg.certification,
-        distance
-      } as any;
-    });
-
-    const mockFiltered = mockList.filter((caregiver) => caregiver.distance <= maxDistanceKm && caregiver.is_available !== false);
-    return (mockFiltered.length > 0 ? mockFiltered : mockList).sort((a, b) => a.distance - b.distance);
+    console.warn("getNearbyCaregivers failed, returning empty list:", error);
+    return [];
   }
 }
