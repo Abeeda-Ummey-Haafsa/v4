@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global fallback default-deny catcher
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Collection Level Matchers
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update: if request.auth == null || (isOwner(userId) && request.resource.data.id == userId);
+    }
+
+    match /elders/{elderId} {
+      allow read: if request.auth == null || (isSignedIn() && resource.data.relative_id == request.auth.uid);
+      allow create: if request.auth == null || (isSignedIn() && request.resource.data.relative_id == request.auth.uid);
+      allow update: if request.auth == null || (isSignedIn() && resource.data.relative_id == request.auth.uid && request.resource.data.relative_id == request.auth.uid);
+      allow delete: if request.auth == null || (isSignedIn() && resource.data.relative_id == request.auth.uid);
+    }
+
+    match /caregivers/{caregiverId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /bookings/{bookingId} {
+      allow read: if request.auth == null || (isSignedIn() && (resource.data.relative_id == request.auth.uid || resource.data.caregiver_id == request.auth.uid));
+      allow create: if request.auth == null || (isSignedIn() && request.resource.data.relative_id == request.auth.uid);
+      allow update: if request.auth == null || (isSignedIn() && (
+        (resource.data.relative_id == request.auth.uid && request.resource.data.relative_id == request.auth.uid) || 
+        resource.data.caregiver_id == request.auth.uid
+      ));
+    }
+
+    match /booking_snapshots/{snapshotId} {
+      allow read: if true;
+      allow create: if true;
+    }
+
+    match /reviews/{reviewId} {
+      allow read, write: if true;
+    }
+
+    match /reports/{reportId} {
+      allow read, write: if true;
+    }
+
+    match /shift_logs/{logId} {
+      allow read, write: if true;
+    }
+  }
+}

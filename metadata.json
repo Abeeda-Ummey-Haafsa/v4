@@ -1,0 +1,6 @@
+{
+  "name": "CareBridge",
+  "description": "Healthcare marketplace platform that helps relatives find and book trusted caregivers for elderly family members inside Dhaka, Bangladesh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

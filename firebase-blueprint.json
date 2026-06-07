@@ -1,0 +1,182 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile representation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "full_name", "email"]
+    },
+    "Elder": {
+      "title": "Elder",
+      "description": "Elder profile information details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "relative_id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "area": { "type": "string" },
+        "city": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "medical_conditions": { "type": "string" },
+        "allergies": { "type": "string" },
+        "mobility_level": { "type": "string" },
+        "emergency_contact_name": { "type": "string" },
+        "emergency_contact_phone": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "relative_id", "full_name"]
+    },
+    "Caregiver": {
+      "title": "Caregiver",
+      "description": "Certified matching nurse/elderly assistant professional",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "phone": { "type": "string" },
+        "area": { "type": "string" },
+        "city": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "hourly_rate": { "type": "number" },
+        "rating": { "type": "number" },
+        "experience_years": { "type": "number" },
+        "expertise": { "type": "string" },
+        "bio": { "type": "string" },
+        "is_available": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "full_name", "hourly_rate"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Active scheduled nursing care bookings details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "relative_id": { "type": "string" },
+        "elder_id": { "type": "string" },
+        "caregiver_id": { "type": "string" },
+        "start_time": { "type": "string", "format": "date-time" },
+        "end_time": { "type": "string", "format": "date-time" },
+        "hours": { "type": "number" },
+        "hourly_rate": { "type": "number" },
+        "service_fee": { "type": "number" },
+        "total_amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"] },
+        "care_instructions": { "type": "string" },
+        "payment_status": { "type": "string", "enum": ["unpaid", "paid", "refunded"] },
+        "stripe_payment_id": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "relative_id", "elder_id", "caregiver_id", "hours", "total_amount", "status", "payment_status"]
+    },
+    "BookingSnapshot": {
+      "title": "BookingSnapshot",
+      "description": "Historical copy of clinical values at create timestamp",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "booking_id": { "type": "string" },
+        "elder_name": { "type": "string" },
+        "elder_address": { "type": "string" },
+        "elder_medical_conditions": { "type": "string" },
+        "caregiver_name": { "type": "string" },
+        "caregiver_expertise": { "type": "string" },
+        "hourly_rate": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "booking_id"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Relative ratings and evaluation summaries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "booking_id": { "type": "string" },
+        "caregiver_id": { "type": "string" },
+        "relative_id": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "booking_id", "caregiver_id", "relative_id", "rating"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Relative reports and complaints filed against caregivers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "booking_id": { "type": "string" },
+        "caregiver_id": { "type": "string" },
+        "reporter_id": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "booking_id", "caregiver_id", "reporter_id", "category", "description"]
+    },
+    "ShiftLog": {
+      "title": "ShiftLog",
+      "description": "Real-time updates logged by caregiver during active session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "booking_id": { "type": "string" },
+        "time": { "type": "string" },
+        "text": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "booking_id", "time", "text"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of individual relative app users"
+    },
+    "/elders/{elderId}": {
+      "schema": "Elder",
+      "description": "Collection of registered elders overseen by relatives"
+    },
+    "/caregivers/{caregiverId}": {
+      "schema": "Caregiver",
+      "description": "Clinical certified caregivers profile index"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Active schedules for clinical assistant jobs"
+    },
+    "/booking_snapshots/{snapshotId}": {
+      "schema": "BookingSnapshot",
+      "description": "Read-only historical copies of elderly states"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Ratings directory left by relatives to support matchmaking"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Relative complaints filed for admin review"
+    },
+    "/shift_logs/{logId}": {
+      "schema": "ShiftLog",
+      "description": "Real-time updates posted by caregivers during active assignments"
+    }
+  }
+}
