@@ -25,6 +25,8 @@ export const CARE_TYPES = [
   'Diabetes Maintenance'
 ];
 
+// Remove all MOCK caregivers, no caregiver will have rating or review count unless their is actual rating & review submitted by relati
+
 export const MOCK_CAREGIVERS: Caregiver[] = [
   {
     id: 'cg_1',

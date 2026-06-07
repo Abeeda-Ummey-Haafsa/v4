@@ -1068,8 +1068,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
   const totalSpentSum = dashboardStats?.totalSpent ?? bookings.reduce((acc, b) => acc + (b.paymentStatus === 'Paid' ? b.totalCost : 0), 0);
 
   return (
-    <div id="relative-portal-wrapper" className="min-h-[800px] flex flex-col lg:flex-row bg-slate-50 text-slate-800 rounded-3xl overflow-hidden border border-slate-200 shadow-xl my-4">
-      
+    <div
+      id="relative-portal-wrapper"
+      className="min-h-[800px] flex flex-col lg:flex-row bg-slate-50 text-slate-800 rounded-3xl overflow-hidden border border-slate-200 shadow-xl my-4"
+    >
       {/* LOCAL PORTAL LOADER GRID */}
       {isSubmittingBookingLocal && (
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -1079,13 +1081,19 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
               <div className="absolute inset-0 rounded-full border-4 border-sky-100 border-t-sky-500 animate-spin" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-display font-bold text-lg text-slate-900">Scheduling Caregiver</h3>
+              <h3 className="font-display font-bold text-lg text-slate-900">
+                Scheduling Caregiver
+              </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Confirming background checks and registering elder clinical history with caregiver reserve.
+                Confirming background checks and registering elder clinical
+                history with caregiver reserve.
               </p>
             </div>
             <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden relative">
-              <div className="h-full bg-sky-500 rounded-full animate-pulse" style={{ width: '60%' }} />
+              <div
+                className="h-full bg-sky-500 rounded-full animate-pulse"
+                style={{ width: "60%" }}
+              />
             </div>
             <p className="text-[10px] uppercase font-mono font-bold text-sky-600 tracking-wider">
               Dhaka Care Desk Verified
@@ -1098,7 +1106,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
       {/* 1. LEFT SIDEBAR PANEL                                    */}
       {/* ======================================================== */}
       <aside className="w-full lg:w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0">
-        
         {/* Portal Branding Header */}
         <div className="p-6 border-b border-slate-800">
           <div className="flex items-center gap-2.5">
@@ -1109,9 +1116,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
               <h2 className="font-display font-extrabold text-[#fdfdfd] tracking-tight text-base leading-none">
                 CareBridge
               </h2>
-              <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block mt-1">
+              {/* <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block mt-1">
                 Relative Portal
-              </span>
+              </span> */}
             </div>
           </div>
         </div>
@@ -1121,11 +1128,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* Dashboard Tab */}
           <button
             id="tab-dashboard-btn"
-            onClick={() => { setActiveTab('dashboard'); setLocalSuccessBooking(null); }}
+            onClick={() => {
+              setActiveTab("dashboard");
+              setLocalSuccessBooking(null);
+            }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === 'dashboard'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/10'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              activeTab === "dashboard"
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/10"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             }`}
           >
             <LayoutDashboard className="h-4.5 w-4.5" />
@@ -1135,11 +1145,15 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* My Elders Tab */}
           <button
             id="tab-elders-btn"
-            onClick={() => { setActiveTab('elders'); setElderSubPage('list'); setLocalSuccessBooking(null); }}
+            onClick={() => {
+              setActiveTab("elders");
+              setElderSubPage("list");
+              setLocalSuccessBooking(null);
+            }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === 'elders'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/10'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              activeTab === "elders"
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/10"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             }`}
           >
             <Users className="h-4.5 w-4.5" />
@@ -1152,11 +1166,15 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* Find Caregiver Tab */}
           <button
             id="tab-find-caregiver-btn"
-            onClick={() => { setActiveTab('find-caregiver'); setPortalSelectedCaregiver(null); setLocalSuccessBooking(null); }}
+            onClick={() => {
+              setActiveTab("find-caregiver");
+              setPortalSelectedCaregiver(null);
+              setLocalSuccessBooking(null);
+            }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === 'find-caregiver'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/10'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              activeTab === "find-caregiver"
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/10"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             }`}
           >
             <Search className="h-4.5 w-4.5" />
@@ -1166,11 +1184,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* Bookings Tracker Tab */}
           <button
             id="tab-bookings-btn"
-            onClick={() => { setActiveTab('bookings'); setLocalSuccessBooking(null); }}
+            onClick={() => {
+              setActiveTab("bookings");
+              setLocalSuccessBooking(null);
+            }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === 'bookings'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/10'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              activeTab === "bookings"
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/10"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             }`}
           >
             <CalendarDays className="h-4.5 w-4.5" />
@@ -1185,11 +1206,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* Settings Tab */}
           <button
             id="tab-settings-btn"
-            onClick={() => { setActiveTab('settings'); setLocalSuccessBooking(null); }}
+            onClick={() => {
+              setActiveTab("settings");
+              setLocalSuccessBooking(null);
+            }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === 'settings'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/10'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              activeTab === "settings"
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/10"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             }`}
           >
             <Settings className="h-4.5 w-4.5" />
@@ -1201,15 +1225,18 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
         <div className="p-4 border-t border-slate-800 bg-slate-950/40">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-9 w-9 rounded-full bg-slate-800 text-sky-400 flex items-center justify-center font-display font-bold text-xs uppercase border border-slate-700">
-              {userName.split(' ').map(n => n[0]).join('')}
+              {userName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
             </div>
             <div className="overflow-hidden">
               <p className="font-semibold text-slate-200 text-xs truncate leading-none">
                 {userName}
               </p>
-              <span className="text-[10px] text-slate-500 truncate block mt-1">
+              {/* <span className="text-[10px] text-slate-500 truncate block mt-1">
                 Dhaka Branch Client
-              </span>
+              </span> */}
             </div>
           </div>
           <button
@@ -1221,27 +1248,25 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
             <span>Logout Portal</span>
           </button>
         </div>
-
       </aside>
 
       {/* ======================================================== */}
       {/* 2. MAIN WORKSPACE AREA                                   */}
       {/* ======================================================== */}
       <main className="flex-1 bg-white p-6 sm:p-8 flex flex-col justify-between overflow-x-hidden">
-        
         <div>
           {/* Top minimal header line */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-6">
             <div>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+              {/* <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
                 Relative Workspace active
-              </span>
+              </span> */}
               <h1 className="font-display font-extrabold text-2xl text-slate-950 tracking-tight mt-0.5">
-                {activeTab === 'dashboard' && 'Dashboard Overview'}
-                {activeTab === 'elders' && 'My Elder Family Members'}
-                {activeTab === 'find-caregiver' && 'Verify & Find Caregiver'}
-                {activeTab === 'bookings' && 'Live Shift Monitor'}
-                {activeTab === 'settings' && 'Portal User Settings'}
+                {activeTab === "dashboard" && "Dashboard Overview"}
+                {activeTab === "elders" && "My Elder Family Members"}
+                {activeTab === "find-caregiver" && "Verify & Find Caregiver"}
+                {activeTab === "bookings" && "Live Shift Monitor"}
+                {activeTab === "settings" && "Portal User Settings"}
               </h1>
             </div>
 
@@ -1260,19 +1285,20 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           {/* ========================================================== */}
           {/* TAB CONTENT: 1. DASHBOARD                                  */}
           {/* ========================================================== */}
-          {activeTab === 'dashboard' && (
+          {activeTab === "dashboard" && (
             <div className="space-y-8 animate-fade-in">
-              
               {/* Metrics cards row */}
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-6">
-                
                 {/* Metric 1 */}
-                <div 
+                <div
                   id="metric-total-elders"
-                  onClick={() => { setActiveTab('elders'); setElderSubPage('list'); }}
+                  onClick={() => {
+                    setActiveTab("elders");
+                    setElderSubPage("list");
+                  }}
                   className="bg-[#fbfcff] hover:bg-sky-50/20 border border-slate-100 hover:border-sky-200 p-5 rounded-2xl shadow-xs transition-all cursor-pointer group"
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-evenly items-start">
                     <div>
                       <span className="text-slate-450 text-[10px] font-bold uppercase tracking-wider block">
                         Total Registered Elders
@@ -1285,22 +1311,22 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <Users className="h-5.5 w-5.5" />
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
+                  {/* <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
                     <span>Manage registered profiles</span>
                     <ChevronRight className="h-3 w-3" />
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Metric 2 */}
-                <div 
+                <div
                   id="metric-upcoming-bookings"
-                  onClick={() => setActiveTab('bookings')}
+                  onClick={() => setActiveTab("bookings")}
                   className="bg-[#fbfcff] hover:bg-emerald-50/10 border border-slate-100 hover:border-emerald-150 p-5 rounded-xl shadow-xs transition-all cursor-pointer group"
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-evenly items-start">
                     <div>
                       <span className="text-slate-450 text-[10px] font-bold uppercase tracking-wider block">
-                        Upcoming Bookings
+                        Upcoming<br></br>Bookings
                       </span>
                       <p className="text-3xl font-display font-extrabold text-slate-900 mt-2">
                         {activeBookingsCount}
@@ -1310,19 +1336,19 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <CalendarDays className="h-5.5 w-5.5" />
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
+                  {/* <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
                     <span>Monitor dynamic active duties</span>
                     <ChevronRight className="h-3 w-3" />
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Metric 3 */}
-                <div 
+                <div
                   id="metric-completed-bookings"
-                  onClick={() => setActiveTab('bookings')}
+                  onClick={() => setActiveTab("bookings")}
                   className="bg-[#fbfcff] hover:bg-slate-100/50 border border-slate-100 hover:border-slate-300 p-5 rounded-xl shadow-xs transition-all cursor-pointer group"
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-evenly items-start">
                     <div>
                       <span className="text-slate-450 text-[10px] font-bold uppercase tracking-wider block">
                         Completed Bookings
@@ -1335,18 +1361,18 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <UserCheck className="h-5.5 w-5.5" />
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
+                  {/* <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
                     <span>Review completed nurse logs</span>
                     <ChevronRight className="h-3 w-3" />
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Metric 4 */}
-                <div 
+                <div
                   id="metric-total-spent"
                   className="bg-[#fbfcff] hover:bg-amber-50/10 border border-slate-100 hover:border-amber-200 p-5 rounded-xl shadow-xs transition-all cursor-pointer group"
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-evenly items-start">
                     <div>
                       <span className="text-slate-450 text-[10px] font-bold uppercase tracking-wider block">
                         Total Amount Spent
@@ -1359,17 +1385,15 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <CreditCard className="h-5.5 w-5.5" />
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
+                  {/* <p className="text-[11px] text-slate-500 mt-4 flex items-center gap-1 font-medium">
                     <span>Transparent BDT billing</span>
                     <ChevronRight className="h-3 w-3" />
-                  </p>
+                  </p> */}
                 </div>
-
               </div>
 
               {/* Grid: Quick Actions & Recent Bookings */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
-                
                 {/* Left panel: Recent Bookings List (7 cols) */}
                 <div className="lg:col-span-7 space-y-4">
                   <h3 className="font-display font-bold text-base text-slate-900 flex items-center gap-2 border-l-2 border-sky-400 pl-2">
@@ -1378,9 +1402,11 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                   {uniqueBookings.length === 0 ? (
                     <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl text-center space-y-3">
-                      <p className="text-xs text-slate-500">No care shifts booked yet.</p>
+                      <p className="text-xs text-slate-500">
+                        No care shifts booked yet.
+                      </p>
                       <button
-                        onClick={() => setActiveTab('find-caregiver')}
+                        onClick={() => setActiveTab("find-caregiver")}
                         className="text-xs text-sky-500 font-semibold px-3 py-1 bg-white border border-sky-100 rounded-lg shadow-2xs hover:bg-sky-50"
                       >
                         Find Caregiver &rarr;
@@ -1389,42 +1415,54 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   ) : (
                     <div className="space-y-3.5">
                       {uniqueBookings.slice(0, 3).map((booking) => {
-                        const caregiver = caregivers.find(c => c.id === booking.caregiverId) || 
-                                          liveCaregivers.find(c => c.id === booking.caregiverId) || 
-                                          (() => {
-                                            const match = MOCK_CAREGIVERS.find(c => c.id === booking.caregiverId || c.id + '_seed' === booking.caregiverId);
-                                            if (match) {
-                                              return {
-                                                id: booking.caregiverId,
-                                                name: match.name,
-                                                photoUrl: match.photoUrl,
-                                                certification: match.certification,
-                                                experience: match.experience,
-                                                rating: match.rating || 4.8
-                                              } as any;
-                                            }
-                                            return {
-                                              id: booking.caregiverId,
-                                              name: 'Caregiver Assistant',
-                                              photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200',
-                                              certification: 'Certified Assistant',
-                                              experience: 5,
-                                              rating: 4.8
-                                            } as any;
-                                          })();
-                        const elder = elderProfiles.find(e => e.id === booking.elderProfileId) || {
+                        const caregiver =
+                          caregivers.find(
+                            (c) => c.id === booking.caregiverId,
+                          ) ||
+                          liveCaregivers.find(
+                            (c) => c.id === booking.caregiverId,
+                          ) ||
+                          (() => {
+                            const match = MOCK_CAREGIVERS.find(
+                              (c) =>
+                                c.id === booking.caregiverId ||
+                                c.id + "_seed" === booking.caregiverId,
+                            );
+                            if (match) {
+                              return {
+                                id: booking.caregiverId,
+                                name: match.name,
+                                photoUrl: match.photoUrl,
+                                certification: match.certification,
+                                experience: match.experience,
+                                rating: match.rating || 4.8,
+                              } as any;
+                            }
+                            return {
+                              id: booking.caregiverId,
+                              name: "Caregiver Assistant",
+                              photoUrl:
+                                "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200",
+                              certification: "Certified Assistant",
+                              experience: 5,
+                              rating: 4.8,
+                            } as any;
+                          })();
+                        const elder = elderProfiles.find(
+                          (e) => e.id === booking.elderProfileId,
+                        ) || {
                           id: booking.elderProfileId,
-                          name: 'Elder Relative',
+                          name: "Elder Relative",
                           age: 76,
-                          location: 'Dhanmondi',
-                          address: 'Dhaka Residence',
-                          mobilityLevel: 'Assisted',
-                          medicalConditions: ['General Senior Care']
+                          location: "Dhanmondi",
+                          address: "Dhaka Residence",
+                          mobilityLevel: "Assisted",
+                          medicalConditions: ["General Senior Care"],
                         };
                         if (!caregiver || !elder) return null;
 
                         return (
-                          <div 
+                          <div
                             key={booking.id}
                             className="bg-white border border-slate-150/60 p-4 rounded-xl shadow-2xs hover:border-slate-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                           >
@@ -1435,20 +1473,29 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                 iconClassName="h-5 w-5"
                               />
                               <div>
-                                <h4 className="font-display font-bold text-xs text-slate-900">{caregiver.name}</h4>
-                                <p className="text-[10px] text-slate-500">Scheduled for <strong>{elder.name}</strong></p>
-                                <p className="text-[10px] text-slate-450 mt-1">{booking.startDate} to {booking.endDate} • {booking.hoursPerDay}h/day</p>
+                                <h4 className="font-display font-bold text-xs text-slate-900">
+                                  {caregiver.name}
+                                </h4>
+                                <p className="text-[10px] text-slate-500">
+                                  Scheduled for <strong>{elder.name}</strong>
+                                </p>
+                                <p className="text-[10px] text-slate-450 mt-1">
+                                  {booking.startDate} to {booking.endDate} •{" "}
+                                  {booking.hoursPerDay}h/day
+                                </p>
                               </div>
                             </div>
 
                             <div className="flex sm:flex-col items-end sm:justify-start justify-between gap-2 shrink-0">
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                                booking.status === 'Confirmed' 
-                                  ? 'bg-emerald-50 text-emerald-700' 
-                                  : booking.status === 'Cancelled' 
-                                  ? 'bg-rose-50 text-rose-700'
-                                  : 'bg-slate-100 text-slate-600'
-                              }`}>
+                              <span
+                                className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                  booking.status === "Confirmed"
+                                    ? "bg-emerald-50 text-emerald-700"
+                                    : booking.status === "Cancelled"
+                                      ? "bg-rose-50 text-rose-700"
+                                      : "bg-slate-100 text-slate-600"
+                                }`}
+                              >
                                 {booking.status}
                               </span>
                               <span className="font-mono font-bold text-slate-900 text-xs">
@@ -1463,7 +1510,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                   <div className="pt-2 text-right">
                     <button
-                      onClick={() => setActiveTab('bookings')}
+                      onClick={() => setActiveTab("bookings")}
                       className="text-xs text-sky-600 font-bold inline-flex items-center gap-1 hover:underline cursor-pointer"
                     >
                       <span>Go to live duty monitoring dashboard</span>
@@ -1479,49 +1526,67 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   </h3>
 
                   <div className="bg-[#fbfcff] border border-slate-150/60 rounded-2xl p-5 space-y-3.5 shadow-2xs">
-                    
                     {/* Action 1 */}
                     <button
                       id="action-add-elder-btn"
-                      onClick={() => { setActiveTab('elders'); openAddElderForm(); }}
+                      onClick={() => {
+                        setActiveTab("elders");
+                        openAddElderForm();
+                      }}
                       className="w-full bg-white border border-slate-200/80 p-3 rounded-xl hover:border-sky-305 hover:bg-sky-50/20 text-left transition-all cursor-pointer flex items-center gap-3.5"
                     >
                       <div className="h-9 w-9 bg-sky-50 text-sky-500 rounded-lg flex items-center justify-center shrink-0">
                         <PlusCircle className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-slate-900">Register Elderly Relative</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">Complete condition, allergies & emergency data</p>
+                        <p className="text-xs font-bold text-slate-900">
+                          Register Elderly Relative
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Complete condition, allergies & emergency data
+                        </p>
                       </div>
                     </button>
 
                     {/* Action 2 */}
                     <button
                       id="action-find-caregiver-btn"
-                      onClick={() => setActiveTab('find-caregiver')}
+                      onClick={() => setActiveTab("find-caregiver")}
                       className="w-full bg-white border border-slate-200/80 p-3 rounded-xl hover:border-sky-305 hover:bg-sky-50/20 text-left transition-all cursor-pointer flex items-center gap-3.5"
                     >
                       <div className="h-9 w-9 bg-emerald-50 text-emerald-550 rounded-lg flex items-center justify-center shrink-0">
                         <Search className="h-4.5 w-4.5 text-emerald-600" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-slate-900">Find & Match Caregivers</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">Filter by neighborhood, gender & hourly rates</p>
+                        <p className="text-xs font-bold text-slate-900">
+                          Find & Match Caregivers
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Filter by neighborhood, gender & hourly rates
+                        </p>
                       </div>
                     </button>
 
                     {/* Action 3 */}
                     <button
                       id="action-standby-info"
-                      onClick={() => alert('CareBridge dispatch system is active in your zones under (+880) 1800-CBRIDGE.')}
+                      onClick={() =>
+                        alert(
+                          "CareBridge dispatch system is active in your zones under (+880) 1800-CBRIDGE.",
+                        )
+                      }
                       className="w-full bg-white border border-slate-200/80 p-3 rounded-xl hover:border-sky-305 hover:bg-sky-50/20 text-left transition-all cursor-pointer flex items-center gap-3.5"
                     >
                       <div className="h-9 w-9 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center shrink-0">
                         <PhoneCall className="h-4.5 w-4.5 text-rose-600" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-slate-900">Emergency 24/7 Hotline</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">Direct link to standby medical backup desks</p>
+                        <p className="text-xs font-bold text-slate-900">
+                          Emergency 24/7 Hotline
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Direct link to standby medical backup desks
+                        </p>
                       </div>
                     </button>
 
@@ -1532,32 +1597,30 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                         <strong>Backup Insurance Active:</strong> Standby nurse replacement acts as a guarantee during sickness or travel.
                       </span>
                     </div> */}
-
                   </div>
                 </div>
-
               </div>
-
             </div>
           )}
 
           {/* ========================================================== */}
           {/* TAB CONTENT: 2. MY ELDERS DIRECTORY                        */}
           {/* ========================================================== */}
-          {activeTab === 'elders' && (
+          {activeTab === "elders" && (
             <div className="space-y-6 animate-fade-in">
-              
               {/* Directory main list subscreen */}
-              {elderSubPage === 'list' && (
+              {elderSubPage === "list" && (
                 <div className="space-y-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 border p-4.5 rounded-2xl">
                     <div>
-                      <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">
-                        Elder Profile Directory
+                      <p className="text-[16px] text-slate-400 font-bold uppercase tracking-wider">
+                        Manage Elder Profile
                       </p>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        Keep profiles updated with conditions, allergies, list coordinates, and instructions to ensure premier caregiver fits.
-                      </p>
+                      {/* <p className="text-xs text-slate-600 mt-0.5">
+                        Keep profiles updated with conditions, allergies, list
+                        coordinates, and instructions to ensure premier
+                        caregiver fits.
+                      </p> */}
                     </div>
 
                     <button
@@ -1575,9 +1638,12 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <div className="h-12 w-12 rounded-full bg-sky-55/70 text-sky-505 flex items-center justify-center mx-auto">
                         <Users className="h-6 w-6 text-sky-600" />
                       </div>
-                      <h3 className="font-display font-semibold text-slate-900">No Profiles Found</h3>
+                      <h3 className="font-display font-semibold text-slate-900">
+                        No Profiles Found
+                      </h3>
                       <p className="text-xs text-slate-500 leading-relaxed font-light">
-                        Register your parent, grandparent or aging relative’s clinical history to matches with verified caretakers.
+                        Register your parent, grandparent or aging relative’s
+                        clinical history to matches with verified caretakers.
                       </p>
                       <button
                         onClick={openAddElderForm}
@@ -1603,7 +1669,8 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                   {elder.name}
                                 </h3>
                                 <p className="text-xs text-slate-500 mt-1 font-medium">
-                                  {elder.gender} • {elder.age} Years Old (born {elder.dob || '1950'})
+                                  {elder.gender} • {elder.age} Years Old (born{" "}
+                                  {elder.dob || "1950"})
                                 </p>
                               </div>
 
@@ -1615,44 +1682,63 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                             {/* Dhaka Address */}
                             <div className="text-xs text-slate-650 space-y-1">
-                              <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">Dhaka Address:</span>
-                              <p className="font-medium bg-slate-50 p-2 rounded-lg leading-relaxed">{elder.address || 'Not Registered'}</p>
+                              <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">
+                                Dhaka Address:
+                              </span>
+                              <p className="font-medium bg-slate-50 p-2 rounded-lg leading-relaxed">
+                                {elder.address || "Not Registered"}
+                              </p>
                             </div>
 
                             {/* Mobility Level */}
                             <div className="grid grid-cols-2 gap-4">
                               <div className="text-xs">
-                                <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">Mobility Level:</span>
-                                <span className={`inline-block mt-1.5 px-2 py-0.5 font-bold text-[10px] rounded-md ${
-                                  elder.mobilityLevel === 'Independent' 
-                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                                    : elder.mobilityLevel === 'Assisted Walking'
-                                    ? 'bg-sky-50 text-sky-700 border border-sky-100'
-                                    : elder.mobilityLevel === 'Wheelchair Bound'
-                                    ? 'bg-amber-50 text-amber-700 border border-amber-100'
-                                    : 'bg-rose-50 text-rose-700 border border-rose-100'
-                                }`}>
-                                  {elder.mobilityLevel || 'Assisted Walking'}
+                                <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">
+                                  Mobility Level:
+                                </span>
+                                <span
+                                  className={`inline-block mt-1.5 px-2 py-0.5 font-bold text-[10px] rounded-md ${
+                                    elder.mobilityLevel === "Independent"
+                                      ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                      : elder.mobilityLevel ===
+                                          "Assisted Walking"
+                                        ? "bg-sky-50 text-sky-700 border border-sky-100"
+                                        : elder.mobilityLevel ===
+                                            "Wheelchair Bound"
+                                          ? "bg-amber-50 text-amber-700 border border-amber-100"
+                                          : "bg-rose-50 text-rose-700 border border-rose-100"
+                                  }`}
+                                >
+                                  {elder.mobilityLevel || "Assisted Walking"}
                                 </span>
                               </div>
 
                               <div className="text-xs">
-                                <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">Allergies:</span>
+                                <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">
+                                  Allergies:
+                                </span>
                                 <span className="inline-block mt-2 font-semibold text-slate-700 text-[11px] truncate max-w-full">
-                                  {elder.allergies || 'None recorded'}
+                                  {elder.allergies || "None recorded"}
                                 </span>
                               </div>
                             </div>
 
                             {/* Medical Notes Summary */}
                             <div className="text-xs text-slate-650 space-y-1">
-                              <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">Medical Conditions & Notes:</span>
+                              <span className="text-slate-450 text-[10px] uppercase font-bold tracking-wider block">
+                                Medical Conditions & Notes:
+                              </span>
                               <p className="text-xs font-light line-clamp-2 leading-relaxed italic bg-slate-50/50 p-2.5 rounded-lg border-l border-slate-205">
-                                {elder.keyInstructions ? `"${elder.keyInstructions}"` : '"No special instructions registered."'}
+                                {elder.keyInstructions
+                                  ? `"${elder.keyInstructions}"`
+                                  : '"No special instructions registered."'}
                               </p>
                               <div className="flex flex-wrap gap-1 mt-1.5">
                                 {elder.medicalConditions.map((cond, idc) => (
-                                  <span key={idc} className="bg-slate-100 text-slate-600 text-[9px] font-bold px-1.5 py-0.5 rounded">
+                                  <span
+                                    key={idc}
+                                    className="bg-slate-100 text-slate-600 text-[9px] font-bold px-1.5 py-0.5 rounded"
+                                  >
                                     {cond}
                                   </span>
                                 ))}
@@ -1663,9 +1749,15 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           {/* Emergency Contacts + actions row */}
                           <div className="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-slate-50/50 -mx-5 -mb-5 p-4 rounded-b-2xl">
                             <div className="text-xs">
-                              <span className="text-[9px] text-slate-450 uppercase block">Emergency Liaison</span>
-                              <strong className="text-slate-700 font-bold block">{elder.emergencyContactName}</strong>
-                              <span className="font-mono text-[10px] text-slate-500 leading-none">{elder.emergencyContactPhone}</span>
+                              <span className="text-[9px] text-slate-450 uppercase block">
+                                Emergency Liaison
+                              </span>
+                              <strong className="text-slate-700 font-bold block">
+                                {elder.emergencyContactName}
+                              </strong>
+                              <span className="font-mono text-[10px] text-slate-500 leading-none">
+                                {elder.emergencyContactPhone}
+                              </span>
                             </div>
 
                             {/* Row actions */}
@@ -1693,7 +1785,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               {/* Find Caregiver btn */}
                               <button
                                 id={`find-caregiver-for-elder-${elder.id}`}
-                                onClick={(e) => handleFindCaregiverForElder(elder, e)}
+                                onClick={(e) =>
+                                  handleFindCaregiverForElder(elder, e)
+                                }
                                 className="px-3.5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-[10px] rounded-xl shadow-md hover:shadow-lg hover:scale-102 active:scale-97 transition-all duration-300 flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
                                 title="Find direct match"
                               >
@@ -1702,32 +1796,35 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               </button>
                             </div>
                           </div>
-
                         </div>
                       ))}
                     </div>
                   )}
-
                 </div>
               )}
 
               {/* Edit or Add Elder Form Subscreen with 14 detailed fields */}
-              {(elderSubPage === 'add' || elderSubPage === 'edit') && (
-                <div id="elder-form-screen" className="max-w-3xl mx-auto space-y-6 animate-fade-in bg-white border border-slate-100 p-6 sm:p-8 rounded-3xl shadow-sm">
-                  
+              {(elderSubPage === "add" || elderSubPage === "edit") && (
+                <div
+                  id="elder-form-screen"
+                  className="max-w-3xl mx-auto space-y-6 animate-fade-in bg-white border border-slate-100 p-6 sm:p-8 rounded-3xl shadow-sm"
+                >
                   {/* Header */}
                   <div className="flex items-center justify-between border-b pb-4">
                     <div>
                       <h3 className="font-display font-extrabold text-lg text-slate-900">
-                        {elderSubPage === 'add' ? 'Register New Elder Needs' : `Edit Profile: ${selectedElder?.name}`}
+                        {elderSubPage === "add"
+                          ? "Register New Elder Needs"
+                          : `Edit Profile: ${selectedElder?.name}`}
                       </h3>
-                      <p className="text-xs text-slate-500 mt-1">
-                        Please provide all clinical, address, coordinates, and contact details. Vetted standard guidelines.
-                      </p>
+                      {/* <p className="text-xs text-slate-500 mt-1">
+                        Please provide all clinical, address, coordinates, and
+                        contact details. Vetted standard guidelines.
+                      </p> */}
                     </div>
 
                     <button
-                      onClick={() => setElderSubPage('list')}
+                      onClick={() => setElderSubPage("list")}
                       className="text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
                     >
                       &larr; Back to Directory
@@ -1736,7 +1833,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                   {/* FORM FIELDS */}
                   <form onSubmit={saveElderProfile} className="space-y-6">
-                    
                     {/* SECTION 1: PERSONAL INFORMATION */}
                     <div className="bg-slate-50/50 p-4.5 rounded-2xl border border-slate-100 space-y-4">
                       <h4 className="text-xs font-bold text-sky-700 tracking-wider uppercase flex items-center gap-1.5">
@@ -1747,7 +1843,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
                         {/* 1. Full Name */}
                         <div className="sm:col-span-6 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Full Name <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Full Name <span className="text-rose-500">*</span>
+                          </label>
                           <input
                             id="form-full-name"
                             type="text"
@@ -1761,7 +1859,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                         {/* 2. Date of Birth */}
                         <div className="sm:col-span-3 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Date of Birth <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Date of Birth{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <input
                             id="form-dob"
                             type="date"
@@ -1774,7 +1875,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                         {/* 3. Age calculated */}
                         <div className="sm:col-span-3 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Calculated Age</label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Calculated Age
+                          </label>
                           <div className="bg-slate-100 p-2.5 text-xs sm:text-sm font-semibold rounded-xl text-slate-700 border border-slate-205 text-center">
                             {formAge} Years Old
                           </div>
@@ -1784,17 +1887,21 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* 4. Gender */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Gender <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Gender <span className="text-rose-500">*</span>
+                          </label>
                           <div className="flex gap-2">
-                            {['Female', 'Male'].map((genderOption) => (
+                            {["Female", "Male"].map((genderOption) => (
                               <button
                                 key={genderOption}
                                 type="button"
-                                onClick={() => setFormGender(genderOption as any)}
+                                onClick={() =>
+                                  setFormGender(genderOption as any)
+                                }
                                 className={`flex-1 py-2 text-xs font-bold rounded-xl border transition-all ${
                                   formGender === genderOption
-                                    ? 'bg-sky-50 font-extrabold text-sky-700 border-sky-400'
-                                    : 'bg-white text-slate-500 border-slate-200'
+                                    ? "bg-sky-50 font-extrabold text-sky-700 border-sky-400"
+                                    : "bg-white text-slate-500 border-slate-200"
                                 }`}
                               >
                                 {genderOption}
@@ -1805,7 +1912,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                         {/* 5. Phone Number of Elder */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Elder Direct Phone Number <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Elder Direct Phone Number{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <div className="relative">
                             <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-mono text-slate-400 font-bold">
                               +880
@@ -1816,13 +1926,14 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               required
                               placeholder="1711223344"
                               value={formPhoneNumber}
-                              onChange={(e) => setFormPhoneNumber(e.target.value)}
+                              onChange={(e) =>
+                                setFormPhoneNumber(e.target.value)
+                              }
                               className="w-full pl-13 pr-3 py-2 text-xs sm:text-sm bg-white border border-slate-250 rounded-xl focus:border-sky-500 outline-hidden"
                             />
                           </div>
                         </div>
                       </div>
-
                     </div>
 
                     {/* SECTION 2: ADRESS & AREA COORINDATES */}
@@ -1835,41 +1946,55 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
                         {/* 6. Residing Area Dropdown */}
                         <div className="sm:col-span-4 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Dhaka Area <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Dhaka Area <span className="text-rose-500">*</span>
+                          </label>
                           <select
                             id="form-area"
                             value={formLocation}
-                            onChange={(e) => handleLocationChange(e.target.value)}
+                            onChange={(e) =>
+                              handleLocationChange(e.target.value)
+                            }
                             className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl focus:border-sky-500 outline-hidden"
                           >
-                            {DHAKA_LOCATIONS.map(loc => (
-                              <option key={loc} value={loc}>{loc}</option>
+                            {DHAKA_LOCATIONS.map((loc) => (
+                              <option key={loc} value={loc}>
+                                {loc}
+                              </option>
                             ))}
                           </select>
                         </div>
 
                         {/* 7. Latitude */}
                         <div className="sm:col-span-4 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Address Latitude (decimal)</label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Address Latitude (decimal)
+                          </label>
                           <input
                             id="form-latitude"
                             type="number"
                             step="0.000001"
                             value={formLatitude}
-                            onChange={(e) => setFormLatitude(Number(e.target.value))}
+                            onChange={(e) =>
+                              setFormLatitude(Number(e.target.value))
+                            }
                             className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl font-mono text-slate-700 outline-hidden"
                           />
                         </div>
 
                         {/* 8. Longitude */}
                         <div className="sm:col-span-4 space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Address Longitude (decimal)</label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Address Longitude (decimal)
+                          </label>
                           <input
                             id="form-longitude"
                             type="number"
                             step="0.000001"
                             value={formLongitude}
-                            onChange={(e) => setFormLongitude(Number(e.target.value))}
+                            onChange={(e) =>
+                              setFormLongitude(Number(e.target.value))
+                            }
                             className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl font-mono text-slate-700 outline-hidden"
                           />
                         </div>
@@ -1877,7 +2002,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                       {/* 9. Dhaka Full Street Address */}
                       <div className="space-y-1">
-                        <label className="block text-xs font-bold text-slate-700">Full Home Street Address <span className="text-rose-500">*</span></label>
+                        <label className="block text-xs font-bold text-slate-700">
+                          Full Home Street Address{" "}
+                          <span className="text-rose-500">*</span>
+                        </label>
                         <input
                           id="form-full-address"
                           type="text"
@@ -1890,32 +2018,40 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       </div>
 
                       {/* Elegant pure state dashboard representation of coordinate mapping pin */}
-                      <div className="bg-[#f0f9ff]/55 border border-sky-100 p-4 rounded-xl space-y-3">
+                      {/* <div className="bg-[#f0f9ff]/55 border border-sky-100 p-4 rounded-xl space-y-3">
                         <div className="flex items-center justify-between text-xs font-bold text-sky-850">
                           <span className="flex items-center gap-1.5 text-sky-800">
                             <Map className="h-4 w-4 text-sky-600" />
-                            <span>Address with coordinates/map representation:</span>
+                            <span>
+                              Address with coordinates/map representation:
+                            </span>
                           </span>
                           <span className="font-mono bg-white px-2 py-0.5 rounded text-[10px] border border-sky-100 text-sky-700">
-                            LAT: {Number(formLatitude).toFixed(4)} , LNG: {Number(formLongitude).toFixed(4)}
+                            LAT: {Number(formLatitude).toFixed(4)} , LNG:{" "}
+                            {Number(formLongitude).toFixed(4)}
                           </span>
                         </div>
                         <p className="text-[11px] text-slate-500 font-light leading-relaxed">
-                          CareBridge map uses those coordinates to automatically guide caregiver emergency transport models and track check-in locations within 50 meters of safety coordinates.
+                          CareBridge map uses those coordinates to automatically
+                          guide caregiver emergency transport models and track
+                          check-in locations within 50 meters of safety
+                          coordinates.
                         </p>
                         <div className="h-16 bg-slate-900 rounded-xl relative overflow-hidden flex items-center justify-center border border-slate-800">
-                          {/* Simulated Radar Grid pattern */}
+                          
                           <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:10px_10px]" />
                           <div className="relative text-center z-10 px-4">
                             <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-450 animate-ping absolute -top-1 -right-1" />
                             <p className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider flex items-center gap-1.5">
                               <span className="h-2 w-2 rounded-full bg-emerald-500 inline-block" />
-                              <span>Map Center: Pinpoint established at residencies in {formLocation || 'Dhaka'}</span>
+                              <span>
+                                Map Center: Pinpoint established at residencies
+                                in {formLocation || "Dhaka"}
+                              </span>
                             </p>
                           </div>
                         </div>
-                      </div>
-
+                      </div> */}
                     </div>
 
                     {/* SECTION 3: MEDICAL INFORMATION */}
@@ -1928,7 +2064,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* 10. Allergies */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Known Clinical Allergies <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Known Clinical Allergies{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <input
                             id="form-allergies"
                             type="text"
@@ -1942,24 +2081,40 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                         {/* 11. Mobility Level Dropdown */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-slate-700">Elder Mobility Level <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-slate-700">
+                            Elder Mobility Level{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <select
                             id="form-mobility-level"
                             value={formMobilityLevel}
-                            onChange={(e) => setFormMobilityLevel(e.target.value as any)}
+                            onChange={(e) =>
+                              setFormMobilityLevel(e.target.value as any)
+                            }
                             className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl focus:border-sky-500 outline-hidden"
                           >
-                            <option value="Independent">Independent (Walks without assistance)</option>
-                            <option value="Assisted Walking">Assisted Walking (Needs walker or physical guide)</option>
-                            <option value="Wheelchair Bound">Wheelchair Bound (Requires manual/electric wheelchair)</option>
-                            <option value="Bedridden">Bedridden (Requires complete bed support care)</option>
+                            <option value="Independent">
+                              Independent (Walks without assistance)
+                            </option>
+                            <option value="Assisted Walking">
+                              Assisted Walking (Needs walker or physical guide)
+                            </option>
+                            <option value="Wheelchair Bound">
+                              Wheelchair Bound (Requires manual/electric
+                              wheelchair)
+                            </option>
+                            <option value="Bedridden">
+                              Bedridden (Requires complete bed support care)
+                            </option>
                           </select>
                         </div>
                       </div>
 
                       {/* 12. Medical Conditions Checklist */}
                       <div className="space-y-2 pt-1">
-                        <label className="block text-xs font-bold text-slate-700">Diagnosed Health Conditions (Choose applicable)</label>
+                        <label className="block text-xs font-bold text-slate-700">
+                          Diagnosed Health Conditions (Choose applicable)
+                        </label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                           {Object.keys(formConditions).map((condName) => (
                             <button
@@ -1968,14 +2123,20 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               onClick={() => toggleCondition(condName)}
                               className={`p-2.5 rounded-xl border text-left text-xs font-medium flex items-center gap-2 cursor-pointer transition-all ${
                                 formConditions[condName]
-                                  ? 'bg-sky-50/50 border-sky-200 text-sky-850'
-                                  : 'bg-white border-slate-205 text-slate-550'
+                                  ? "bg-sky-50/50 border-sky-200 text-sky-850"
+                                  : "bg-white border-slate-205 text-slate-550"
                               }`}
                             >
-                              <div className={`h-4.5 w-4.5 rounded border flex items-center justify-center shrink-0 ${
-                                formConditions[condName] ? 'bg-sky-500 border-sky-500 text-white' : 'border-slate-350 bg-white'
-                              }`}>
-                                {formConditions[condName] && <Check className="h-3.5 w-3.5 stroke-[2.5]" />}
+                              <div
+                                className={`h-4.5 w-4.5 rounded border flex items-center justify-center shrink-0 ${
+                                  formConditions[condName]
+                                    ? "bg-sky-500 border-sky-500 text-white"
+                                    : "border-slate-350 bg-white"
+                                }`}
+                              >
+                                {formConditions[condName] && (
+                                  <Check className="h-3.5 w-3.5 stroke-[2.5]" />
+                                )}
                               </div>
                               <span className="truncate">{condName}</span>
                             </button>
@@ -1985,36 +2146,46 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                       {/* 13. Bedside instructions - keyInstructions */}
                       <div className="space-y-1.5">
-                        <label className="block text-xs font-bold text-slate-700">Additional Notes / Bedside Instructions Summary</label>
+                        <label className="block text-xs font-bold text-slate-700">
+                          Additional Notes / Bedside Instructions Summary
+                        </label>
                         <textarea
                           id="form-key-instructions"
                           rows={3}
                           value={formKeyInstructions}
-                          onChange={(e) => setFormKeyInstructions(e.target.value)}
+                          onChange={(e) =>
+                            setFormKeyInstructions(e.target.value)
+                          }
                           placeholder="Provide custom daily medication timetables, special heart-healthy diets or routine walker exercises..."
                           className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl focus:border-sky-500 outline-hidden"
                         />
                       </div>
-
                     </div>
 
                     {/* SECTION 4: EMERGENCY CONTACT */}
                     <div className="bg-sky-50/20 p-4.5 rounded-2xl border border-sky-100/60 space-y-4">
                       <h4 className="text-xs font-bold text-sky-800 tracking-wider uppercase flex items-center gap-1.5">
                         <PhoneCall className="h-3.5 w-3.5 text-sky-600" />
-                        <span>Emergency Contacts (Always Standby Relatives)</span>
+                        <span>
+                          Emergency Contacts (Always Standby Relatives)
+                        </span>
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* 13. Emergency Contact Name */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-sky-800">Emergency Liaison Full Name <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-sky-800">
+                            Emergency Liaison Full Name{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <input
                             id="form-emergency-name"
                             type="text"
                             required
                             value={formEmergencyName}
-                            onChange={(e) => setFormEmergencyName(e.target.value)}
+                            onChange={(e) =>
+                              setFormEmergencyName(e.target.value)
+                            }
                             placeholder="e.g. Ameera Islam (Daughter)"
                             className="w-full text-xs sm:text-sm bg-white border border-slate-250 p-2.5 rounded-xl focus:border-sky-500 outline-hidden"
                           />
@@ -2022,7 +2193,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                         {/* 14. Emergency Contact Number */}
                         <div className="space-y-1">
-                          <label className="block text-xs font-bold text-sky-800">Emergency Liaison Phone <span className="text-rose-500">*</span></label>
+                          <label className="block text-xs font-bold text-sky-800">
+                            Emergency Liaison Phone{" "}
+                            <span className="text-rose-500">*</span>
+                          </label>
                           <div className="relative">
                             <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-mono text-slate-450 font-bold">
                               +880
@@ -2033,7 +2207,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               required
                               placeholder="1712345678"
                               value={formEmergencyPhone}
-                              onChange={(e) => setFormEmergencyPhone(e.target.value)}
+                              onChange={(e) =>
+                                setFormEmergencyPhone(e.target.value)
+                              }
                               className="w-full pl-13 pr-3 py-2 text-xs sm:text-sm bg-white border border-slate-250 rounded-xl focus:border-sky-500 outline-hidden"
                             />
                           </div>
@@ -2045,7 +2221,7 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                     <div className="pt-4 border-t flex justify-end gap-3.5">
                       <button
                         type="button"
-                        onClick={() => setElderSubPage('list')}
+                        onClick={() => setElderSubPage("list")}
                         className="px-5 py-2.5 border border-slate-250 bg-white hover:bg-slate-50 text-xs font-bold rounded-xl text-slate-600 cursor-pointer"
                       >
                         Cancel Actions
@@ -2059,19 +2235,16 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                         Save Elder Profile &rarr;
                       </button>
                     </div>
-
                   </form>
-
                 </div>
               )}
 
               {/* View Elder Details page */}
-              {elderSubPage === 'details' && selectedElder && (
+              {elderSubPage === "details" && selectedElder && (
                 <div className="space-y-6 animate-fade-in max-w-3xl mx-auto">
-                  
                   {/* Back banner button */}
                   <button
-                    onClick={() => setElderSubPage('list')}
+                    onClick={() => setElderSubPage("list")}
                     className="text-xs font-semibold text-slate-500 hover:text-sky-650 inline-flex items-center gap-1 cursor-pointer"
                   >
                     &larr; Back to Elders Directory Index
@@ -2088,13 +2261,16 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           {selectedElder.name}
                         </h3>
                         <p className="text-xs text-slate-300 mt-1">
-                          Age {selectedElder.age} Years Old • Resides in <strong>{selectedElder.location} Area</strong>
+                          Age {selectedElder.age} Years Old • Resides in{" "}
+                          <strong>{selectedElder.location} Area</strong>
                         </p>
                       </div>
 
                       <button
                         id="details-card-find-caregiver"
-                        onClick={(e) => handleFindCaregiverForElder(selectedElder, e)}
+                        onClick={(e) =>
+                          handleFindCaregiverForElder(selectedElder, e)
+                        }
                         className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all self-start sm:self-auto flex items-center gap-1 cursor-pointer"
                       >
                         <Search className="h-3.5 w-3.5" />
@@ -2103,10 +2279,8 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                     </div>
 
                     <div className="p-6 sm:p-8 space-y-6.5 text-xs">
-                      
                       {/* Grid Profiles, address and emergency contacts */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        
                         {/* Profile metrics */}
                         <div className="space-y-4">
                           <h4 className="font-display font-bold text-slate-900 border-b pb-1.5">
@@ -2114,21 +2288,35 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           </h4>
                           <div className="space-y-2.5">
                             <div className="flex justify-between">
-                              <span className="text-slate-450 uppercase text-[10px] font-bold">Gender:</span>
-                              <span className="font-bold text-slate-750">{selectedElder.gender}</span>
+                              <span className="text-slate-450 uppercase text-[10px] font-bold">
+                                Gender:
+                              </span>
+                              <span className="font-bold text-slate-750">
+                                {selectedElder.gender}
+                              </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-450 uppercase text-[10px] font-bold">Date of Birth:</span>
-                              <span className="font-bold text-slate-750">{selectedElder.dob || '1950-01-01'}</span>
+                              <span className="text-slate-450 uppercase text-[10px] font-bold">
+                                Date of Birth:
+                              </span>
+                              <span className="font-bold text-slate-750">
+                                {selectedElder.dob || "1950-01-01"}
+                              </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-450 uppercase text-[10px] font-bold">Residency Phone:</span>
-                              <span className="font-mono font-bold text-slate-750">+880 {selectedElder.phoneNumber || 'Not saved'}</span>
+                              <span className="text-slate-450 uppercase text-[10px] font-bold">
+                                Residency Phone:
+                              </span>
+                              <span className="font-mono font-bold text-slate-750">
+                                +880 {selectedElder.phoneNumber || "Not saved"}
+                              </span>
                             </div>
                             <div className="space-y-1 pt-1">
-                              <span className="text-slate-450 uppercase text-[10px] font-bold block">Residency Address:</span>
+                              <span className="text-slate-450 uppercase text-[10px] font-bold block">
+                                Residency Address:
+                              </span>
                               <p className="bg-slate-50 p-2 rounded-lg leading-relaxed text-slate-700 font-medium">
-                                {selectedElder.address || 'Not Registered'}
+                                {selectedElder.address || "Not Registered"}
                               </p>
                             </div>
                           </div>
@@ -2141,11 +2329,17 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           </h4>
                           <div className="bg-sky-50/20 p-6 border border-sky-100 rounded-2xl space-y-3">
                             <div>
-                              <span className="text-slate-450 uppercase text-[9px] font-bold block">Guardian Name:</span>
-                              <strong className="text-slate-900 text-sm font-bold block">{selectedElder.emergencyContactName}</strong>
+                              <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                                Guardian Name:
+                              </span>
+                              <strong className="text-slate-900 text-sm font-bold block">
+                                {selectedElder.emergencyContactName}
+                              </strong>
                             </div>
                             <div>
-                              <span className="text-slate-450 uppercase text-[9px] font-bold block">Liaison Mobile Phone:</span>
+                              <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                                Liaison Mobile Phone:
+                              </span>
                               <span className="font-mono text-xs font-bold text-sky-700 bg-white border px-2 py-1 rounded inline-block mt-0.5">
                                 +880 {selectedElder.emergencyContactPhone}
                               </span>
@@ -2155,7 +2349,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                             </p> */}
                           </div>
                         </div>
-
                       </div>
 
                       {/* Grid Medical Info */}
@@ -2163,11 +2356,13 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                         <h4 className="font-display font-bold text-slate-900">
                           Clinical Care Needs & Parameters
                         </h4>
-                        
+
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                           {/* Mobility level */}
                           <div className="bg-slate-50 p-3 rounded-xl border">
-                            <span className="text-slate-450 uppercase text-[10px] font-bold block">Assigned Mobility Status:</span>
+                            <span className="text-slate-450 uppercase text-[10px] font-bold block">
+                              Assigned Mobility Status:
+                            </span>
                             <span className="font-bold text-xs mt-1 inline-block text-slate-800">
                               {selectedElder.mobilityLevel}
                             </span>
@@ -2175,42 +2370,61 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                           {/* Allergies */}
                           <div className="bg-slate-50 p-3 rounded-xl border">
-                            <span className="text-slate-450 uppercase text-[10px] font-bold block">Known Clinical Allergies:</span>
+                            <span className="text-slate-450 uppercase text-[10px] font-bold block">
+                              Known Clinical Allergies:
+                            </span>
                             <span className="font-bold text-xs mt-1 inline-block text-rose-700">
-                              {selectedElder.allergies || 'None'}
+                              {selectedElder.allergies || "None"}
                             </span>
                           </div>
 
                           {/* Pinpoint Coordinates */}
                           <div className="bg-slate-50 p-3 rounded-xl border">
-                            <span className="text-slate-450 uppercase text-[10px] font-bold block">Coordinates Pinpoint:</span>
+                            <span className="text-slate-450 uppercase text-[10px] font-bold block">
+                              Coordinates Pinpoint:
+                            </span>
                             <span className="font-mono font-semibold text-xs mt-1 inline-block text-slate-700">
-                              {selectedElder.latitude?.toFixed(4) || '23.7925'}, {selectedElder.longitude?.toFixed(4) || '90.4078'}
+                              {selectedElder.latitude?.toFixed(4) || "23.7925"},{" "}
+                              {selectedElder.longitude?.toFixed(4) || "90.4078"}
                             </span>
                           </div>
                         </div>
 
                         {/* Diagnostic conditions indicators list */}
                         <div className="space-y-2">
-                          <span className="text-slate-450 uppercase text-[10px] font-bold block">Assigned diagnosed conditions:</span>
+                          <span className="text-slate-450 uppercase text-[10px] font-bold block">
+                            Assigned diagnosed conditions:
+                          </span>
                           <div className="flex flex-wrap gap-1.5">
                             {selectedElder.medicalConditions.length === 0 ? (
-                              <span className="italic text-slate-500 font-light">None recorded (Companionship basis)</span>
+                              <span className="italic text-slate-500 font-light">
+                                None recorded (Companionship basis)
+                              </span>
                             ) : (
-                              selectedElder.medicalConditions.map((cond, cin) => (
-                                <span key={cin} className="px-2.5 py-1 bg-sky-50 border border-sky-100 text-sky-850 font-bold text-[10px] rounded-md">
-                                  {cond}
-                                </span>
-                              ))
+                              selectedElder.medicalConditions.map(
+                                (cond, cin) => (
+                                  <span
+                                    key={cin}
+                                    className="px-2.5 py-1 bg-sky-50 border border-sky-100 text-sky-850 font-bold text-[10px] rounded-md"
+                                  >
+                                    {cond}
+                                  </span>
+                                ),
+                              )
                             )}
                           </div>
                         </div>
 
                         {/* Bedside instructions */}
                         <div className="space-y-1 bg-yellow-50/45 p-3.5 border border-yellow-100 rounded-xl">
-                          <span className="text-yellow-800 uppercase text-[10px] font-bold tracking-wider block">Bedside Care Instructions:</span>
+                          <span className="text-yellow-800 uppercase text-[10px] font-bold tracking-wider block">
+                            Bedside Care Instructions:
+                          </span>
                           <p className="italic text-slate-700 font-medium leading-relaxed">
-                            "{selectedElder.keyInstructions || 'No key bedside instructions registered. Basic daily companionship assistance.'}"
+                            "
+                            {selectedElder.keyInstructions ||
+                              "No key bedside instructions registered. Basic daily companionship assistance."}
+                            "
                           </p>
                         </div>
                       </div>
@@ -2221,56 +2435,77 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           Platform previous bookings history
                         </h4>
 
-                        {bookings.filter(b => b.elderProfileId === selectedElder.id).length === 0 ? (
-                          <p className="text-xs text-slate-500 font-light">No historical shifts scheduled for this relative on the platform.</p>
+                        {bookings.filter(
+                          (b) => b.elderProfileId === selectedElder.id,
+                        ).length === 0 ? (
+                          <p className="text-xs text-slate-500 font-light">
+                            No historical shifts scheduled for this relative on
+                            the platform.
+                          </p>
                         ) : (
                           <div className="space-y-3.5">
-                            {bookings.filter(b => b.elderProfileId === selectedElder.id).map((b) => (
-                              <div key={b.id} className="bg-slate-50 p-4.5 rounded-xl border flex justify-between items-center text-xs">
-                                <div className="space-y-1">
-                                  <p className="font-bold text-slate-800">Duty shift ID: <span className="font-mono font-medium">{b.id}</span></p>
-                                  <p className="text-slate-500 leading-none">Schedule: {b.startDate} to {b.endDate} • {b.hoursPerDay} hours/day</p>
-                                </div>
+                            {bookings
+                              .filter(
+                                (b) => b.elderProfileId === selectedElder.id,
+                              )
+                              .map((b) => (
+                                <div
+                                  key={b.id}
+                                  className="bg-slate-50 p-4.5 rounded-xl border flex justify-between items-center text-xs"
+                                >
+                                  <div className="space-y-1">
+                                    <p className="font-bold text-slate-800">
+                                      Duty shift ID:{" "}
+                                      <span className="font-mono font-medium">
+                                        {b.id}
+                                      </span>
+                                    </p>
+                                    <p className="text-slate-500 leading-none">
+                                      Schedule: {b.startDate} to {b.endDate} •{" "}
+                                      {b.hoursPerDay} hours/day
+                                    </p>
+                                  </div>
 
-                                <div className="text-right space-y-1">
-                                  <span className="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800">
-                                    {b.status}
-                                  </span>
-                                  <p className="font-mono font-bold text-slate-850">৳{b.totalCost}</p>
+                                  <div className="text-right space-y-1">
+                                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800">
+                                      {b.status}
+                                    </span>
+                                    <p className="font-mono font-bold text-slate-850">
+                                      ৳{b.totalCost}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              ))}
                           </div>
                         )}
                       </div>
-
                     </div>
                   </div>
-
                 </div>
               )}
-
             </div>
           )}
 
           {/* ========================================================== */}
           {/* TAB CONTENT: 3. FIND CAREGIVER                             */}
           {/* ========================================================== */}
-          {activeTab === 'find-caregiver' && (
+          {activeTab === "find-caregiver" && (
             <div className="space-y-8 animate-fade-in">
-              
               {/* If receipt is being displayed (Booking Confirmation Page) */}
               {localSuccessBooking ? (
                 <div className="max-w-xl mx-auto bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xl animate-fade-in my-4">
-                  
                   {/* Receipt header bar */}
                   <div className="bg-emerald-500 text-white p-7 text-center space-y-3.5 relative">
                     <div className="mx-auto h-12 w-12 rounded-full bg-white text-emerald-500 flex items-center justify-center shadow-md animate-bounce">
                       <CheckCircle2 className="h-7 w-7" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="font-display font-black text-xl tracking-tight uppercase">Booking Successful!</h3>
-                      <p className="text-xs text-emerald-100">Caregiver shift secured and locked cleanly via Stripe</p>
+                      <h3 className="font-display font-black text-xl tracking-tight uppercase">
+                        Booking Successful!
+                      </h3>
+                      <p className="text-xs text-emerald-100">
+                        Caregiver shift secured and locked cleanly via Stripe
+                      </p>
                     </div>
                   </div>
 
@@ -2278,41 +2513,76 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   <div className="p-6 sm:p-8 space-y-6 text-xs text-slate-700">
                     <div className="text-center text-slate-500 pb-3 border-b mb-3">
                       <p className="text-slate-400">Booking Reference ID:</p>
-                      <strong className="font-mono text-base text-slate-900 tracking-wider">CBRIDGE-{Math.floor(Math.random() * 89999 + 10000)}-DH</strong>
-                      <p className="mt-1 text-[10px] text-slate-400">Card payment processed at {new Date(localSuccessBooking.createdAt).toLocaleString()}</p>
+                      <strong className="font-mono text-base text-slate-900 tracking-wider">
+                        CBRIDGE-{Math.floor(Math.random() * 89999 + 10000)}-DH
+                      </strong>
+                      <p className="mt-1 text-[10px] text-slate-400">
+                        Card payment processed at{" "}
+                        {new Date(
+                          localSuccessBooking.createdAt,
+                        ).toLocaleString()}
+                      </p>
                     </div>
 
                     <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-4">
-                      <h4 className="font-bold text-slate-900 text-[11px] uppercase tracking-wide">Care Shift Summaries</h4>
-                      
+                      <h4 className="font-bold text-slate-900 text-[11px] uppercase tracking-wide">
+                        Care Shift Summaries
+                      </h4>
+
                       <div className="grid grid-cols-2 gap-4 pb-2 text-[11px]">
                         <div>
-                          <span className="text-slate-450 uppercase text-[9px] font-bold block">Elder relative</span>
+                          <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                            Elder relative
+                          </span>
                           <p className="font-extrabold text-slate-800 mt-0.5">
-                            {elderProfiles.find(e => e.id === localSuccessBooking.elderProfileId)?.name || 'Elder relative'}
+                            {elderProfiles.find(
+                              (e) =>
+                                e.id === localSuccessBooking.elderProfileId,
+                            )?.name || "Elder relative"}
                           </p>
-                          <p className="text-slate-500 text-[10px] mt-0.5">Address: {elderProfiles.find(e => e.id === localSuccessBooking.elderProfileId)?.address}</p>
+                          <p className="text-slate-500 text-[10px] mt-0.5">
+                            Address:{" "}
+                            {
+                              elderProfiles.find(
+                                (e) =>
+                                  e.id === localSuccessBooking.elderProfileId,
+                              )?.address
+                            }
+                          </p>
                         </div>
 
                         <div>
-                          <span className="text-slate-450 uppercase text-[9px] font-bold block">Assigned Specialist</span>
+                          <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                            Assigned Specialist
+                          </span>
                           <p className="font-extrabold text-slate-800 mt-0.5">
-                            {caregivers.find(c => c.id === localSuccessBooking.caregiverId)?.name}
+                            {
+                              caregivers.find(
+                                (c) => c.id === localSuccessBooking.caregiverId,
+                              )?.name
+                            }
                           </p>
-                          <p className="text-slate-500 text-[10px] mt-0.5">Contact: Vetted & Direct via Desk</p>
+                          <p className="text-slate-500 text-[10px] mt-0.5">
+                            Contact: Vetted & Direct via Desk
+                          </p>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4 text-[11px] border-t pt-3">
                         <div>
-                          <span className="text-slate-450 uppercase text-[9px] font-bold block">Reserved Dates</span>
+                          <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                            Reserved Dates
+                          </span>
                           <p className="font-semibold text-slate-800 mt-0.5">
-                            {localSuccessBooking.startDate} to {localSuccessBooking.endDate}
+                            {localSuccessBooking.startDate} to{" "}
+                            {localSuccessBooking.endDate}
                           </p>
                         </div>
 
                         <div>
-                          <span className="text-slate-450 uppercase text-[9px] font-bold block">Shift Duration</span>
+                          <span className="text-slate-450 uppercase text-[9px] font-bold block">
+                            Shift Duration
+                          </span>
                           <p className="font-semibold text-slate-800 mt-0.5">
                             {localSuccessBooking.hoursPerDay} hours per day
                           </p>
@@ -2336,41 +2606,52 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       </div>
                       <div className="flex justify-between items-end border-t pt-2 mt-2 font-extrabold text-sm text-slate-900">
                         <span>Total Paid (Stripe Auth)</span>
-                        <span className="text-[#0ea5e9]">৳{localSuccessBooking.totalCost} BDT</span>
+                        <span className="text-[#0ea5e9]">
+                          ৳{localSuccessBooking.totalCost} BDT
+                        </span>
                       </div>
                     </div>
 
                     {/* Instructions notes backup if provided */}
                     {localSuccessBooking.notes && (
                       <div className="bg-yellow-50/40 p-3.5 rounded-xl border border-yellow-150 leading-relaxed text-slate-700 italic">
-                        <strong>My special requests transmission logs:</strong> "{localSuccessBooking.notes}"
+                        <strong>My special requests transmission logs:</strong>{" "}
+                        "{localSuccessBooking.notes}"
                       </div>
                     )}
 
                     <div className="p-3 bg-sky-50 text-sky-800 rounded-xl leading-relaxed flex gap-2 text-[11px]">
                       <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-sky-600" />
                       <span>
-                        <strong>Important:</strong> Your assigned nurse has reserved their travel coordinates block. They will call you to coordinate the initial meet within 1 hour.
+                        <strong>Important:</strong> Your assigned nurse has
+                        reserved their travel coordinates block. They will call
+                        you to coordinate the initial meet within 1 hour.
                       </span>
                     </div>
 
                     {/* Custom confirmation action buttons */}
                     <div className="grid grid-cols-2 gap-3 pt-2">
                       <button
-                        onClick={() => { setLocalSuccessBooking(null); setBookingsActiveTab('Upcoming'); setActiveTab('bookings'); }}
+                        onClick={() => {
+                          setLocalSuccessBooking(null);
+                          setBookingsActiveTab("Upcoming");
+                          setActiveTab("bookings");
+                        }}
                         className="py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl text-center cursor-pointer shadow-xs transition-all text-xs"
                       >
                         View My Bookings
                       </button>
                       <button
-                        onClick={() => { setLocalSuccessBooking(null); setActiveTab('dashboard'); }}
+                        onClick={() => {
+                          setLocalSuccessBooking(null);
+                          setActiveTab("dashboard");
+                        }}
                         className="py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-center cursor-pointer transition-all text-xs"
                       >
                         Return to Dashboard
                       </button>
                     </div>
                   </div>
-
                 </div>
               ) : portalSelectedCaregiver ? (
                 /* Select caregiver scheduling process form overlay inside tab */
@@ -2382,13 +2663,17 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                     >
                       &larr; Back to Listings
                     </button>
-                    <span className="text-xs text-slate-500">Scheduler Step 2 of 2</span>
+                    <span className="text-xs text-slate-500">
+                      Scheduler Step 2 of 2
+                    </span>
                   </div>
 
                   {/* Upgraded checkout booking form with selected elder */}
-                  <BookingForm 
+                  <BookingForm
                     caregiver={portalSelectedCaregiver}
-                    elder={elderProfiles.find(e => e.id === searchSelectedElderId)!} // Matches selected search elder
+                    elder={
+                      elderProfiles.find((e) => e.id === searchSelectedElderId)!
+                    } // Matches selected search elder
                     onCancel={() => setPortalSelectedCaregiver(null)}
                     onBook={handleBookingConfirmedLocal}
                   />
@@ -2398,13 +2683,13 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                 <div className="bg-white border rounded-3xl overflow-hidden shadow-md animate-fade-in">
                   {/* Detailed Profiling Frame */}
                   <div className="relative h-44 bg-gradient-to-tr from-sky-400/90 to-blue-500 p-6 flex flex-col justify-end text-white">
-                    <button 
+                    <button
                       onClick={() => setProfileSelectedCaregiver(null)}
                       className="absolute top-6 left-6 px-3 py-1.5 bg-black/25 text-white hover:bg-black/40 text-xs font-bold rounded-xl backdrop-blur-xs cursor-pointer transition-all"
                     >
                       &larr; Back to Discovery list
                     </button>
-                    
+
                     <div className="flex justify-between items-end">
                       <div className="flex items-center gap-4">
                         <CaregiverAvatar
@@ -2414,155 +2699,225 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                         />
                         <div>
                           <div className="flex items-center gap-2">
-                            <h2 className="font-display font-extrabold text-xl">{profileSelectedCaregiver.name}</h2>
+                            <h2 className="font-display font-extrabold text-xl">
+                              {profileSelectedCaregiver.name}
+                            </h2>
                             <ShieldCheck className="h-5 w-5 text-white fill-sky-600 shrink-0" />
                           </div>
                           <p className="text-xs text-slate-100 flex items-center gap-1 mt-0.5">
-                            <MapPin className="h-3 w-3 shrink-0" /> {profileSelectedCaregiver.location}, Dhaka • {profileSelectedCaregiver.experience} Years Experience
+                            <MapPin className="h-3 w-3 shrink-0" />{" "}
+                            {profileSelectedCaregiver.location}, Dhaka •{" "}
+                            {profileSelectedCaregiver.experience} Years
+                            Experience
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="text-right bg-white/20 px-4 py-2 rounded-2xl border border-white/20 backdrop-blur-xs">
-                        <span className="text-[10px] text-sky-100 block font-bold uppercase tracking-wider">Salary Charge</span>
-                        <strong className="text-lg font-display font-black">৳{profileSelectedCaregiver.ratePerHour}</strong> <span className="text-xs">/ hour</span>
+                        <span className="text-[10px] text-sky-100 block font-bold uppercase tracking-wider">
+                          Salary Charge
+                        </span>
+                        <strong className="text-lg font-display font-black">
+                          ৳{profileSelectedCaregiver.ratePerHour}
+                        </strong>{" "}
+                        <span className="text-xs">/ hour</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Profile Layout details body */}
                   <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 text-slate-700">
-                    
                     {/* Left detailed columns (8 cols) */}
                     <div className="md:col-span-8 space-y-6">
-                      
                       {/* Biography section */}
                       <div className="space-y-2">
-                        <h3 className="font-display font-bold text-slate-900 border-l-2 border-sky-400 pl-2">Vetted Professional Biography</h3>
+                        <h3 className="font-display font-bold text-slate-900 border-l-2 border-sky-400 pl-2">
+                          Vetted Professional Biography
+                        </h3>
                         <p className="text-xs leading-relaxed text-slate-600 font-light">
                           {profileSelectedCaregiver.bio}
                         </p>
                         <p className="text-xs leading-relaxed text-slate-600 font-light pt-2">
-                          As a fully registered private clinical nurse practicing inside Dhaka, this professional carries background checks verified with National ID logs. They completed certified nursing training standards in geriatric companionship, respiratory assistance, daily insulin therapy management, and passive structural range mobility exercises.
+                          As a fully registered private clinical nurse
+                          practicing inside Dhaka, this professional carries
+                          background checks verified with National ID logs. They
+                          completed certified nursing training standards in
+                          geriatric companionship, respiratory assistance, daily
+                          insulin therapy management, and passive structural
+                          range mobility exercises.
                         </p>
                       </div>
 
                       {/* Expertise tags */}
                       <div className="space-y-3">
-                        <h3 className="font-style font-bold text-slate-950 text-xs uppercase tracking-wide">Areas of Specialty Expertise</h3>
+                        <h3 className="font-style font-bold text-slate-950 text-xs uppercase tracking-wide">
+                          Areas of Specialty Expertise
+                        </h3>
                         <div className="flex flex-wrap gap-2">
-                          {profileSelectedCaregiver.specialties.map((spec, i) => (
-                            <span key={i} className="px-3 py-1 font-bold text-xs text-sky-700 bg-sky-50 border border-sky-100 rounded-lg">
-                              {spec}
-                            </span>
-                          ))}
+                          {profileSelectedCaregiver.specialties.map(
+                            (spec, i) => (
+                              <span
+                                key={i}
+                                className="px-3 py-1 font-bold text-xs text-sky-700 bg-sky-50 border border-sky-100 rounded-lg"
+                              >
+                                {spec}
+                              </span>
+                            ),
+                          )}
                         </div>
                       </div>
 
                       {/* Languages */}
                       <div className="space-y-1.5 text-xs">
-                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wide">Languages Spoken fluently:</h4>
-                        <p className="text-slate-650">Bangla (Native liaison standard), English (Medical and procedural conversational check)</p>
+                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wide">
+                          Languages Spoken fluently:
+                        </h4>
+                        <p className="text-slate-650">
+                          Bangla (Native liaison standard), English (Medical and
+                          procedural conversational check)
+                        </p>
                       </div>
 
                       {/* Reviews from database */}
                       {(() => {
-                        const cgReviews = allReviews.filter(r => r.caregiver_id === profileSelectedCaregiver.id);
+                        const cgReviews = allReviews.filter(
+                          (r) => r.caregiver_id === profileSelectedCaregiver.id,
+                        );
                         if (cgReviews.length === 0) {
                           return (
                             <div className="space-y-4 pt-4 border-t">
-                              <h3 className="font-display font-bold text-slate-900">Platform Patient Reviews</h3>
-                              <p className="text-slate-500 italic text-[11px]">No reviews or ratings yet.</p>
+                              <h3 className="font-display font-bold text-slate-900">
+                                Platform Patient Reviews
+                              </h3>
+                              <p className="text-slate-500 italic text-[11px]">
+                                No reviews or ratings yet.
+                              </p>
                             </div>
                           );
                         }
-                        
+
                         return (
                           <div className="space-y-4 pt-4 border-t">
                             <h3 className="font-display font-bold text-slate-900 flex items-center gap-2">
                               <Star className="h-4.5 w-4.5 text-amber-500 fill-amber-500" />
-                              <span>Platform Patient Reviews ({cgReviews.length} Verified)</span>
+                              <span>
+                                Platform Patient Reviews ({cgReviews.length}{" "}
+                                Verified)
+                              </span>
                             </h3>
 
                             <div className="space-y-3.5">
                               {cgReviews.map((rev, idx) => (
-                                <div key={idx} className="bg-slate-50 border p-4 rounded-xl text-xs space-y-2">
+                                <div
+                                  key={idx}
+                                  className="bg-slate-50 border p-4 rounded-xl text-xs space-y-2"
+                                >
                                   <div className="flex justify-between items-center">
-                                    <span className="font-bold text-slate-800">{rev.reviewerName || 'Relative Care Liaison'}</span>
+                                    <span className="font-bold text-slate-800">
+                                      {rev.reviewerName ||
+                                        "Relative Care Liaison"}
+                                    </span>
                                     <div className="flex items-center gap-0.5 text-amber-400">
                                       <Star className="h-3 w-3 fill-amber-400" />
-                                      <span className="text-[10px] font-bold text-slate-700 ml-1">{Number(rev.rating).toFixed(1)}</span>
+                                      <span className="text-[10px] font-bold text-slate-700 ml-1">
+                                        {Number(rev.rating).toFixed(1)}
+                                      </span>
                                     </div>
                                   </div>
-                                  <p className="italic text-slate-600 font-light font-sans">"{rev.comment || 'Outstanding care session.'}"</p>
+                                  <p className="italic text-slate-600 font-light font-sans">
+                                    "
+                                    {rev.comment || "Outstanding care session."}
+                                    "
+                                  </p>
                                 </div>
                               ))}
                             </div>
                           </div>
                         );
                       })()}
-
                     </div>
 
                     {/* Right Sticky CTA columns (4 cols) */}
                     <div className="md:col-span-4 bg-[#f8fbfe] border rounded-2xl p-5 border-slate-200/80 space-y-5 h-fit shadow-3xs">
                       <div>
-                        <span className="text-[10px] text-slate-400 uppercase font-black block leading-none">Hourly Compensation</span>
+                        <span className="text-[10px] text-slate-400 uppercase font-black block leading-none">
+                          Hourly Compensation
+                        </span>
                         <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-2xl font-display font-black text-slate-900">৳{profileSelectedCaregiver.ratePerHour}</span>
-                          <span className="text-xs text-slate-500 font-light">/ hour</span>
+                          <span className="text-2xl font-display font-black text-slate-900">
+                            ৳{profileSelectedCaregiver.ratePerHour}
+                          </span>
+                          <span className="text-xs text-slate-500 font-light">
+                            / hour
+                          </span>
                         </div>
                       </div>
 
                       <div className="space-y-2.5 text-xs border-t pt-4">
                         <div className="flex justify-between">
-                          <span className="text-slate-500">Dhaka Base sector:</span>
-                          <span className="font-bold text-slate-700">{profileSelectedCaregiver.location}</span>
+                          <span className="text-slate-500">
+                            Dhaka Base sector:
+                          </span>
+                          <span className="font-bold text-slate-700">
+                            {profileSelectedCaregiver.location}
+                          </span>
                         </div>
                         {profileSelectedCaregiver.rating && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Rating review average:</span>
+                            <span className="text-slate-500">
+                              Rating review average:
+                            </span>
                             <span className="font-bold text-slate-700 flex items-center gap-0.5">
                               <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
-                              {Number(profileSelectedCaregiver.rating).toFixed(1)}
+                              {Number(profileSelectedCaregiver.rating).toFixed(
+                                1,
+                              )}
                             </span>
                           </div>
                         )}
                         <div className="flex justify-between">
-                          <span className="text-slate-500">Standby Replacement:</span>
-                          <span className="font-bold text-emerald-600">INCLUDED</span>
+                          <span className="text-slate-500">
+                            Standby Replacement:
+                          </span>
+                          <span className="font-bold text-emerald-600">
+                            INCLUDED
+                          </span>
                         </div>
                       </div>
 
                       <button
-                        onClick={() => setPortalSelectedCaregiver(profileSelectedCaregiver)}
+                        onClick={() =>
+                          setPortalSelectedCaregiver(profileSelectedCaregiver)
+                        }
                         className="w-full py-3 bg-sky-500 hover:bg-sky-600 text-white font-extrabold text-xs uppercase tracking-wide rounded-xl shadow-md transition-all active:scale-97 cursor-pointer text-center"
                       >
                         Book Now
                       </button>
 
-                      <p className="text-[9px] text-slate-400 text-center leading-relaxed">Bookings are held securely. You will calculate matching hours on the next step before authorization.</p>
+                      {/* <p className="text-[9px] text-slate-400 text-center leading-relaxed">
+                        Bookings are held securely. You will calculate matching
+                        hours on the next step before authorization.
+                      </p> */}
                     </div>
-
                   </div>
-
                 </div>
               ) : (
                 /* Main matching view */
                 <div className="space-y-6">
-                  
                   {/* STEP 1: ELDER SELECTION REQUIRED CHECK */}
                   {!searchSelectedElderId ? (
                     <div className="bg-white border text-xs max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-sm">
                       <div className="relative mx-auto h-20 w-20 flex items-center justify-center bg-sky-50 rounded-full text-sky-500">
                         <UserCheck className="h-10 w-10 text-sky-550 shrink-0" />
                       </div>
-                      
+
                       <div className="space-y-2 max-w-md mx-auto">
-                        <h3 className="font-display font-black text-lg text-slate-900">Select an Eldercare Passenger</h3>
-                        <p className="text-xs text-slate-550 leading-relaxed font-light">
+                        <h3 className="font-display font-black text-lg text-slate-900">
+                          Select an Eldercare Passenger
+                        </h3>
+                        {/* <p className="text-xs text-slate-550 leading-relaxed font-light">
                           To discover matching certified caregivers, please first select which elderly family member centers the residential geographical matchmaking flow in Dhaka.
-                        </p>
+                        </p> */}
                       </div>
 
                       {elderProfiles.length === 0 ? (
@@ -2572,7 +2927,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                             No elder profiles registered in your account.
                           </p>
                           <button
-                            onClick={() => { setActiveTab('elders'); openAddElderForm(); }}
+                            onClick={() => {
+                              setActiveTab("elders");
+                              openAddElderForm();
+                            }}
                             className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl"
                           >
                             + Register Elder Profile Now
@@ -2581,27 +2939,38 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto text-left">
                           {elderProfiles.map((elder) => (
-                            <div 
+                            <div
                               key={elder.id}
                               onClick={() => {
                                 setSearchSelectedElderId(elder.id);
                                 setPortalFilters({
                                   location: elder.location,
-                                  careType: '',
-                                  gender: 'All'
+                                  careType: "",
+                                  gender: "All",
                                 });
                                 setIsSearchingLoading(true);
-                                setTimeout(() => setIsSearchingLoading(false), 700);
+                                setTimeout(
+                                  () => setIsSearchingLoading(false),
+                                  700,
+                                );
                               }}
                               className="border border-slate-200 bg-[#fbfcff]/70 hover:bg-sky-50 hover:border-sky-305 p-4 rounded-2xl cursor-pointer transition-all space-y-3"
                             >
                               <div className="flex justify-between items-start">
-                                <h4 className="font-bold text-slate-900 text-xs">{elder.name}</h4>
-                                <span className="bg-sky-100/60 text-sky-800 text-[9px] font-bold px-2 py-0.5 rounded-md">{elder.location}</span>
+                                <h4 className="font-bold text-slate-900 text-xs">
+                                  {elder.name}
+                                </h4>
+                                <span className="bg-sky-100/60 text-sky-800 text-[9px] font-bold px-2 py-0.5 rounded-md">
+                                  {elder.location}
+                                </span>
                               </div>
                               <div className="text-[10px] text-slate-500 space-y-1">
-                                <p>Age: <strong>{elder.age}</strong> yrs old</p>
-                                <p className="truncate">Mobility: {elder.mobilityLevel}</p>
+                                <p>
+                                  Age: <strong>{elder.age}</strong> yrs old
+                                </p>
+                                <p className="truncate">
+                                  Mobility: {elder.mobilityLevel}
+                                </p>
                               </div>
                               <button className="w-full py-1.5 bg-sky-500/10 hover:bg-sky-550 hover:text-white text-sky-655 text-[10px] font-bold rounded-lg transition-all text-center">
                                 Match Caregivers Centered here
@@ -2614,7 +2983,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   ) : (
                     /* STEP 2: SHOW MATCHING DIRECTORY CENTERED AROUND ADDR */
                     <div className="space-y-6">
-                      
                       {/* Active Selected Elder Summary Header Card at Top */}
                       <div className="bg-white border rounded-3xl p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-3xs">
                         <div className="flex items-center gap-3.5">
@@ -2623,20 +2991,76 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-[9px] font-bold uppercase tracking-wider text-sky-600">Geo Match Center:</span>
-                              <span className="px-1.5 py-0.2 bg-[#f4f7f9] border text-[9px] font-bold text-slate-500 rounded font-mono">{elderProfiles.find(e => e.id === searchSelectedElderId)?.location} residence</span>
+                              <span className="text-[9px] font-bold uppercase tracking-wider text-sky-600">
+                                Geo Match Center:
+                              </span>
+                              <span className="px-1.5 py-0.2 bg-[#f4f7f9] border text-[9px] font-bold text-slate-500 rounded font-mono">
+                                {
+                                  elderProfiles.find(
+                                    (e) => e.id === searchSelectedElderId,
+                                  )?.location
+                                }{" "}
+                                residence
+                              </span>
                             </div>
                             <h3 className="font-display font-extrabold text-base text-slate-900 mt-1">
-                              {elderProfiles.find(e => e.id === searchSelectedElderId)?.name} • Age {elderProfiles.find(e => e.id === searchSelectedElderId)?.age}
+                              {
+                                elderProfiles.find(
+                                  (e) => e.id === searchSelectedElderId,
+                                )?.name
+                              }{" "}
+                              • Age{" "}
+                              {
+                                elderProfiles.find(
+                                  (e) => e.id === searchSelectedElderId,
+                                )?.age
+                              }
                             </h3>
                             <p className="text-xs text-slate-500 mt-0.5 max-w-xl truncate leading-normal">
-                              Address: <strong>{elderProfiles.find(e => e.id === searchSelectedElderId)?.address}</strong> • Mobility: <strong>{elderProfiles.find(e => e.id === searchSelectedElderId)?.mobilityLevel}</strong> • Conditions: <strong>{elderProfiles.find(e => e.id === searchSelectedElderId)?.medicalConditions.join(', ') || 'Companionship'}</strong> • Emergency Contact: <strong>{elderProfiles.find(e => e.id === searchSelectedElderId)?.emergencyContactName} ({elderProfiles.find(e => e.id === searchSelectedElderId)?.emergencyContactPhone})</strong>
+                              Address:{" "}
+                              <strong>
+                                {
+                                  elderProfiles.find(
+                                    (e) => e.id === searchSelectedElderId,
+                                  )?.address
+                                }
+                              </strong>{" "}
+                              • Mobility:{" "}
+                              <strong>
+                                {
+                                  elderProfiles.find(
+                                    (e) => e.id === searchSelectedElderId,
+                                  )?.mobilityLevel
+                                }
+                              </strong>{" "}
+                              • Conditions:{" "}
+                              <strong>
+                                {elderProfiles
+                                  .find((e) => e.id === searchSelectedElderId)
+                                  ?.medicalConditions.join(", ") ||
+                                  "Companionship"}
+                              </strong>{" "}
+                              • Emergency Contact:{" "}
+                              <strong>
+                                {
+                                  elderProfiles.find(
+                                    (e) => e.id === searchSelectedElderId,
+                                  )?.emergencyContactName
+                                }{" "}
+                                (
+                                {
+                                  elderProfiles.find(
+                                    (e) => e.id === searchSelectedElderId,
+                                  )?.emergencyContactPhone
+                                }
+                                )
+                              </strong>
                             </p>
                           </div>
                         </div>
 
-                        <button 
-                          onClick={() => setSearchSelectedElderId('')}
+                        <button
+                          onClick={() => setSearchSelectedElderId("")}
                           className="px-3.5 py-1.5 text-xs font-bold bg-slate-100 hover:bg-slate-200 border text-slate-700 shrink-0 rounded-xl cursor-pointer transition-all active:scale-97"
                         >
                           Change Target Elder
@@ -2645,48 +3069,69 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                       {/* Filter Middle section & Grid (Airbnb style columns) */}
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                        
                         {/* LEFT COLUMN: AIRBNB FILTER SIDEBAR */}
                         <div className="lg:col-span-3 bg-white border rounded-2xl p-5 space-y-5 shadow-3xs sticky top-4">
                           <div className="flex items-center gap-1.5 pb-2 border-b">
                             <Sliders className="h-4.5 w-4.5 text-sky-500" />
-                            <h4 className="font-display font-bold text-slate-900 uppercase tracking-wide text-xs">Verified Filters</h4>
+                            <h4 className="font-display font-bold text-slate-900 uppercase tracking-wide text-xs">
+                              Verified Filters
+                            </h4>
                           </div>
 
                           {/* Filter 1: Specialty Category dropdown */}
                           <div className="space-y-1.5">
-                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">Geriatric Specialty</label>
+                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">
+                              Geriatric Specialty
+                            </label>
                             <select
                               value={portalFilters.careType}
                               onChange={(e) => {
-                                setPortalFilters(prev => ({ ...prev, careType: e.target.value }));
+                                setPortalFilters((prev) => ({
+                                  ...prev,
+                                  careType: e.target.value,
+                                }));
                                 setIsSearchingLoading(true);
-                                setTimeout(() => setIsSearchingLoading(false), 500);
+                                setTimeout(
+                                  () => setIsSearchingLoading(false),
+                                  500,
+                                );
                               }}
                               className="w-full text-xs bg-slate-50 border p-2.5 rounded-xl outline-hidden font-medium"
                             >
                               <option value="">All Specialties</option>
-                              {CARE_TYPES.map(spec => (
-                                <option key={spec} value={spec}>{spec}</option>
+                              {CARE_TYPES.map((spec) => (
+                                <option key={spec} value={spec}>
+                                  {spec}
+                                </option>
                               ))}
                             </select>
                           </div>
 
                           {/* Filter 2: Residing Dhaka Sector dropdown */}
                           <div className="space-y-1.5">
-                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">Dhaka Sector Area</label>
+                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">
+                              Dhaka Sector Area
+                            </label>
                             <select
                               value={portalFilters.location}
                               onChange={(e) => {
-                                setPortalFilters(prev => ({ ...prev, location: e.target.value }));
+                                setPortalFilters((prev) => ({
+                                  ...prev,
+                                  location: e.target.value,
+                                }));
                                 setIsSearchingLoading(true);
-                                setTimeout(() => setIsSearchingLoading(false), 500);
+                                setTimeout(
+                                  () => setIsSearchingLoading(false),
+                                  500,
+                                );
                               }}
                               className="w-full text-xs bg-slate-50 border p-2.5 rounded-xl outline-hidden font-medium"
                             >
                               <option value="">All Dhaka Sectors</option>
-                              {DHAKA_LOCATIONS.map(loc => (
-                                <option key={loc} value={loc}>{loc}</option>
+                              {DHAKA_LOCATIONS.map((loc) => (
+                                <option key={loc} value={loc}>
+                                  {loc}
+                                </option>
                               ))}
                             </select>
                           </div>
@@ -2695,7 +3140,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           <div className="space-y-2">
                             <div className="flex justify-between text-[11px] font-bold text-slate-600 uppercase">
                               <span>Max Hourly Rate</span>
-                              <span className="text-sky-600">৳{airbnbMaxRate}/hr</span>
+                              <span className="text-sky-600">
+                                ৳{airbnbMaxRate}/hr
+                              </span>
                             </div>
                             <input
                               type="range"
@@ -2706,7 +3153,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                               onChange={(e) => {
                                 setAirbnbMaxRate(Number(e.target.value));
                                 setIsSearchingLoading(true);
-                                setTimeout(() => setIsSearchingLoading(false), 400);
+                                setTimeout(
+                                  () => setIsSearchingLoading(false),
+                                  400,
+                                );
                               }}
                               className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-sky-500"
                             />
@@ -2718,7 +3168,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                           {/* Filter 4: Star Minimum selector */}
                           <div className="space-y-2 pt-1">
-                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">Minimum Star floor</label>
+                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">
+                              Minimum Star floor
+                            </label>
                             <div className="grid grid-cols-4 gap-1">
                               {[0, 4.0, 4.5, 4.8].map((stars) => (
                                 <button
@@ -2727,15 +3179,18 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                   onClick={() => {
                                     setAirbnbMinRating(stars);
                                     setIsSearchingLoading(true);
-                                    setTimeout(() => setIsSearchingLoading(false), 400);
+                                    setTimeout(
+                                      () => setIsSearchingLoading(false),
+                                      400,
+                                    );
                                   }}
                                   className={`py-1 text-[10px] font-bold rounded-lg border text-center transition-all ${
                                     airbnbMinRating === stars
-                                      ? 'bg-sky-500 text-white border-sky-500 shadow-2xs'
-                                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                                      ? "bg-sky-500 text-white border-sky-500 shadow-2xs"
+                                      : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
                                   }`}
                                 >
-                                  {stars === 0 ? 'All' : `${stars}★`}
+                                  {stars === 0 ? "All" : `${stars}★`}
                                 </button>
                               ))}
                             </div>
@@ -2743,21 +3198,29 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                           {/* Filter 5: Gender preference */}
                           <div className="space-y-1.5 pt-1">
-                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">Gender preference</label>
+                            <label className="block text-[11px] font-bold text-slate-600 block uppercase">
+                              Gender preference
+                            </label>
                             <div className="flex p-0.5 bg-slate-100 border rounded-xl">
-                              {['All', 'Female', 'Male'].map(g => (
+                              {["All", "Female", "Male"].map((g) => (
                                 <button
                                   key={g}
                                   type="button"
                                   onClick={() => {
-                                    setPortalFilters(prev => ({ ...prev, gender: g as any }));
+                                    setPortalFilters((prev) => ({
+                                      ...prev,
+                                      gender: g as any,
+                                    }));
                                     setIsSearchingLoading(true);
-                                    setTimeout(() => setIsSearchingLoading(false), 400);
+                                    setTimeout(
+                                      () => setIsSearchingLoading(false),
+                                      400,
+                                    );
                                   }}
                                   className={`flex-1 py-1.5 text-[10px] font-bold rounded-lg transition-all text-center ${
                                     portalFilters.gender === g
-                                      ? 'bg-sky-500 text-white shadow-2xs'
-                                      : 'text-slate-600'
+                                      ? "bg-sky-500 text-white shadow-2xs"
+                                      : "text-slate-600"
                                   }`}
                                 >
                                   {g}
@@ -2769,25 +3232,37 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           {/* Reset filter trigger links */}
                           <button
                             onClick={() => {
-                              setPortalFilters({ location: '', careType: '', gender: 'All' });
+                              setPortalFilters({
+                                location: "",
+                                careType: "",
+                                gender: "All",
+                              });
                               setAirbnbMinRating(0);
                               setAirbnbMaxRate(1000);
                               setIsSearchingLoading(true);
-                              setTimeout(() => setIsSearchingLoading(false), 600);
+                              setTimeout(
+                                () => setIsSearchingLoading(false),
+                                600,
+                              );
                             }}
                             className="w-full text-center text-xs font-bold text-rose-500 hover:text-rose-600 inline-block pt-1.5 border-t border-slate-100 cursor-pointer"
                           >
                             Reset Custom Filters
                           </button>
-
                         </div>
 
                         {/* RIGHT COLUMN: MAIN CONTENT CATALOG PORT/GRID */}
                         <div className="lg:col-span-9 space-y-4">
-                          
                           {/* Total Matches Header results */}
                           <div className="flex justify-between items-center bg-slate-100/50 px-4 py-2 rounded-xl text-xs text-slate-500 font-medium">
-                            <p>Sorted by dynamic proximity: closest to {elderProfiles.find(e => e.id === searchSelectedElderId)?.name}</p>
+                            <p>
+                              Sorted by dynamic proximity: closest to{" "}
+                              {
+                                elderProfiles.find(
+                                  (e) => e.id === searchSelectedElderId,
+                                )?.name
+                              }
+                            </p>
                             <p>{filteredCaregivers.length} matches found</p>
                           </div>
 
@@ -2795,7 +3270,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                           {isSearchingLoading ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                               {[1, 2, 3].map((s) => (
-                                <div key={s} className="bg-white border rounded-2xl p-4.5 space-y-4 animate-pulse">
+                                <div
+                                  key={s}
+                                  className="bg-white border rounded-2xl p-4.5 space-y-4 animate-pulse"
+                                >
                                   <div className="h-20 bg-slate-200 rounded-xl w-full" />
                                   <div className="flex items-center gap-3">
                                     <div className="h-12 w-12 bg-slate-200 rounded-full shrink-0" />
@@ -2820,14 +3298,27 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                 <Search className="h-6 w-6 text-slate-550" />
                               </div>
                               <div className="space-y-1.5">
-                                <h3 className="font-display font-bold text-slate-900 text-sm">No Nearby Caregivers Found</h3>
+                                <h3 className="font-display font-bold text-slate-900 text-sm">
+                                  No Nearby Caregivers Found
+                                </h3>
                                 <p className="text-xs text-slate-500 leading-relaxed font-light">
-                                  We couldn't locate active caregivers in those custom budget or rating thresholds in {elderProfiles.find(e => e.id === searchSelectedElderId)?.location}.
+                                  We couldn't locate active caregivers in those
+                                  custom budget or rating thresholds in{" "}
+                                  {
+                                    elderProfiles.find(
+                                      (e) => e.id === searchSelectedElderId,
+                                    )?.location
+                                  }
+                                  .
                                 </p>
                               </div>
                               <button
                                 onClick={() => {
-                                  setPortalFilters({ location: '', careType: '', gender: 'All' });
+                                  setPortalFilters({
+                                    location: "",
+                                    careType: "",
+                                    gender: "All",
+                                  });
                                   setAirbnbMinRating(0);
                                   setAirbnbMaxRate(1000);
                                 }}
@@ -2840,74 +3331,86 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                             /* RENDERING CAREGIVER GRID */
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                               {filteredCaregivers.map((cg) => {
-                                const activeElder = elderProfiles.find(e => e.id === searchSelectedElderId)!;
-                                const distanceText = cg.distance || getCaregiverDistance(activeElder?.location || '', cg.location).text;
-                                
+                                const activeElder = elderProfiles.find(
+                                  (e) => e.id === searchSelectedElderId,
+                                )!;
+                                const distanceText =
+                                  cg.distance ||
+                                  getCaregiverDistance(
+                                    activeElder?.location || "",
+                                    cg.location,
+                                  ).text;
+
                                 return (
-                                  <CaregiverCard 
+                                  <CaregiverCard
                                     key={cg.id}
                                     caregiver={cg}
                                     distance={distanceText}
-                                    onViewProfile={(sel) => setProfileSelectedCaregiver(sel)}
-                                    onBook={(sel) => setPortalSelectedCaregiver(sel)}
+                                    onViewProfile={(sel) =>
+                                      setProfileSelectedCaregiver(sel)
+                                    }
+                                    onBook={(sel) =>
+                                      setPortalSelectedCaregiver(sel)
+                                    }
                                   />
                                 );
                               })}
                             </div>
                           )}
-
                         </div>
-
                       </div>
-
                     </div>
                   )}
-
                 </div>
               )}
-
             </div>
           )}
 
           {/* ========================================================== */}
           {/* TAB CONTENT: 4. BOOKINGS Shifts live parameters monitoring */}
           {/* ========================================================== */}
-          {activeTab === 'bookings' && (
+          {activeTab === "bookings" && (
             <div className="space-y-6 animate-fade-in">
-              
               {/* Tab selector upcoming, completed, cancelled */}
               <div className="flex border-b border-slate-200">
-                {(['Upcoming', 'Completed', 'Cancelled'] as const).map((tab) => {
-                  const subset = uniqueBookings.filter(b => {
-                    if (tab === 'Upcoming') return b.status === 'Confirmed' || b.status === 'Pending';
-                    if (tab === 'Completed') return b.status === 'Completed';
-                    return b.status === 'Cancelled';
-                  });
-                  return (
-                    <button
-                      key={tab}
-                      onClick={() => setBookingsActiveTab(tab)}
-                      className={`py-3 px-5 text-xs font-bold transition-all relative ${
-                        bookingsActiveTab === tab 
-                          ? 'text-sky-650' 
-                          : 'text-slate-500 hover:text-slate-700'
-                      }`}
-                    >
-                      {tab} Shifts History ({subset.length})
-                      {bookingsActiveTab === tab && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500" />
-                      )}
-                    </button>
-                  );
-                })}
+                {(["Upcoming", "Completed", "Cancelled"] as const).map(
+                  (tab) => {
+                    const subset = uniqueBookings.filter((b) => {
+                      if (tab === "Upcoming")
+                        return (
+                          b.status === "Confirmed" || b.status === "Pending"
+                        );
+                      if (tab === "Completed") return b.status === "Completed";
+                      return b.status === "Cancelled";
+                    });
+                    return (
+                      <button
+                        key={tab}
+                        onClick={() => setBookingsActiveTab(tab)}
+                        className={`py-3 px-5 text-xs font-bold transition-all relative ${
+                          bookingsActiveTab === tab
+                            ? "text-sky-650"
+                            : "text-slate-500 hover:text-slate-700"
+                        }`}
+                      >
+                        {tab} Shifts History ({subset.length})
+                        {bookingsActiveTab === tab && (
+                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500" />
+                        )}
+                      </button>
+                    );
+                  },
+                )}
               </div>
 
               {/* Renders filtered category catalog lists */}
               {(() => {
-                const results = uniqueBookings.filter(b => {
-                  if (bookingsActiveTab === 'Upcoming') return b.status === 'Confirmed' || b.status === 'Pending';
-                  if (bookingsActiveTab === 'Completed') return b.status === 'Completed';
-                  return b.status === 'Cancelled';
+                const results = uniqueBookings.filter((b) => {
+                  if (bookingsActiveTab === "Upcoming")
+                    return b.status === "Confirmed" || b.status === "Pending";
+                  if (bookingsActiveTab === "Completed")
+                    return b.status === "Completed";
+                  return b.status === "Cancelled";
                 });
 
                 if (results.length === 0) {
@@ -2919,18 +3422,21 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       </div>
                       <div className="space-y-2">
                         <h3 className="font-display font-semibold text-slate-900 text-sm">
-                          {bookingsActiveTab === 'Upcoming' && 'No Upcoming Duty Shifts Scheduled'}
-                          {bookingsActiveTab === 'Completed' && 'No Completed Care Sessions Yet'}
-                          {bookingsActiveTab === 'Cancelled' && 'No Cancelled Bookings'}
+                          {bookingsActiveTab === "Upcoming" &&
+                            "No Upcoming Duty Shifts Scheduled"}
+                          {bookingsActiveTab === "Completed" &&
+                            "No Completed Care Sessions Yet"}
+                          {bookingsActiveTab === "Cancelled" &&
+                            "No Cancelled Bookings"}
                         </h3>
-                        <p className="text-xs text-slate-550 leading-relaxed font-light">
+                        {/* <p className="text-xs text-slate-550 leading-relaxed font-light">
                           {bookingsActiveTab === 'Upcoming' && "You have no upcoming caregiver shifts active in Dhaka currently. Match certified nurses in Banani, Gulshan, or Dhanmondi."}
                           {bookingsActiveTab === 'Completed' && "No completed care shifts recorded yet. Caregivers publish live clinical reports on shift completions."}
                           {bookingsActiveTab === 'Cancelled' && "No cancelled bookings recorded."}
-                        </p>
+                        </p> */}
                       </div>
                       <button
-                        onClick={() => setActiveTab('find-caregiver')}
+                        onClick={() => setActiveTab("find-caregiver")}
                         className="px-4.5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl shadow-2xs"
                       >
                         Explore certified Caregivers
@@ -2943,45 +3449,56 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Left Columns: list of matching booking cards */}
                     <div className="lg:col-span-7 space-y-4">
-                      
                       <div className="space-y-4">
                         {results.map((booking) => {
-                          const caregiver = caregivers.find(c => c.id === booking.caregiverId) || 
-                                            liveCaregivers.find(c => c.id === booking.caregiverId) || 
-                                            (() => {
-                                              const match = MOCK_CAREGIVERS.find(c => c.id === booking.caregiverId || c.id + '_seed' === booking.caregiverId);
-                                              if (match) {
-                                                return {
-                                                  id: booking.caregiverId,
-                                                  name: match.name,
-                                                  photoUrl: match.photoUrl,
-                                                  certification: match.certification,
-                                                  experience: match.experience,
-                                                  rating: match.rating || 4.8
-                                                } as any;
-                                              }
-                                              return {
-                                                id: booking.caregiverId,
-                                                name: 'Caregiver Assistant',
-                                                photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200',
-                                                certification: 'Certified Assistant',
-                                                experience: 5,
-                                                rating: 4.8
-                                              } as any;
-                                            })();
-                          const elder = elderProfiles.find(e => e.id === booking.elderProfileId) || {
+                          const caregiver =
+                            caregivers.find(
+                              (c) => c.id === booking.caregiverId,
+                            ) ||
+                            liveCaregivers.find(
+                              (c) => c.id === booking.caregiverId,
+                            ) ||
+                            (() => {
+                              const match = MOCK_CAREGIVERS.find(
+                                (c) =>
+                                  c.id === booking.caregiverId ||
+                                  c.id + "_seed" === booking.caregiverId,
+                              );
+                              if (match) {
+                                return {
+                                  id: booking.caregiverId,
+                                  name: match.name,
+                                  photoUrl: match.photoUrl,
+                                  certification: match.certification,
+                                  experience: match.experience,
+                                  rating: match.rating || 4.8,
+                                } as any;
+                              }
+                              return {
+                                id: booking.caregiverId,
+                                name: "Caregiver Assistant",
+                                photoUrl:
+                                  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200",
+                                certification: "Certified Assistant",
+                                experience: 5,
+                                rating: 4.8,
+                              } as any;
+                            })();
+                          const elder = elderProfiles.find(
+                            (e) => e.id === booking.elderProfileId,
+                          ) || {
                             id: booking.elderProfileId,
-                            name: 'Elder Relative',
+                            name: "Elder Relative",
                             age: 76,
-                            location: 'Dhanmondi',
-                            address: 'Dhaka Residence',
-                            mobilityLevel: 'Assisted',
-                            medicalConditions: ['General Senior Care']
+                            location: "Dhanmondi",
+                            address: "Dhaka Residence",
+                            mobilityLevel: "Assisted",
+                            medicalConditions: ["General Senior Care"],
                           };
                           if (!caregiver || !elder) return null;
 
                           return (
-                            <div 
+                            <div
                               key={booking.id}
                               className="bg-white border text-xs p-5 rounded-2xl shadow-3xs hover:border-sky-200 transition-all space-y-4"
                             >
@@ -2993,59 +3510,86 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                     iconClassName="h-5 w-5"
                                   />
                                   <div>
-                                    <h4 className="font-display font-bold text-slate-900 leading-none">{caregiver.name}</h4>
-                                    <p className="text-[9px] text-sky-600 font-bold mt-1 uppercase">{caregiver.certification}</p>
+                                    <h4 className="font-display font-bold text-slate-900 leading-none">
+                                      {caregiver.name}
+                                    </h4>
+                                    <p className="text-[9px] text-sky-600 font-bold mt-1 uppercase">
+                                      {caregiver.certification}
+                                    </p>
                                   </div>
                                 </div>
 
-                                <span className={`px-2.5 py-0.5 rounded-md font-bold text-[10px] uppercase ${
-                                  booking.status === 'Confirmed' 
-                                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-100' 
-                                    : booking.status === 'Cancelled' 
-                                    ? 'bg-rose-50 text-rose-800 border border-rose-100'
-                                    : 'bg-slate-100 text-slate-600'
-                                }`}>
+                                <span
+                                  className={`px-2.5 py-0.5 rounded-md font-bold text-[10px] uppercase ${
+                                    booking.status === "Confirmed"
+                                      ? "bg-emerald-50 text-emerald-800 border border-emerald-100"
+                                      : booking.status === "Cancelled"
+                                        ? "bg-rose-50 text-rose-800 border border-rose-100"
+                                        : "bg-slate-100 text-slate-600"
+                                  }`}
+                                >
                                   {booking.status}
                                 </span>
                               </div>
 
                               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-2.5 bg-slate-50 border border-slate-100 rounded-xl leading-relaxed text-slate-705 font-medium">
                                 <div>
-                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">Resident Elder Name:</span>
-                                  <span className="text-slate-800 font-bold">{elder.name}</span>
+                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">
+                                    Resident Elder Name:
+                                  </span>
+                                  <span className="text-slate-800 font-bold">
+                                    {elder.name}
+                                  </span>
                                 </div>
                                 <div>
-                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">Assigned Coordinates:</span>
-                                  <span className="text-slate-800 font-bold">{elder.location} sector</span>
+                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">
+                                    Assigned Coordinates:
+                                  </span>
+                                  <span className="text-slate-800 font-bold">
+                                    {elder.location} sector
+                                  </span>
                                 </div>
                                 <div className="col-span-2 sm:col-span-1">
-                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">Reserved Shift dates:</span>
-                                  <span className="text-slate-800 font-bold">{booking.startDate} to {booking.endDate}</span>
+                                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">
+                                    Reserved Shift dates:
+                                  </span>
+                                  <span className="text-slate-800 font-bold">
+                                    {booking.startDate} to {booking.endDate}
+                                  </span>
                                 </div>
                               </div>
 
                               {booking.notes && (
                                 <p className="bg-yellow-50/20 p-2.5 rounded-lg border-l-2 border-yellow-405 text-slate-600">
-                                  <strong>My custom requests notes:</strong> "{booking.notes}"
+                                  <strong>My custom requests notes:</strong> "
+                                  {booking.notes}"
                                 </p>
                               )}
 
                               {/* If completed, we show feedback/reviews details and report actions before the bottom billing row */}
-                              {booking.status === 'Completed' && (
+                              {booking.status === "Completed" && (
                                 <div className="border-t border-dashed pt-3.5 space-y-3">
                                   <div className="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-100">
                                     <div>
-                                      <span className="text-slate-400 text-[9px] uppercase tracking-wider block">Review Submission Status:</span>
+                                      <span className="text-slate-400 text-[9px] uppercase tracking-wider block">
+                                        Review Submission Status:
+                                      </span>
                                       {booking.reviewRating !== undefined ? (
                                         <div className="flex items-center gap-1.5 mt-0.5">
-                                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-100 uppercase">Review Submitted</span>
+                                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-100 uppercase">
+                                            Review Submitted
+                                          </span>
                                           <div className="flex items-center text-amber-500 text-[10px]">
-                                            {'★'.repeat(booking.reviewRating)}
-                                            {'☆'.repeat(5 - booking.reviewRating)}
+                                            {"★".repeat(booking.reviewRating)}
+                                            {"☆".repeat(
+                                              5 - booking.reviewRating,
+                                            )}
                                           </div>
                                         </div>
                                       ) : (
-                                        <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md border border-slate-200 mt-0.5 inline-block uppercase animate-pulse">No Review Submitted</span>
+                                        <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md border border-slate-200 mt-0.5 inline-block uppercase animate-pulse">
+                                          No Review Submitted
+                                        </span>
                                       )}
                                     </div>
 
@@ -3053,13 +3597,17 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                       {booking.reviewRating !== undefined ? (
                                         <>
                                           <button
-                                            onClick={() => handleOpenReviewModal(booking)}
+                                            onClick={() =>
+                                              handleOpenReviewModal(booking)
+                                            }
                                             className="px-2.5 py-1 text-slate-700 hover:bg-slate-105 bg-white border border-slate-200 rounded-lg font-bold text-[10px] transition-colors cursor-pointer"
                                           >
                                             Edit Review
                                           </button>
                                           <button
-                                            onClick={() => handleDeleteReview(booking)}
+                                            onClick={() =>
+                                              handleDeleteReview(booking)
+                                            }
                                             className="px-2.5 py-1 text-rose-600 hover:bg-rose-50 bg-white border border-rose-150 rounded-lg font-bold text-[10px] transition-colors cursor-pointer"
                                           >
                                             Delete
@@ -3067,7 +3615,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                         </>
                                       ) : (
                                         <button
-                                          onClick={() => handleOpenReviewModal(booking)}
+                                          onClick={() =>
+                                            handleOpenReviewModal(booking)
+                                          }
                                           className="px-3 py-1 bg-sky-50 outline-hidden hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-lg font-bold text-[10px] transition-colors cursor-pointer flex items-center gap-1"
                                         >
                                           <Star className="h-3 w-3 text-sky-500 fill-sky-500" />
@@ -3077,25 +3627,40 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                     </div>
                                   </div>
 
-                                  {booking.reviewRating !== undefined && booking.reviewText && (
-                                    <div className="bg-slate-50/50 p-2.5 rounded-xl border border-dashed border-slate-200 text-slate-700">
-                                      <p className="font-light italic text-[11px]">"{booking.reviewText}"</p>
-                                      {booking.reviewDate && (
-                                        <span className="text-[9px] text-slate-400 block mt-1 font-light font-mono">Reviewed on: {new Date(booking.reviewDate).toLocaleDateString()}</span>
-                                      )}
-                                    </div>
-                                  )}
+                                  {booking.reviewRating !== undefined &&
+                                    booking.reviewText && (
+                                      <div className="bg-slate-50/50 p-2.5 rounded-xl border border-dashed border-slate-200 text-slate-700">
+                                        <p className="font-light italic text-[11px]">
+                                          "{booking.reviewText}"
+                                        </p>
+                                        {booking.reviewDate && (
+                                          <span className="text-[9px] text-slate-400 block mt-1 font-light font-mono">
+                                            Reviewed on:{" "}
+                                            {new Date(
+                                              booking.reviewDate,
+                                            ).toLocaleDateString()}
+                                          </span>
+                                        )}
+                                      </div>
+                                    )}
                                 </div>
                               )}
 
                               <div className="flex justify-between items-center border-t pt-3.5 mt-2 bg-slate-50/20 -mx-5 -mb-5 p-4 rounded-b-2xl">
                                 <div>
-                                  <span className="text-[9px] text-slate-400 uppercase block">Total transparent billing cost:</span>
-                                  <strong className="text-sm font-black text-slate-900">৳{booking.totalCost} BDT</strong>
-                                  <span className="text-[9px] text-slate-400 block font-light">({booking.hoursPerDay}h/day, standby insurance included)</span>
+                                  <span className="text-[9px] text-slate-400 uppercase block">
+                                    Total transparent billing cost:
+                                  </span>
+                                  <strong className="text-sm font-black text-slate-900">
+                                    ৳{booking.totalCost} BDT
+                                  </strong>
+                                  <span className="text-[9px] text-slate-400 block font-light">
+                                    ({booking.hoursPerDay}h/day, standby
+                                    insurance included)
+                                  </span>
                                 </div>
 
-                                {booking.status === 'Confirmed' && (
+                                {booking.status === "Confirmed" && (
                                   <button
                                     onClick={() => onCancelBooking(booking.id)}
                                     className="px-3 py-1.5 text-rose-600 hover:bg-rose-50 rounded-xl font-bold transition-all text-[11px] border border-rose-100 hover:border-rose-200 cursor-pointer"
@@ -3104,9 +3669,11 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                   </button>
                                 )}
 
-                                {booking.status === 'Completed' && (
+                                {booking.status === "Completed" && (
                                   <button
-                                    onClick={() => handleOpenReportModal(booking)}
+                                    onClick={() =>
+                                      handleOpenReportModal(booking)
+                                    }
                                     className="px-3 py-1.5 text-rose-600 bg-white hover:bg-rose-50 rounded-xl font-bold transition-all text-[11px] border border-rose-200 hover:border-rose-300 shadow-3xs cursor-pointer flex items-center gap-1"
                                   >
                                     <AlertTriangle className="h-3.5 w-3.5 text-rose-500" />
@@ -3114,7 +3681,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                   </button>
                                 )}
                               </div>
-
                             </div>
                           );
                         })}
@@ -3133,119 +3699,148 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                             <Activity className="h-5 w-5" />
                           </div>
                           <div>
-                            <h4 className="font-display font-semibold text-slate-800 text-xs text-center border-none">No Active Shift Detected</h4>
-                            <p className="text-[10px] text-slate-500 font-light leading-relaxed mt-1 text-center">
-                              Once the caregiver starts an active session, real-time logs and hourly clinical updates posted on shift will instantly stream live right here.
-                            </p>
+                            <h4 className="font-display font-semibold text-slate-800 text-xs text-center border-none">
+                              No Active Shift Detected
+                            </h4>
+                            {/* <p className="text-[10px] text-slate-500 font-light leading-relaxed mt-1 text-center">
+                              Once the caregiver starts an active session,
+                              real-time logs and hourly clinical updates posted
+                              on shift will instantly stream live right here.
+                            </p> */}
                           </div>
                         </div>
-                      ) : (() => {
-                        const booking = portalActiveBooking;
-                        const caregiver = caregivers.find(c => c.id === booking.caregiverId) || 
-                                          liveCaregivers.find(c => c.id === booking.caregiverId) || 
-                                          (() => {
-                                            const match = MOCK_CAREGIVERS.find(c => c.id === booking.caregiverId || c.id + '_seed' === booking.caregiverId);
-                                            if (match) {
-                                              return {
-                                                id: booking.caregiverId,
-                                                name: match.name,
-                                                photoUrl: match.photoUrl,
-                                                certification: match.certification,
-                                                experience: match.experience,
-                                                rating: match.rating || 4.8
-                                              } as any;
-                                            }
-                                            return {
-                                              id: booking.caregiverId,
-                                              name: 'Caregiver Assistant',
-                                              photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200',
-                                              certification: 'Certified Assistant',
-                                              experience: 5,
-                                              rating: 4.8
-                                            } as any;
-                                          })();
-                        const elder = elderProfiles.find(e => e.id === booking.elderProfileId) || {
-                          id: booking.elderProfileId,
-                          name: 'Elder Relative',
-                          age: 76,
-                          location: 'Dhanmondi',
-                          address: 'Dhaka Residence',
-                          mobilityLevel: 'Assisted',
-                          medicalConditions: ['General Senior Care']
-                        };
+                      ) : (
+                        (() => {
+                          const booking = portalActiveBooking;
+                          const caregiver =
+                            caregivers.find(
+                              (c) => c.id === booking.caregiverId,
+                            ) ||
+                            liveCaregivers.find(
+                              (c) => c.id === booking.caregiverId,
+                            ) ||
+                            (() => {
+                              const match = MOCK_CAREGIVERS.find(
+                                (c) =>
+                                  c.id === booking.caregiverId ||
+                                  c.id + "_seed" === booking.caregiverId,
+                              );
+                              if (match) {
+                                return {
+                                  id: booking.caregiverId,
+                                  name: match.name,
+                                  photoUrl: match.photoUrl,
+                                  certification: match.certification,
+                                  experience: match.experience,
+                                  rating: match.rating || 4.8,
+                                } as any;
+                              }
+                              return {
+                                id: booking.caregiverId,
+                                name: "Caregiver Assistant",
+                                photoUrl:
+                                  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200",
+                                certification: "Certified Assistant",
+                                experience: 5,
+                                rating: 4.8,
+                              } as any;
+                            })();
+                          const elder = elderProfiles.find(
+                            (e) => e.id === booking.elderProfileId,
+                          ) || {
+                            id: booking.elderProfileId,
+                            name: "Elder Relative",
+                            age: 76,
+                            location: "Dhanmondi",
+                            address: "Dhaka Residence",
+                            mobilityLevel: "Assisted",
+                            medicalConditions: ["General Senior Care"],
+                          };
 
-                        return (
-                          <div key={`report-tab-${booking.id}`} className="bg-white border-2 border-blue-200 hover:border-blue-300 p-6 rounded-3xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 animate-fade-in">
-                            <div className="flex justify-between items-center bg-blue-50/50 p-3 rounded-xl border border-blue-100 text-xs shadow-3xs">
-                              <div className="flex items-center gap-1.5 flex-row">
-                                <ClipboardList className="h-4.5 w-4.5 text-blue-600 animate-bounce" />
-                                <div>
-                                  <h4 className="font-black text-[10px] text-slate-900 uppercase tracking-wider">Live Nursing Updates</h4>
-                                  <p className="text-[9px] text-slate-550 leading-none mt-0.5 font-bold">Logged by {caregiver.name} today</p>
-                                </div>
-                              </div>
-
-                              <span className="bg-emerald-50 text-emerald-800 text-[9px] font-black px-2.5 py-0.5 rounded-full animate-pulse border border-emerald-150">
-                                ACTIVE SHIFT
-                              </span>
-                            </div>
-
-                            <p className="text-xs text-slate-755">
-                              Elder relative: <strong>{elder.name}</strong>, age {elder.age} in {elder.location}.
-                            </p>
-
-                            {/* real-time shift logs from database and empty state */}
-                            {activeShiftLogs.length === 0 ? (
-                              <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-100/50 text-xs text-slate-400">
-                                No shift logs submitted yet for this active session.
-                              </div>
-                            ) : (
-                              <div className="relative pl-3.5 border-l border-sky-200 space-y-4 text-xs">
-                                {activeShiftLogs.map((log) => (
-                                  <div key={log.id} className="relative">
-                                    <div className="absolute -left-[19.5px] top-1.5 h-2.5 w-2.5 rounded-full bg-sky-500 ring-4 ring-sky-50 border border-white" />
-                                    <div className="space-y-1.5 text-left">
-                                      <span className="font-mono text-[9px] font-bold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded">
-                                        {log.time}
-                                      </span>
-                                      <p className="text-slate-700 leading-relaxed font-semibold">{log.text}</p>
-                                    </div>
+                          return (
+                            <div
+                              key={`report-tab-${booking.id}`}
+                              className="bg-white border-2 border-blue-200 hover:border-blue-300 p-6 rounded-3xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 animate-fade-in"
+                            >
+                              <div className="flex justify-between items-center bg-blue-50/50 p-3 rounded-xl border border-blue-100 text-xs shadow-3xs">
+                                <div className="flex items-center gap-1.5 flex-row">
+                                  <ClipboardList className="h-4.5 w-4.5 text-blue-600 animate-bounce" />
+                                  <div>
+                                    <h4 className="font-black text-[10px] text-slate-900 uppercase tracking-wider">
+                                      Live Nursing Updates
+                                    </h4>
+                                    <p className="text-[9px] text-slate-550 leading-none mt-0.5 font-bold">
+                                      Logged by {caregiver.name} today
+                                    </p>
                                   </div>
-                                ))}
-                              </div>
-                            )}
+                                </div>
 
-                          </div>
-                        );
-                      })()}
+                                <span className="bg-emerald-50 text-emerald-800 text-[9px] font-black px-2.5 py-0.5 rounded-full animate-pulse border border-emerald-150">
+                                  ACTIVE SHIFT
+                                </span>
+                              </div>
+
+                              <p className="text-xs text-slate-755">
+                                Elder relative: <strong>{elder.name}</strong>,
+                                age {elder.age} in {elder.location}.
+                              </p>
+
+                              {/* real-time shift logs from database and empty state */}
+                              {activeShiftLogs.length === 0 ? (
+                                <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-100/50 text-xs text-slate-400">
+                                  No shift logs submitted yet for this active
+                                  session.
+                                </div>
+                              ) : (
+                                <div className="relative pl-3.5 border-l border-sky-200 space-y-4 text-xs">
+                                  {activeShiftLogs.map((log) => (
+                                    <div key={log.id} className="relative">
+                                      <div className="absolute -left-[19.5px] top-1.5 h-2.5 w-2.5 rounded-full bg-sky-500 ring-4 ring-sky-50 border border-white" />
+                                      <div className="space-y-1.5 text-left">
+                                        <span className="font-mono text-[9px] font-bold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded">
+                                          {log.time}
+                                        </span>
+                                        <p className="text-slate-700 leading-relaxed font-semibold">
+                                          {log.text}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })()
+                      )}
 
                       {/* Backup nurse detail cards */}
-                      <div className="bg-slate-900 text-slate-100 rounded-3xl p-5 border border-slate-800 shadow-md space-y-3.5">
+                      {/* <div className="bg-slate-900 text-slate-100 rounded-3xl p-5 border border-slate-800 shadow-md space-y-3.5">
                         <div className="flex gap-2 items-center">
                           <ShieldCheck className="h-5 w-5 text-sky-400" />
-                          <h4 className="font-display font-extrabold text-[#fdfdfd] text-xs uppercase tracking-wide">Dhaka Backup Nursing Shield</h4>
+                          <h4 className="font-display font-extrabold text-[#fdfdfd] text-xs uppercase tracking-wide">
+                            Dhaka Backup Nursing Shield
+                          </h4>
                         </div>
                         <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                          Our Banani dispatch desk monitors all shifts. If any sudden caregiver absence happens, our standby system deploys emergency substitute shifts under 2 hours automatically.
+                          Our Banani dispatch desk monitors all shifts. If any
+                          sudden caregiver absence happens, our standby system
+                          deploys emergency substitute shifts under 2 hours
+                          automatically.
                         </p>
-                      </div>
-
+                      </div> */}
                     </div>
                   </div>
                 );
               })()}
-
             </div>
           )}
 
           {/* ========================================================== */}
           {/* TAB CONTENT: 5. SETTINGS PANEL REPORT                      */}
           {/* ========================================================== */}
-          {activeTab === 'settings' && (
+          {activeTab === "settings" && (
             <div className="space-y-6 animate-fade-in max-w-xl">
-              
               <div className="bg-white border text-xs p-6 sm:p-8 rounded-3xl shadow-sm space-y-6">
-                
                 <div>
                   <h3 className="font-display font-extrabold text-base text-slate-900">
                     Primary Relative Profile & Guidelines
@@ -3258,15 +3853,26 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                 {saveSettingsSuccess && (
                   <div className="bg-emerald-50/60 border border-emerald-150 p-3.5 rounded-xl flex items-center gap-2 text-emerald-800">
                     <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
-                    <span className="font-bold">Settings saved successfully. Changes active on live shifts directory.</span>
+                    <span className="font-bold">
+                      Settings saved successfully. Changes active on live shifts
+                      directory.
+                    </span>
                   </div>
                 )}
 
-                <form onSubmit={(e) => { e.preventDefault(); setSaveSettingsSuccess(true); setTimeout(() => setSaveSettingsSuccess(false), 3000); }} className="space-y-4">
-                  
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setSaveSettingsSuccess(true);
+                    setTimeout(() => setSaveSettingsSuccess(false), 3000);
+                  }}
+                  className="space-y-4"
+                >
                   {/* Liaison Phone */}
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-700">Liaison Contact Phone Number</label>
+                    <label className="block text-[11px] font-bold text-slate-700">
+                      Liaison Contact Phone Number
+                    </label>
                     <input
                       type="text"
                       className="w-full bg-slate-50/50 border border-slate-205 p-2.5 rounded-xl font-mono text-xs text-slate-755 focus:bg-white outline-hidden font-bold"
@@ -3278,7 +3884,9 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
 
                   {/* Street Address */}
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-700">Full Workspace Relative address</label>
+                    <label className="block text-[11px] font-bold text-slate-700">
+                      Full Workspace Relative address
+                    </label>
                     <input
                       type="text"
                       className="w-full bg-slate-50/50 border border-slate-205 p-2.5 rounded-xl text-xs text-slate-755 focus:bg-white outline-hidden"
@@ -3305,7 +3913,6 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                   </div> */}
 
                   {/* Toggle checks */}
-                  
 
                   <div className="pt-4 text-right">
                     <button
@@ -3315,14 +3922,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                       Save Settings Changes
                     </button>
                   </div>
-
                 </form>
-
               </div>
-
             </div>
           )}
-
         </div>
 
         {/* Global mini dashboard prompt warning info */}
@@ -3334,223 +3937,250 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
           </span>
         </div>
         */}
-
       </main>
 
-        {/* ========================================== */}
-        {/* MODAL: 1. ADD / EDIT CAREGIVER REVIEW      */}
-        {/* ========================================== */}
-        {reviewingBooking && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in text-xs">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-xl space-y-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="font-display font-extrabold text-slate-900 text-sm">
-                    {reviewIsEditing ? 'Edit Care Session Review' : 'Create Care Session Review'}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    Share your experience with CareBridge and help the communities.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setReviewingBooking(null)}
-                  className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer text-xs"
-                >
-                  ✕
-                </button>
+      {/* ========================================== */}
+      {/* MODAL: 1. ADD / EDIT CAREGIVER REVIEW      */}
+      {/* ========================================== */}
+      {reviewingBooking && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in text-xs">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-xl space-y-6">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-display font-extrabold text-slate-900 text-sm">
+                  {reviewIsEditing
+                    ? "Edit Care Session Review"
+                    : "Create Care Session Review"}
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Share your experience with CareBridge and help the
+                  communities.
+                </p>
               </div>
-
-              {reviewError && (
-                <div className="bg-rose-50 border border-rose-150 p-3 rounded-xl text-rose-800 text-[11px] font-medium leading-relaxed">
-                  <strong>Submission Error:</strong> {reviewError}
-                </div>
-              )}
-
-              {reviewSuccess ? (
-                <div className="bg-emerald-50 border border-emerald-150 p-4 rounded-xl text-emerald-800 flex flex-col items-center gap-2 text-center py-6">
-                  <CheckCircle2 className="h-8 w-8 text-emerald-600 animate-bounce" />
-                  <span className="font-bold text-sm">{reviewSuccess}</span>
-                  <span className="text-[10px] text-slate-500 font-light mt-1">Realtime caregiver metrics are syncing...</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmitReview} className="space-y-4">
-                  {/* Rating selection (1-5 stars) */}
-                  <div className="space-y-1.5 text-center bg-slate-50 p-4 rounded-2xl border border-slate-150">
-                    <label className="block text-[11px] font-bold text-slate-705">Select Session Star Rating</label>
-                    <div className="flex justify-center gap-2.5 mt-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => setReviewRating(star)}
-                          className="text-2xl hover:scale-115 transition-transform duration-100 outline-hidden select-none cursor-pointer"
-                        >
-                          {star <= reviewRating ? (
-                            <span className="text-amber-500">★</span>
-                          ) : (
-                            <span className="text-slate-205">★</span>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-medium block mt-1 leading-none uppercase">
-                      {reviewRating === 1 && 'Unsatisfactory'}
-                      {reviewRating === 2 && 'Needs Improvement'}
-                      {reviewRating === 3 && 'Acceptable Duty'}
-                      {reviewRating === 4 && 'Highly Professional'}
-                      {reviewRating === 5 && 'Outstanding Care!'}
-                    </span>
-                  </div>
-
-                  {/* Comment */}
-                  <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-705">Written session review feedback (NID verified)</label>
-                    <textarea
-                      rows={4}
-                      value={reviewComment}
-                      onChange={(e) => setReviewComment(e.target.value)}
-                      placeholder="e.g. Nurse Zaman was incredibly warm-hearted, arrived exactly on coordinates punctually, and monitored all blood sugar timings perfectly..."
-                      className="w-full bg-slate-50/50 border border-slate-205 p-3 rounded-xl text-xs text-slate-755 focus:bg-white outline-hidden leading-relaxed"
-                    />
-                  </div>
-
-                  <div className="flex gap-2 justify-end pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setReviewingBooking(null)}
-                      className="px-4 py-2 text-slate-650 hover:bg-slate-100 rounded-xl font-bold cursor-pointer transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isReviewSubmitting}
-                      className="px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl shadow-2xs cursor-pointer transition-all active:scale-97 flex items-center justify-center gap-1.5 disabled:opacity-40"
-                    >
-                      {isReviewSubmitting ? (
-                        <>Saving Review...</>
-                      ) : (
-                        <>{reviewIsEditing ? 'Update Review' : 'Submit Review'}</>
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
+              <button
+                type="button"
+                onClick={() => setReviewingBooking(null)}
+                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer text-xs"
+              >
+                ✕
+              </button>
             </div>
-          </div>
-        )}
 
-        {/* ========================================== */}
-        {/* MODAL: 2. COMPLAINT / REPORT CAREGIVER      */}
-        {/* ========================================== */}
-        {reportingBooking && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in text-xs">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-xl space-y-5 max-h-[90vh] overflow-y-auto">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="font-display font-extrabold text-slate-900 text-sm flex items-center gap-1.5 text-rose-700">
-                    <AlertTriangle className="h-4.5 w-4.5 text-rose-500 animate-pulse" />
-                    Report Caregiver Activity
-                  </h3>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    Flag an issue securely to ensure service standards and protect community safety.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setReportingBooking(null)}
-                  className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer text-xs"
-                >
-                  ✕
-                </button>
+            {reviewError && (
+              <div className="bg-rose-50 border border-rose-150 p-3 rounded-xl text-rose-800 text-[11px] font-medium leading-relaxed">
+                <strong>Submission Error:</strong> {reviewError}
               </div>
+            )}
 
-              {reportError && (
-                <div className="bg-rose-50 border border-rose-150 p-3 rounded-xl text-rose-800 text-[11px] font-medium leading-relaxed">
-                  <strong>Error:</strong> {reportError}
+            {reviewSuccess ? (
+              <div className="bg-emerald-50 border border-emerald-150 p-4 rounded-xl text-emerald-800 flex flex-col items-center gap-2 text-center py-6">
+                <CheckCircle2 className="h-8 w-8 text-emerald-600 animate-bounce" />
+                <span className="font-bold text-sm">{reviewSuccess}</span>
+                <span className="text-[10px] text-slate-500 font-light mt-1">
+                  Realtime caregiver metrics are syncing...
+                </span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitReview} className="space-y-4">
+                {/* Rating selection (1-5 stars) */}
+                <div className="space-y-1.5 text-center bg-slate-50 p-4 rounded-2xl border border-slate-150">
+                  <label className="block text-[11px] font-bold text-slate-705">
+                    Select Session Star Rating
+                  </label>
+                  <div className="flex justify-center gap-2.5 mt-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewRating(star)}
+                        className="text-2xl hover:scale-115 transition-transform duration-100 outline-hidden select-none cursor-pointer"
+                      >
+                        {star <= reviewRating ? (
+                          <span className="text-amber-500">★</span>
+                        ) : (
+                          <span className="text-slate-205">★</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-[10px] text-slate-400 font-medium block mt-1 leading-none uppercase">
+                    {reviewRating === 1 && "Unsatisfactory"}
+                    {reviewRating === 2 && "Needs Improvement"}
+                    {reviewRating === 3 && "Acceptable Duty"}
+                    {reviewRating === 4 && "Highly Professional"}
+                    {reviewRating === 5 && "Outstanding Care!"}
+                  </span>
                 </div>
-              )}
 
-              {reportSuccess ? (
-                <div className="bg-amber-50 border border-amber-150 p-4 rounded-xl text-amber-850 flex flex-col items-center gap-2 text-center py-6">
-                  <CheckCircle2 className="h-8 w-8 text-amber-600" />
-                  <span className="font-bold text-xs">{reportSuccess}</span>
-                  <p className="text-[10px] text-slate-500 leading-normal mt-1 max-w-xs font-light">
-                    Reports are reviewed by the CareBridge administration team to ensure platform safety and service quality.
-                  </p>
+                {/* Comment */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-705">
+                    Written session review feedback (NID verified)
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={reviewComment}
+                    onChange={(e) => setReviewComment(e.target.value)}
+                    placeholder="e.g. Nurse Zaman was incredibly warm-hearted, arrived exactly on coordinates punctually, and monitored all blood sugar timings perfectly..."
+                    className="w-full bg-slate-50/50 border border-slate-205 p-3 rounded-xl text-xs text-slate-755 focus:bg-white outline-hidden leading-relaxed"
+                  />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmitReport} className="space-y-4">
-                  
-                  {/* Reference ID and Booking details */}
-                  <div className="p-3 bg-slate-50 border rounded-xl text-slate-700 leading-relaxed font-semibold">
-                    <span className="text-slate-400 text-[9px] uppercase tracking-wider block">Booking Reference ID:</span>
-                    <strong className="text-slate-800 font-mono text-[10px]">{reportingBooking.id}</strong>
-                    <span className="text-slate-400 text-[9px] uppercase tracking-wider block mt-2">Active Coordinates Dates:</span>
-                    <span className="text-slate-800 font-bold">{reportingBooking.startDate} to {reportingBooking.endDate}</span>
-                  </div>
 
-                  {/* Category Selection */}
-                  <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-700">Report Category Flag</label>
-                    <select
-                      value={reportCategory}
-                      onChange={(e) => setReportCategory(e.target.value)}
-                      className="w-full bg-slate-50/50 border border-slate-205 p-2.5 rounded-xl outline-hidden text-xs font-bold text-slate-755"
-                    >
-                      <option value="Fraudulent Activity">Fraudulent Activity</option>
-                      <option value="Unprofessional Behavior">Unprofessional Behavior</option>
-                      <option value="Safety Concern">Safety Concern</option>
-                      <option value="Misrepresentation">Misrepresentation</option>
-                      <option value="Harassment">Harassment</option>
-                      <option value="Other">Other Issues</option>
-                    </select>
-                  </div>
-
-                  {/* Text field description */}
-                  <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-700">Detailed Description of Incident</label>
-                    <textarea
-                      rows={4}
-                      value={reportDescription}
-                      onChange={(e) => setReportDescription(e.target.value)}
-                      placeholder="e.g. Please describe in detail what occurred, including details of the service quality concern or safety breach..."
-                      className="w-full bg-slate-50/50 border border-slate-205 p-3 rounded-xl text-xs text-slate-755 focus:bg-white outline-hidden leading-relaxed"
-                    />
-                  </div>
-
-                  {/* Business rules & safety alerts helper text */}
-                  <p className="bg-slate-50 p-3 rounded-xl border-l-2 border-slate-350 text-[10px] text-slate-550 leading-relaxed font-light">
-                    ℹ Reports are reviewed by the CareBridge administration team to ensure platform safety and service quality. Reporting a caregiver must not automatically remove them, pending admin action details.
-                  </p>
-
-                  <div className="flex gap-2 justify-end pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setReportingBooking(null)}
-                      className="px-4 py-2 text-slate-650 hover:bg-slate-100 rounded-xl font-bold cursor-pointer transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isReportSubmitting}
-                      className="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-2xs cursor-pointer transition-all active:scale-97 flex items-center justify-center gap-1.5 disabled:opacity-40 text-center"
-                    >
-                      {isReportSubmitting ? (
-                        <>Filing Complaint...</>
-                      ) : (
-                        <>Submit Report Security Complaint</>
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
+                <div className="flex gap-2 justify-end pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setReviewingBooking(null)}
+                    className="px-4 py-2 text-slate-650 hover:bg-slate-100 rounded-xl font-bold cursor-pointer transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isReviewSubmitting}
+                    className="px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl shadow-2xs cursor-pointer transition-all active:scale-97 flex items-center justify-center gap-1.5 disabled:opacity-40"
+                  >
+                    {isReviewSubmitting ? (
+                      <>Saving Review...</>
+                    ) : (
+                      <>{reviewIsEditing ? "Update Review" : "Submit Review"}</>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
-        )}
+        </div>
+      )}
 
+      {/* ========================================== */}
+      {/* MODAL: 2. COMPLAINT / REPORT CAREGIVER      */}
+      {/* ========================================== */}
+      {reportingBooking && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in text-xs">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-xl space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-display font-extrabold text-slate-900 text-sm flex items-center gap-1.5 text-rose-700">
+                  <AlertTriangle className="h-4.5 w-4.5 text-rose-500 animate-pulse" />
+                  Report Caregiver Activity
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Flag an issue securely to ensure service standards and protect
+                  community safety.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReportingBooking(null)}
+                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer text-xs"
+              >
+                ✕
+              </button>
+            </div>
+
+            {reportError && (
+              <div className="bg-rose-50 border border-rose-150 p-3 rounded-xl text-rose-800 text-[11px] font-medium leading-relaxed">
+                <strong>Error:</strong> {reportError}
+              </div>
+            )}
+
+            {reportSuccess ? (
+              <div className="bg-amber-50 border border-amber-150 p-4 rounded-xl text-amber-850 flex flex-col items-center gap-2 text-center py-6">
+                <CheckCircle2 className="h-8 w-8 text-amber-600" />
+                <span className="font-bold text-xs">{reportSuccess}</span>
+                <p className="text-[10px] text-slate-500 leading-normal mt-1 max-w-xs font-light">
+                  Reports are reviewed by the CareBridge administration team to
+                  ensure platform safety and service quality.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitReport} className="space-y-4">
+                {/* Reference ID and Booking details */}
+                <div className="p-3 bg-slate-50 border rounded-xl text-slate-700 leading-relaxed font-semibold">
+                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block">
+                    Booking Reference ID:
+                  </span>
+                  <strong className="text-slate-800 font-mono text-[10px]">
+                    {reportingBooking.id}
+                  </strong>
+                  <span className="text-slate-400 text-[9px] uppercase tracking-wider block mt-2">
+                    Active Coordinates Dates:
+                  </span>
+                  <span className="text-slate-800 font-bold">
+                    {reportingBooking.startDate} to {reportingBooking.endDate}
+                  </span>
+                </div>
+
+                {/* Category Selection */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-700">
+                    Report Category Flag
+                  </label>
+                  <select
+                    value={reportCategory}
+                    onChange={(e) => setReportCategory(e.target.value)}
+                    className="w-full bg-slate-50/50 border border-slate-205 p-2.5 rounded-xl outline-hidden text-xs font-bold text-slate-755"
+                  >
+                    <option value="Fraudulent Activity">
+                      Fraudulent Activity
+                    </option>
+                    <option value="Unprofessional Behavior">
+                      Unprofessional Behavior
+                    </option>
+                    <option value="Safety Concern">Safety Concern</option>
+                    <option value="Misrepresentation">Misrepresentation</option>
+                    <option value="Harassment">Harassment</option>
+                    <option value="Other">Other Issues</option>
+                  </select>
+                </div>
+
+                {/* Text field description */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-700">
+                    Detailed Description of Incident
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={reportDescription}
+                    onChange={(e) => setReportDescription(e.target.value)}
+                    placeholder="e.g. Please describe in detail what occurred, including details of the service quality concern or safety breach..."
+                    className="w-full bg-slate-50/50 border border-slate-205 p-3 rounded-xl text-xs text-slate-755 focus:bg-white outline-hidden leading-relaxed"
+                  />
+                </div>
+
+                {/* Business rules & safety alerts helper text */}
+                <p className="bg-slate-50 p-3 rounded-xl border-l-2 border-slate-350 text-[10px] text-slate-550 leading-relaxed font-light">
+                  ℹ Reports are reviewed by the CareBridge administration team
+                  to ensure platform safety and service quality. Reporting a
+                  caregiver must not automatically remove them, pending admin
+                  action details.
+                </p>
+
+                <div className="flex gap-2 justify-end pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setReportingBooking(null)}
+                    className="px-4 py-2 text-slate-650 hover:bg-slate-100 rounded-xl font-bold cursor-pointer transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isReportSubmitting}
+                    className="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-2xs cursor-pointer transition-all active:scale-97 flex items-center justify-center gap-1.5 disabled:opacity-40 text-center"
+                  >
+                    {isReportSubmitting ? (
+                      <>Filing Complaint...</>
+                    ) : (
+                      <>Submit Report Security Complaint</>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

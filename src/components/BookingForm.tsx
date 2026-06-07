@@ -126,7 +126,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
       <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
         <div>
           <h2 className="font-display font-extrabold text-xl text-slate-900 tracking-tight">Carebridge Booking Checkout</h2>
-          <p className="text-xs text-slate-500">Provide medical details and authorize standard payments in Dhaka security sectors.</p>
+          {/* <p className="text-xs text-slate-500">Provide medical details and authorize standard payments in Dhaka security sectors.</p> */}
         </div>
         <button
           onClick={onCancel}

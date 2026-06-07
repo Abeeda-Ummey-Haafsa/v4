@@ -481,9 +481,9 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 <h4 className="font-display font-bold text-slate-900 truncate text-sm">
                   {profName}
                 </h4>
-                <span className="block text-[10.5px] font-mono text-sky-600 bg-sky-100/40 px-2 py-0.5 rounded-full font-bold w-fit mt-0.5">
+                {/* <span className="block text-[10.5px] font-mono text-sky-600 bg-sky-100/40 px-2 py-0.5 rounded-full font-bold w-fit mt-0.5">
                   Student Caregiver
-                </span>
+                </span> */}
               </div>
             </div>
           </div>
@@ -1087,13 +1087,13 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
               {/* KPI CARDS */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* 1. Availability card status */}
-                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between space-y-3.5">
+                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-evenly space-y-3.5">
                   <div className="flex justify-between items-start">
                     <span className="text-slate-450 text-[10.5px] font-bold uppercase tracking-wider block">
                       Availability Status
                     </span>
                     <span
-                      className={`inline-flex h-2 w-2 rounded-full ${
+                      className={`inline-flex h-4 w-4 rounded-full ${
                         caregiverStatus === "Available"
                           ? "bg-emerald-500"
                           : caregiverStatus === "Unavailable"
@@ -1114,14 +1114,14 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                     >
                       {caregiverStatus}
                     </span>
-                    <span className="block text-[10px] text-slate-450 mt-1">
+                    {/* <span className="block text-[10px] text-slate-450 mt-1">
                       Automatic Business Rule Sync
-                    </span>
+                    </span> */}
                   </div>
                 </div>
 
                 {/* 2. Active booking details */}
-                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between space-y-3.5">
+                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-evenly space-y-3.5">
                   <div className="flex justify-between items-start">
                     <span className="text-slate-450 text-[10.5px] font-bold uppercase tracking-wider block">
                       Active Booking
@@ -1148,7 +1148,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 </div>
 
                 {/* 3. Upcoming Bookings count */}
-                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between space-y-3.5">
+                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-evenly space-y-3.5">
                   <div className="flex justify-between items-start">
                     <span className="text-slate-450 text-[10.5px] font-bold uppercase tracking-wider block">
                       Upcoming Bookings
@@ -1162,14 +1162,14 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                           .length
                       }
                     </span>
-                    <span className="block text-[10px] text-slate-450 mt-0.5">
+                    {/* <span className="block text-[10px] text-slate-450 mt-0.5">
                       Vetted bookings pre-paid
-                    </span>
+                    </span> */}
                   </div>
                 </div>
 
                 {/* 4. This month earnings */}
-                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between space-y-3.5">
+                <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-evenly space-y-3.5">
                   <div className="flex justify-between items-start">
                     <span className="text-slate-450 text-[10.5px] font-bold uppercase tracking-wider block">
                       This Month Earnings
@@ -1183,9 +1183,9 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                         (activeBooking ? activeBooking.totalEarnings : 0)}{" "}
                       BDT
                     </span>
-                    <span className="block text-[10px] text-slate-450 mt-0.5">
+                    {/* <span className="block text-[10px] text-slate-450 mt-0.5">
                       Includes current active cycles
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </div>
@@ -1215,11 +1215,11 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                         <h4 className="font-display font-bold text-slate-700">
                           No Active Bookings Scheduled
                         </h4>
-                        <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
+                        {/* <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
                           Your active client list is currently empty. Make sure
                           your availability status is active so relatives in
                           Dhaka can find you.
-                        </p>
+                        </p> */}
                       </div>
                     ) : (
                       /* POPULATED STRUCTURE */
@@ -1466,17 +1466,17 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                             <span className="w-4 h-4 bg-white rounded-full shadow-md" />
                           </button>
                         </div>
-                        <p className="text-[11px] text-slate-450 leading-relaxed font-semibold">
+                        {/* <p className="text-[11px] text-slate-450 leading-relaxed font-semibold">
                           Turn this off when you are busy with university
                           examinations and wish to hide your card from the
                           search results index in Dhaka neighborhoods.
-                        </p>
+                        </p> */}
                       </div>
                     )}
                   </div>
 
                   {/* Programmatic student guidelines rulebook */}
-                  <div className="bg-sky-50/45 border border-sky-100 rounded-3xl p-5 space-y-3">
+                  {/* <div className="bg-sky-50/45 border border-sky-100 rounded-3xl p-5 space-y-3">
                     <h4 className="font-display font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
                       <Sparkles className="h-4 w-4 text-sky-500 animate-pulse" />
                       <span>CareBridge Code of Conduct</span>
@@ -1486,7 +1486,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                       must wear your university ID during shifts and maintain
                       log notes regularly inside the portal.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -1496,11 +1496,11 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
               <div className="border-b border-slate-100 pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h2 className="font-display font-extrabold text-2xl tracking-tight text-slate-900">
-                    My Care Reservations
+                    My Booking Reservations
                   </h2>
-                  <p className="text-slate-450 text-xs">
+                  {/* <p className="text-slate-450 text-xs">
                     Access historic, scheduled and current shift assignments.
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Tab selectors */}
@@ -1548,10 +1548,10 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                   <h3 className="font-display font-bold text-slate-700">
                     No {bookingsFilter} Bookings Found
                   </h3>
-                  <p className="text-xs text-slate-450 leading-relaxed max-w-xs mx-auto">
+                  {/* <p className="text-xs text-slate-450 leading-relaxed max-w-xs mx-auto">
                     You currently have no reservation items marked under{" "}
                     {bookingsFilter} status on CareBridge.
-                  </p>
+                  </p> */}
                 </div>
               ) : (
                 /* POPULATED STRUCTURE */
@@ -1669,10 +1669,10 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 <h2 className="font-display font-extrabold text-2xl tracking-tight text-slate-900">
                   Real-time Shift Updates
                 </h2>
-                <p className="text-slate-450 text-xs">
+                {/* <p className="text-slate-450 text-xs">
                   Submit ongoing nursing and companionship updates for assigned
                   relative monitoring.
-                </p>
+                </p> */}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1818,10 +1818,10 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 <h2 className="font-display font-extrabold text-2xl tracking-tight text-slate-900">
                   Caregiver Earnings Summary
                 </h2>
-                <p className="text-slate-450 text-xs">
+                {/* <p className="text-slate-450 text-xs">
                   Track clinical stipend disbursements and pending shift
                   payouts.
-                </p>
+                </p> */}
               </div>
 
               {/* KPI STATS */}
@@ -2013,10 +2013,10 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 <h2 className="font-display font-extrabold text-2xl tracking-tight text-slate-900">
                   Reviews & Ratings Feedback
                 </h2>
-                <p className="text-slate-450 text-xs">
+                {/* <p className="text-slate-450 text-xs">
                   Verify cumulative family comments, ratings status, and service
                   excellence indicators.
-                </p>
+                </p> */}
               </div>
 
               {reviewsList.length === 0 ? (
@@ -2025,11 +2025,11 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                   <h3 className="font-display font-extrabold text-slate-800 text-sm">
                     No reviews or ratings yet.
                   </h3>
-                  <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+                  {/* <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
                     The Reviews & Ratings section will remain empty until a
                     completed booking receives an actual review submission from
                     a relative.
-                  </p>
+                  </p> */}
                 </div>
               ) : (
                 <>
@@ -2172,10 +2172,10 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                 <h2 className="font-display font-extrabold text-2xl tracking-tight text-slate-900">
                   Profile Settings
                 </h2>
-                <p className="text-slate-450 text-xs">
+                {/* <p className="text-slate-450 text-xs">
                   Manage personal details, hourly rate, and expertise
                   credentials.
-                </p>
+                </p> */}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -2195,7 +2195,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                   {/* Personal Information section */}
                   <div className="space-y-4">
                     <h3 className="font-display font-bold text-slate-950 text-sm uppercase tracking-wider border-b border-slate-100 pb-1.5">
-                      1. Personal Information (Vetted Student)
+                      1. Personal Information
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold text-slate-700">
@@ -2235,7 +2235,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                           }`}
                         />
                         {/* EMAIL VALIDATION UI FEEDBACK */}
-                        <div className="mt-1">
+                        {/* <div className="mt-1">
                           {profileEmailIsValid ? (
                             <span className="text-[10px] font-bold text-emerald-600 block">
                               ✓ Valid institutional student domain (Extracted
@@ -2254,12 +2254,19 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                               </span>
                             </div>
                           )}
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className="space-y-1.5">
                         <label className="block">University</label>
-                        <select
+                        <input
+                          type="text"
+                          value={profUniversity}
+                          onChange={(e) => setProfUniversity(e.target.value)}
+                          placeholder="e.g. Dhaka University"
+                          className="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2.5 outline-hidden"
+                        />
+                        {/* <select
                           value={profUniversity}
                           onChange={(e) => setProfUniversity(e.target.value)}
                           className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 outline-hidden"
@@ -2280,7 +2287,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                           <option value="Other">
                             Other Verified Institution
                           </option>
-                        </select>
+                        </select> */}
                       </div>
 
                       <div className="space-y-1.5">
@@ -2363,9 +2370,7 @@ export const CaregiverPortal: React.FC<CaregiverPortalProps> = ({
                           <option value="Diabetes Maintenance">
                             Diabetes Maintenance
                           </option>
-                          <option value="Dementia Care">
-                            Dementia Care
-                            </option>
+                          <option value="Dementia Care">Dementia Care</option>
                         </select>
                       </div>
 

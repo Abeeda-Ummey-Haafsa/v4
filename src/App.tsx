@@ -779,12 +779,12 @@ export default function App() {
               {/* Header Title */}
               <div className="space-y-2">
                 <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
-                  Verified Caregivers in Dhaka, Bangladesh
+                  Verified Caregivers in Dhaka
                 </h2>
-                <p className="text-sm text-slate-500 font-light">
+                {/* <p className="text-sm text-slate-500 font-light">
                   Browse our verified caregivers database. Find
                   assistance in Banani, Gulshan, Dhanmondi, and beyond.
-                </p>
+                </p> */}
               </div>
 
               {/* Filter controls panel */}
