@@ -987,7 +987,7 @@ export default function App() {
             <div className="space-y-8 animate-fade-in">
               {/* Header Title */}
               <div className="space-y-2">
-                <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
+                <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-teal-400 tracking-tight">
                   Verified Caregivers in Dhaka
                 </h2>
                 {/* <p className="text-sm text-slate-500 font-light">
