@@ -1850,10 +1850,10 @@ export const RelativePortal: React.FC<RelativePortalProps> = ({
                                 <h3 className="font-display font-extrabold text-base text-slate-900 group-hover:text-sky-600 transition-colors">
                                   {elder.name}
                                 </h3>
-                                <p className="text-xs text-slate-500 mt-1 font-medium">
+                                {/* <p className="text-xs text-slate-500 mt-1 font-medium">
                                   {elder.gender} • {elder.age} Years Old (born{" "}
                                   {elder.dob || "1950"})
-                                </p>
+                                </p> */}
                               </div>
 
                               <span className="px-2.5 py-1 text-[10px] font-mono font-bold bg-sky-50 text-sky-700 border border-sky-100 rounded-lg flex items-center gap-0.5 shrink-0">

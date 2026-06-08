@@ -634,7 +634,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   placeholder="e.g. ameera@domain.com"
-                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-white text-black border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                 />
               </div>
 
@@ -678,7 +678,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 text-black border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                 />
               </div>
             </div>
@@ -736,7 +736,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                       value={regName}
                       onChange={(e) => setRegName(e.target.value)}
                       placeholder="e.g. Ameera Islam"
-                      className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                      className="w-full pl-9 text-black pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                     />
                   </div>
                 </div>
@@ -759,7 +759,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                       value={regEmail}
                       onChange={(e) => setRegEmail(e.target.value)}
                       placeholder="e.g. user@du.student.edu.bd"
-                      className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                      className="w-full pl-9 pr-4 py-2.5 text-sm text-black bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                     />
                   </div>
 
@@ -882,7 +882,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                       value={regPassword}
                       onChange={(e) => setRegPassword(e.target.value)}
                       placeholder="Make it strong"
-                      className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                      className="w-full pl-9 pr-4 py-2.5 text-sm text-black bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                     />
                   </div>
                 </div>
@@ -908,7 +908,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                           value={regPhone}
                           onChange={(e) => setRegPhone(e.target.value)}
                           placeholder="e.g. +8801700000000"
-                          className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                          className="w-full pl-9 pr-4 py-2.5 text-sm text-black bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                         />
                       </div>
                     </div>
@@ -951,7 +951,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                           id="reg-location-select"
                           value={regArea}
                           onChange={(e) => setRegArea(e.target.value)}
-                          className="w-full pl-9 pr-2 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-hidden appearance-none"
+                          className="w-full pl-9 pr-2 py-2.5 text-xs text-black bg-slate-50 border border-slate-200 rounded-xl outline-hidden appearance-none"
                         >
                           {DHAKA_LOCATIONS.map((loc) => (
                             <option key={loc} value={loc}>
@@ -973,7 +973,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                           required
                           value={regRate}
                           onChange={(e) => setRegRate(Number(e.target.value))}
-                          className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
+                          className="w-full px-2.5 py-2 text-black bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white"
                         />
                       </div>
 
@@ -1045,7 +1045,7 @@ export const AuthForms: React.FC<AuthFormsProps> = ({
                         value={regBio}
                         onChange={(e) => setRegBio(e.target.value)}
                         placeholder="Tell relatives about your nursing/companionship courses..."
-                        className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white leading-relaxed"
+                        className="w-full px-3 py-2 text-xs text-black bg-slate-50 border border-slate-200 rounded-xl focus:ring-1 focus:ring-sky-500 outline-hidden focus:bg-white leading-relaxed"
                       />
                     </div>
                   </div>

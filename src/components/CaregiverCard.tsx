@@ -61,7 +61,7 @@ export const CaregiverCard: React.FC<CaregiverCardProps> = ({
           </div>
 
           {/* Core short description */}
-          <p className="text-[11px] text-slate-650 leading-relaxed line-clamp-2 italic font-light">
+          <p className="text-[11px] text-black leading-relaxed line-clamp-2 italic font-light">
             "{caregiver.bio}"
           </p>
 
@@ -88,7 +88,7 @@ export const CaregiverCard: React.FC<CaregiverCardProps> = ({
                 <span className="text-slate-400">({caregiver.reviewsCount} reviews)</span>
               </>
             ) : (
-              <span className="text-slate-450 italic">No reviews or ratings yet.</span>
+              <span className="text-black italic">No reviews or ratings yet.</span>
             )}
           </div>
 

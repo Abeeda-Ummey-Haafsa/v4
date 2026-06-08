@@ -1016,7 +1016,7 @@ export default function App() {
                           location: e.target.value,
                         }))
                       }
-                      className="w-full pl-9 pr-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl outline-hidden focus:bg-white"
+                      className="w-full pl-9 pr-4 py-2.5 text-xs text-black sm:text-sm bg-slate-50 border border-slate-200 rounded-xl outline-hidden focus:bg-white"
                     >
                       <option value="">All Locations in Dhaka</option>
                       {DHAKA_LOCATIONS.map((loc) => (
@@ -1042,7 +1042,7 @@ export default function App() {
                         careType: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl outline-hidden focus:bg-white"
+                    className="w-full px-4 py-2.5 text-xs text-black sm:text-sm bg-slate-50 border border-slate-200 rounded-xl outline-hidden focus:bg-white"
                   >
                     <option value="">All Specialties</option>
                     {CARE_TYPES.map((type) => (
